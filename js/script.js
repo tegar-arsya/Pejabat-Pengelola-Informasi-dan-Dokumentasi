@@ -1,101 +1,62 @@
-//Initial References
-let submitButton = document.getElementById("submit-button");
-let userInput = document.getElementById("user-input");
-let canvas = document.getElementById("canvas");
-let reloadButton = document.getElementById("reload-button");
-let kirimButton = document.getElementById("kirim-button");
-let cancelButton = document.getElementById("cancel-button");
-let text = "";
-
-//Generate Text
-const textGenerator = () => {
-  let generatedText = "";
-  /* String.fromCharCode gives ASCII value from a given number */
-  // total 9 letters hence loop of 3
-  for (let i = 0; i < 3; i++) {
-    //65-90 numbers are capital letters
-    generatedText += String.fromCharCode(randomNumber(65, 90));
-    //97-122 are small letters
-    generatedText += String.fromCharCode(randomNumber(97, 122));
-    //48-57 are numbers from 0-9
-    generatedText += String.fromCharCode(randomNumber(48, 57));
-  }
-  return generatedText;
-};
-
-//Generate random numbers between a given range
-const randomNumber = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1) + min);
-
-//Canvas part
-function drawStringOnCanvas(string) {
-  //The getContext() function returns the drawing context that has all the drawing properties and functions needed to draw on canvas
-  let ctx = canvas.getContext("2d");
-  //clear canvas
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  //array of text color
-  const textColors = ["rgb(0,0,0)", "rgb(130,130,130)"];
-  //space between letters
-  const letterSpace = 150 / string.length;
-  //loop through string
-  for (let i = 0; i < string.length; i++) {
-    //Define initial space on X axis
-    const xInitialSpace = 25;
-    //Set font for canvas element
-    ctx.font = "20px Roboto Mono";
-    //set text color
-    ctx.fillStyle = textColors[randomNumber(0, 1)];
-    ctx.fillText(
-      string[i],
-      xInitialSpace + i * letterSpace,
-      randomNumber(25, 40),
-      100
-    );
-  }
+function generateCaptcha() {
+    // Mengambil nilai CAPTCHA dari server
+    fetch('../controller/generate_captcha.php')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('captcha').textContent = data;
+        });
 }
 
-//Initial Function
-function triggerFunction() {
-  //clear Input
-  userInput.value = "";
-  text = textGenerator();
-  console.log(text);
-  //Randomize the text so that everytime the position of numbers and small letters is random
-  text = [...text].sort(() => Math.random() - 0.5).join("");
-  drawStringOnCanvas(text);
-}
+document.getElementById('reload-button').addEventListener('click', generateCaptcha);
 
-//call triggerFunction for reload button
-reloadButton.addEventListener("click", triggerFunction);
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Mencegah tindakan bawaan formulir
 
-//call triggerFunction when page loads
-window.onload = () => triggerFunction();
+    var userInput = document.getElementById('user-input').value;
+    var captchaValue = document.getElementById('captcha').textContent.trim();
 
-//When user clicks on submit
-submitButton.addEventListener("click", () => {
-  //check if user input  == generated text
-  if (userInput.value === text) {
-    alert("Success");
-  } else {
-    alert("Incorrect");
-    triggerFunction();
-  }
+    if (userInput === captchaValue) {
+        // CAPTCHA benar, kirim data ke server menggunakan fetch API
+        fetch('../controller/simpandataformulirpermohonaninformasipublik.php', {
+            method: 'POST',
+            body: new URLSearchParams(new FormData(document.getElementById('myForm')))
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Jika penyimpanan data di server berhasil, tampilkan popup SweetAlert2
+                Swal.fire({
+                    title: 'Berhasil Terkirim',
+                    html: 'Permohonan informasi publik anda telah berhasil terkirim, untuk detail lebih lanjut mohon untuk dicek di bagian <a href="../view/riwayat_permohonan.html" style="color: red; text-decoration: underline;">riwayat permohonan</a>',
+                    icon: 'success',
+                });
+                
+                // Clear input CAPTCHA dan isi ulang CAPTCHA
+                document.getElementById('user-input').value = '';
+                generateCaptcha();
+            } else {
+                // Jika penyimpanan data di server gagal, tampilkan pesan kesalahan
+                Swal.fire(
+                    'Error',
+                    'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.',
+                    'error'
+                );
+                // Regenerate CAPTCHA
+                generateCaptcha();
+            }
+        });
+    } else {
+        // CAPTCHA salah, tampilkan pesan kesalahan
+        Swal.fire(
+            'Error',
+            'CAPTCHA tidak sesuai. Silakan coba lagi.',
+            'error'
+        );
+        // Regenerate CAPTCHA
+        generateCaptcha();
+    }
 });
 
-kirimButton.addEventListener("click", () => {
-  // Memeriksa apakah input pengguna cocok dengan captcha yang dihasilkan
-  if (userInput.value === text) {
-    alert("Captcha Benar. Data Berhasil Dikirim!");
-    // Lakukan tindakan lanjutan setelah captcha benar di sini
-  } else {
-    alert("Captcha Salah. Silakan coba lagi.");
-    // Reset captcha dan tampilkan captcha baru
-    triggerFunction();
-  }
-});
 
-cancelButton.addEventListener("click", () => {
-  // Reset captcha dan input pengguna ketika tombol "Batal" ditekan
-  triggerFunction();
-  userInput.value = "";
-});
+// Generate CAPTCHA saat halaman dimuat
+window.addEventListener('load', generateCaptcha);

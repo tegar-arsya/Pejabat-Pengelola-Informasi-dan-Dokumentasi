@@ -679,11 +679,56 @@ h5 {
 }
 
 .card {
-    flex: 1;
-    border: none;
-
+    
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    background-color: #D9D9D9;
+}
+.card1 {
+    margin: 20px 20px 20px 20px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-body {
+    padding: 20px;
 }
 
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 50%;
+    height: 100px;
+    align-self: center;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.card1-title {
+    background-color: #B2B2B2;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: solid 1px rgb(0, 0, 0);
+    
+}
+.card-text {
+    font-size: 1rem;
+    color: #555;
+}
+.card1-text {
+    font-size: 1rem;
+    color: #000000;
+}
 .custom-line {
     height: 10px;
     width: 100%;
@@ -845,10 +890,14 @@ h5 {
 }
 
 .social-media svg {
-    width: 30px; /* Atur lebar ikon */
-    height: 30px; /* Atur tinggi ikon */
-    fill: #000000; /* Warna ikon */
-    margin-right: 10px; /* Atur jarak antar ikon */
+    width: 30px;
+    /* Atur lebar ikon */
+    height: 30px;
+    /* Atur tinggi ikon */
+    fill: #000000;
+    /* Warna ikon */
+    margin-right: 10px;
+    /* Atur jarak antar ikon */
 }
 
 
@@ -885,11 +934,17 @@ h5 {
     border-right: 1px solid #000000;
     /* Warna dan lebar border kanan */
 }
-.container-index{
-        width: 100%;
-        align-items: center;
-        background: white;
-        
+.container1 {
+    width: 100%;
+    margin-top: 10px;
+    padding: 28px;
+}
+
+.container-index {
+    width: 100%;
+    align-items: center;
+    background: white;
+
 
 }
 
@@ -900,7 +955,6 @@ h5 {
     text-align: center;
     padding-bottom: 6px;
     color: red;
-
     border-bottom: solid 1px rgb(0, 0, 0);
 }
 
@@ -923,12 +977,14 @@ h5 {
     width: 45%;
     padding-bottom: 15px;
 }
+
 .user-input-box1 {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     padding-bottom: 15px;
 }
+
 .user-input-box label {
     width: 100%;
     color: rgb(0, 0, 0);
@@ -936,6 +992,7 @@ h5 {
     font-weight: 400;
     margin: 5px 0;
 }
+
 .user-input-box1 label {
     width: 100%;
     color: rgb(0, 0, 0);
@@ -943,6 +1000,7 @@ h5 {
     font-weight: 400;
     margin: 5px 0;
 }
+
 .user-input-box input {
     height: 40px;
     width: 100%;
@@ -951,6 +1009,7 @@ h5 {
     border: 1px solid grey;
     padding: 0 10px;
 }
+
 .user-input-box1 input {
     height: 40px;
     width: 100%;
@@ -959,6 +1018,7 @@ h5 {
     border: 1px solid grey;
     padding: 0 10px;
 }
+
 /* Tambahkan aturan CSS untuk mengatur lebar kolom email */
 .user-input-box select {
     width: 100%;
@@ -972,6 +1032,7 @@ h5 {
     box-sizing: border-box;
     /* Menghindari padding dan border menambahkan lebar */
 }
+
 .user-input-box1 select {
     width: 100%;
     /* Set lebar elemen select ke 100% */
@@ -984,6 +1045,7 @@ h5 {
     box-sizing: border-box;
     /* Menghindari padding dan border menambahkan lebar */
 }
+
 .form-submit-btn input[type="submit"] {
     background-color: #9F0000;
     /* Warna latar belakang tombol */
@@ -1002,7 +1064,7 @@ h5 {
 }
 
 .form-submit-btn input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #dc4e4e;
     /* Warna latar belakang tombol saat dihover */
 }
 
@@ -1010,47 +1072,35 @@ h5 {
     text-align: center;
 }
 
-.captcha-section {
+#captcha-container {
     display: flex;
-    flex-direction: column;
-    align-items: end;
+    align-items: center;
+    gap: 10px;
     width: 100%;
-    margin-top: 20px;
-  }
-  
-  .wrapper {
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-    margin: 1em 0;
-  }
-  
-  canvas {
-    border: 1px solid #000000;
-    border-radius: 0.4em;
-    width: 32%;
-  }
-  
-  button#reload-button {
-    font-size: 26px;
-    width: 4.6em;
+    margin-top: 40px;
+}
+
+button#reload-button {
+    font-size: 12px;
+    height: 50px;
+    margin-bottom: 10px;
+    width: 50%;
     background-color: #9F0000;
     border: none;
-    margin-right: 695px;
     border-radius: 0.4em;
     color: #ffffff;
-  }
-  
-  input[type="text"] {
+}
+
+input[type="text1"] {
     font-family: "Roboto Mono", monospace;
-    font-size: 22px;
-    width: 100%;
+    font-size: 20px;
+    width: 65%;
     padding: 1em 0.7em;
     border: 1px solid #000000;
     border-radius: 0.4em;
-  }
-  
-  button#kirim-button {
+}
+
+button#kirim-button {
     width: 22.5%;
     background-color: #9F0000;
     color: #ffffff;
@@ -1060,9 +1110,9 @@ h5 {
     padding: 0.8em 0;
     border-radius: 0.4em;
     font-family: "Roboto Mono", monospace;
-  }
+}
 
-  button#cancel-button{
+button#cancel-button {
     width: 22.5%;
     background-color: #959595;
     color: #ffffff;
@@ -1072,11 +1122,80 @@ h5 {
     padding: 0.8em 0;
     border-radius: 0.4em;
     font-family: "Roboto Mono", monospace;
-  }
-.container1{
+}
+
+
+
+#captcha {
+    font-size: 20px;
+    font-weight: bold;
     width: 100%;
+    border-radius: 0.4em;
+    border: 1px solid #000000;
+    /* Warna dan ketebalan border */
+    padding: 10px;
+    /* Ruang di dalam border */
+    margin-bottom: 10px;
+    /* Jarak antara CAPTCHA dan input text */
+}
+
+.h3-title-survey {
+    margin-top: 80px;
+    font-weight: bold;
+}
+.h3-riwayat{
+    background-color: red;
+    
+    font-size: 20px;
+}
+.p-riwayat{
+    font-weight: bold;
+    margin-left: 10px;
+}
+.p-survey {
+    text-align: justify;
+    font-weight: 600;
+}
+.border{
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0) !important;
+}
+.container-riwayat {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.left-container{
+    width: 60%; /* Atur lebar container sesuai kebutuhan Anda */
+    padding: 20px;
+}
+.right-container {
+    width: 40%; /* Atur lebar container sesuai kebutuhan Anda */
+    padding: 20px;
+}
+.box-right {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border: 1px solid #000000;
     
 }
-.alert-danger{
-    margin-top: 100px;
+.box-left {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border: 1px solid #000000;
+}
+.button-ya{
+    background-color: #9F0000 ;
+    color: #ffffff;
+    border-radius: 10px;
+    border-color: none;
+    width: 30%;
+    margin: 20px 20px 20px 20px;
+}
+.button-tdk{
+    background-color: #959595;
+    color: #ffffff;
+    border-radius: 10px;
+    border-color: none;
+    width: 30%;
 }
