@@ -132,7 +132,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="table-responsive">
+                                <div class="table-responsive hidden" id="dataTable">
                                     <table class="table table-bordered">
                                         <thead>
                                             <tr>
@@ -143,8 +143,12 @@ if (isset($_GET['id'])) {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Data Penting</td>
-                                                <td>Dinas XYZ</td>
+                                                <td>
+                                                    <?php echo $row['informasi_yang_dibutuhkan']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row['opd_yang_dituju']; ?>
+                                                </td>
                                                 <td>
                                                     <button class="btn btn-primary btn-sm"
                                                         onclick="editData()">Edit</button>
@@ -152,7 +156,7 @@ if (isset($_GET['id'])) {
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button class="btn btn-success" onclick="simpan()">Simpan</button>
+                                    <button class="btn btn-success" id="simpanVerif">Simpan</button>
                                     <button class="btn btn-danger" onclick="batal()">Batal</button>
                                 </div>
                             </div>
@@ -191,6 +195,10 @@ if (isset($_GET['id'])) {
 
                     // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
                     alert('Verifikasi berhasil. Nomor registrasi: ' + nomorRegistrasi);
+
+                    // Tampilkan tabel setelah verifikasi berhasil
+                    var table = document.getElementById('dataTable');
+                    table.classList.remove('hidden');
                 },
                 error: function (xhr, status, error) {
                     // Tangani kesalahan jika diperlukan
@@ -198,7 +206,31 @@ if (isset($_GET['id'])) {
                 }
             });
         });
+    </script>
+    <script>
+        document.getElementById('simpanVerif').addEventListener('click', function () {
+    var idPermohonan = <?php echo $id_permohonan; ?>;
 
+    // Kirim permintaan verifikasi ke server melalui Ajax
+    $.ajax({
+        url: '../controller/simpan_verifikasi.php',
+        type: 'POST',
+        data: { id: idPermohonan },
+        success: function (response) {
+            // Tanggapi respons dari server setelah verifikasi berhasil
+            var nomorRegistrasi = response; // Ambil nomor registrasi dari respons
+
+            // Sisipkan nomor registrasi ke dalam elemen dengan ID nomorRegistrasiCell
+            $('#nomorRegistrasiCell').text(nomorRegistrasi);
+
+            // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
+            
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
+});
 
     </script>
     <script src="../plugins/common/common.min.js"></script>

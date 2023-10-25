@@ -73,7 +73,7 @@ $user_id = $_SESSION['id'];
                                                 <th>No.HP</th>
                                                 <th>Informasi yang Dibutuhkan</th>
                                                 <th>OPD yang ditujui</th>
-                                                <th>Tanggal MAsuk</th>
+                                                <th>Tanggal Masuk</th>
                                                 <th>Tangal Verifikasi</th>
                                                 <th>Tanggal Selesai</th>
                                                 <th>Aksi</th>
@@ -89,13 +89,13 @@ $user_id = $_SESSION['id'];
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
-                                                <td id="tanggal-verifikasi"></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td><button class="btn btn-info btn-sm"
                                                         onclick="showDetail()">Detail</button>
                                                     <button class="btn btn-success btn-sm"
-                                                        onclick="status()">Status</button>
+                                                        onclick="status()">Status</button></td>
+                                                <td>
                                                 </td>
                                                 
                                             </tr>

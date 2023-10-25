@@ -14731,5 +14731,10 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   }
 .daftar-permohonan{
   margin-top: 20px;
+}.hidden {
+  display: none;
 }
+
+
+
 /*# sourceMappingURL=style.css.map */
