@@ -5,6 +5,16 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 $user_id = $_SESSION['id'];
+
+include('../koneksi/config.php');
+
+if (isset($_GET['id'])) {
+    $id_permohonan = $_GET['id'];
+
+    
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +27,7 @@ $user_id = $_SESSION['id'];
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../images/logo_jateng.png">
     <!-- Custom Stylesheet -->
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../css/style-admin.css" rel="stylesheet">
 
@@ -42,24 +53,27 @@ $user_id = $_SESSION['id'];
                                 <div class="row" style="background-color: #9F0000;">
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
-                                            
-                                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor NIK">
+
+                                            <input type="text" class="form-control" id="nik" name="nik"
+                                                placeholder="Nomor NIK">
                                         </div>
                                     </div>
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Pemohon">
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                placeholder="Nama Pemohon">
                                         </div>
                                     </div>
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
-                                
-                                            <input type="text" class="form-control" id="registrasi" name="registrasi" placeholder="Nomor Registrasi">
+
+                                            <input type="text" class="form-control" id="registrasi" name="registrasi"
+                                                placeholder="Nomor Registrasi">
                                         </div>
                                     </div>
                                     <div class="col-md-2 daftar-permohonan">
                                         <button type="button" class="btn btn-primary btn-block" onclick="cariData()"
-                                        style="background-color: #F19C12;margin-left: 70px;">Cari</button>
+                                            style="background-color: #F19C12;margin-left: 70px;">Cari</button>
                                     </div>
                                 </div>
                                 <h4 class="card-title">Daftar Permohonan Informasi</h4>
@@ -81,24 +95,34 @@ $user_id = $_SESSION['id'];
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><input type="checkbox" class="select-row"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><button class="btn btn-info btn-sm"
-                                                        onclick="showDetail()">Detail</button>
-                                                    <button class="btn btn-success btn-sm"
-                                                        onclick="status()">Status</button></td>
-                                                <td>
-                                                </td>
-                                                
-                                            </tr>
+                                            <?php
+                                            // Query untuk mendapatkan data permohonan dari database
+                                            $query = "SELECT * FROM verifikasi_permohonan";
+                                            $result = $conn->query($query);
+
+                                            // Periksa apakah ada hasil dari query
+                                            if ($result->num_rows > 0) {
+                                                // Loop melalui hasil query dan tampilkan data dalam baris tabel
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>";
+                                                    echo "<td><input type='checkbox' class='select-row'></td>";
+                                                    echo "<td>{$row['nomer_registrasi']}</td>";
+                                                    echo "<td>{$row['nama_pengguna']}</td>";
+                                                    echo "<td>{$row['no_hp']}</td>";
+                                                    echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
+                                                    echo "<td>{$row['opd_yang_dituju']}</td>";
+                                                    echo "<td>{$row['tanggal_permohonan']}</td>";
+                                                    echo "<td>{$row['tanggal_verifikasi']}</td>";
+                                                    echo "<td>{$row['tanggal_selesai']}</td>";
+                                                    echo "<td><button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button>";
+                                                    echo "<button class='btn btn-success btn-sm' onclick='status()'>Status</button></td>";
+                                                    echo "<td>{$row['status_verifikasi']}</td>";
+                                                    echo "</tr>";
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='11'>Tidak ada data permohonan yang ditemukan.</td></tr>";
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -118,27 +142,32 @@ $user_id = $_SESSION['id'];
         Scripts
     ***********************************-->
     <!-- jQuery library (pastikan jQuery telah dimuat sebelum ini) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Script untuk menangani pemilihan baris -->
+    <!-- Script untuk menangani pemilihan baris -->
+    <script>
+        $(document).ready(function () {
+            // Mengatur event handler untuk checkbox "Select All"
+            $('.select-all').click(function () {
+                $('.select-row').prop('checked', this.checked);
+            });
+
+            // Mengatur event handler untuk checkbox setiap baris
+            $('.select-row').click(function () {
+                if ($('.select-row:checked').length == $('.select-row').length) {
+                    $('.select-all').prop('checked', true);
+                } else {
+                    $('.select-all').prop('checked', false);
+                }
+            });
+        });
+    </script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Mengatur event handler untuk checkbox "Select All"
-        $('.select-all').click(function () {
-            $('.select-row').prop('checked', this.checked);
-        });
-
-        // Mengatur event handler untuk checkbox setiap baris
-        $('.select-row').click(function () {
-            if ($('.select-row:checked').length == $('.select-row').length) {
-                $('.select-all').prop('checked', true);
-            } else {
-                $('.select-all').prop('checked', false);
-            }
-        });
+        $('#permohonanTable').DataTable();
     });
 </script>
-
     <script src="../plugins/common/common.min.js"></script>
     <script src="../js/custom.min.js"></script>
     <script src="../js/settings.js"></script>

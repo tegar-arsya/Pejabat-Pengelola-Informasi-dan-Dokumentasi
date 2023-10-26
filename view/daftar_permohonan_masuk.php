@@ -5,6 +5,16 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 $user_id = $_SESSION['id'];
+
+include('../koneksi/config.php');
+
+if (isset($_GET['id'])) {
+    $id_permohonan = $_GET['id'];
+
+
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +106,7 @@ $user_id = $_SESSION['id'];
                                                             <td>
                                                                 <a href='detail_permohonan_masuk.php?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
                                                                 <button type='button' data-id='" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
-                                                                <button type='button' data-id='" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</button>
+                                                                <a href='detail_permohonan_masuk.php?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
                                                             </td>
                                                         </tr>";
                                                 }
