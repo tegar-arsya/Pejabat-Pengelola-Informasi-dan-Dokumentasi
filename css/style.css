@@ -673,10 +673,7 @@ h4 {
     font-weight: bold;
 }
 
-h5 {
-    margin-left: 16px;
 
-}
 
 .card {
     
@@ -709,6 +706,11 @@ h5 {
 }
 
 .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.card-title-riwayat {
     font-size: 1.25rem;
     font-weight: bold;
     margin-bottom: 10px;
@@ -1199,3 +1201,5 @@ button#cancel-button {
     border-color: none;
     width: 30%;
 }
+
+

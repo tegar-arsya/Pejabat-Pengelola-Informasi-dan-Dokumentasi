@@ -223,7 +223,7 @@ if (isset($_GET['id'])) {
             // Sisipkan nomor registrasi ke dalam elemen dengan ID nomorRegistrasiCell
             $('#nomorRegistrasiCell').text(nomorRegistrasi);
 
-            // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
+            alert('Verifikasi berhasil.');
             
         },
         error: function (xhr, status, error) {

@@ -97,7 +97,8 @@ if (isset($_GET['id'])) {
                                         <tbody>
                                             <?php
                                             // Query untuk mendapatkan data permohonan dari database
-                                            $query = "SELECT * FROM verifikasi_permohonan";
+                                            $query = "SELECT vp.*, sk.tanggal_survey FROM verifikasi_permohonan vp 
+                                            LEFT JOIN survey_kepuasan sk ON vp.nomer_registrasi = sk.nomer_registrasi";
                                             $result = $conn->query($query);
 
                                             // Periksa apakah ada hasil dari query
@@ -113,10 +114,18 @@ if (isset($_GET['id'])) {
                                                     echo "<td>{$row['opd_yang_dituju']}</td>";
                                                     echo "<td>{$row['tanggal_permohonan']}</td>";
                                                     echo "<td>{$row['tanggal_verifikasi']}</td>";
-                                                    echo "<td>{$row['tanggal_selesai']}</td>";
+                                                    echo "<td>{$row['tanggal_survey']}</td>";
                                                     echo "<td><button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button>";
                                                     echo "<button class='btn btn-success btn-sm' onclick='status()'>Status</button></td>";
-                                                    echo "<td>{$row['status_verifikasi']}</td>";
+                                                    if (!empty($row['tanggal_survey'])) {
+                                                        echo "<td>Permohonan Selesai</td>";
+                                                    } elseif (!empty($row['tanggal_verifikasi'])) {
+                                                        echo "<td>Sudah Verifikasi</td>";
+                                                    } else {
+                                                        echo "<td>Belum Verifikasi</td>";
+                                                    }
+                                                    
+                                                    
                                                     echo "</tr>";
                                                 }
                                             } else {

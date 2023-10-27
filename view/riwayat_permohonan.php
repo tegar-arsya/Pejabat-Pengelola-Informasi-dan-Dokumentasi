@@ -4,7 +4,18 @@ if (!isset($_SESSION['id'])) {
     header("Location: ../index.php");
     exit();
 }
+
 $user_id = $_SESSION['id'];
+include('../koneksi/config.php');
+// Periksa apakah nomor registrasi ada dalam sesi
+if (!isset($_SESSION['nomer_registrasi'])) {
+    // Handle jika nomor registrasi tidak ada dalam sesi
+    // Misalnya, alihkan pengguna ke halaman lain atau tampilkan pesan kesalahan
+    header("Location: halaman_error.php");
+    exit();
+}
+
+$nomer_registrasi = $_SESSION['nomer_registrasi'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -108,30 +119,96 @@ $user_id = $_SESSION['id'];
     <h1 class="form-title">Detail Permohonan<br />Informasi Publik</h1>
     <div class="container-riwayat">
         <div class="left-container">
-           <div class="box-left">
-            <div style="width: 100%; height: 100%; border-radius: 10px; border: 1px black solid"></div>
-                <h3 class="h3-riwayat">&nbsp;Permohonan Informasi</h3>
-                <p class="p-riwayat">Nama :</p>
-                <p class="p-riwayat">Tanggal Permohonan :</p>
-                <p class="p-riwayat">Nomor Registrsi :</p>
-                <p class="p-riwayat">Informasi yang diminta :</p>
-                <p class="p-riwayat">Alasan Pengguna Informasi :</p>
-                <p class="p-riwayat">OPD yang dituju :</p>
+        <div class="box-left">
+            <div style="width: 100%; border-radius: 10px; border: 1px black solid">
+                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Permohonan Informasi
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <?php
+                    if (!isset($_SESSION['nomer_registrasi'])){
+                        header("Location: halaman_error.php");
+                        exit();
+                    }
+                    $nomer_registrasi = $_SESSION['nomer_registrasi'];
+                    $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
+                    $result = $conn->query($query);
+                    if ($result->num_rows > 0) {
+                        // Data ditemukan, tampilkan atau proses data di sini
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td><strong>Nama :</strong></td>";
+                            echo "<td>{$row['nama_pengguna']}</td>";
+                            echo "</tr>";
                 
+                            echo "<tr>";
+                            echo "<td><strong>Tanggal Permohonan:</strong></td>";
+                            echo "<td>{$row['tanggal_permohonan']}</td>";
+                            echo "</tr>";
+                
+                            echo "<tr>";
+                            echo "<td><strong>Nomor Register:</strong></td>";
+                            echo "<td>{$row['nomer_registrasi']}</td>";
+                            echo "</tr>";
+                
+                            echo "<tr>";
+                            echo "<td><strong>Informasi yang Diminta:</strong></td>";
+                            echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
+                            echo "</tr>";
+                
+                            echo "<tr>";
+                            echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
+                            echo "<td>{$row['alasan_pengguna_informasi']}</td>";
+                            echo "</tr>";
+                
+                            echo "<tr>";
+                            echo "<td><strong>OPD Yang Dituju:</strong></td>";
+                            echo "<td>{$row['opd_yang_dituju']}</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        // Data tidak ditemukan, berikan respons sesuai ke pengguna
+                        echo "<tr><td colspan='2'>Data permohonan tidak ditemukan.</td></tr>";
+                    }
+                    ?>
+            
+                </table>
             </div>
-            <div class="box-left">
-                <h3 class="h3-riwayat">&nbsp;Jawaban Permohonan Informasi</h3>
-                <p class="p-riwayat">Nama PIC:</p>
-                <p class="p-riwayat">jawaban permohonan :</p>
-                <p class="p-riwayat">Lampiran:</p>
-                <p class="p-riwayat">Tanggal :</p>
-                <p>
+            </div>
+            <div style="width: 100%; border-radius: 10px; border: 1px black solid">
+                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Jawaban Permohonan Informasi
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <tr>
+                        <td><strong>Nama PIC :</strong></td>
+                        <td>Astika</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Jawaban Permohonan :</strong></td>
+                        <td>rg</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lampiran :</strong></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tanggal :</strong></td>
+                        <td></td>
+                    </tr>
+                </table>
+                
                     <img src="../img/logo_jateng.png" style="width: 50px;" alt="">
                     Admin PPID Dishub Prov Jateng
                 </p>
             </div>
-            <div class="box-left">
-                <h3 class="h3-riwayat">&nbsp;Survey</h3>
+            <div style="width: 100%; background: white; border-radius: 10px; border: 1px black solid">
+                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Survey
+                    </div>
+                </div>
                 <h5 style="text-align: center;">Apakah permohonan informasi Anda sudah terjawab?</h5>
                 <div style="text-align: center;">
                     <button class="button-ya" type="button">Ya</button>
@@ -145,6 +222,7 @@ $user_id = $_SESSION['id'];
                     <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Tindak Lanjut
                     </div>
                 </div>
+                
             </div>
         </div>
     </div>

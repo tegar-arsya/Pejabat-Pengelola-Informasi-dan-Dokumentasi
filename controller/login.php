@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Memeriksa apakah email dan password cocok dengan data di database
-    $sql = $conn->prepare("SELECT id, email, password, nama_depan, nama_belakang, nik FROM registrasi WHERE email = ?");
+    $sql = $conn->prepare("SELECT id, nomer_registrasi, email, password, nama_depan, nama_belakang, nik FROM registrasi WHERE email = ?");
     $sql->bind_param("s", $email);
     $sql->execute();
     $result = $sql->get_result();
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Jika cocok, set session dengan nama pengguna yang sudah digabungkan
         $_SESSION['id'] = $row['id'];
-        
+        $_SESSION['nomer_registrasi'] = $row['nomer_registrasi'];
         $_SESSION['nama_depan'] = $row['nama_depan'];
         $_SESSION['nama_belakang'] = $row['nama_belakang'];
         $_SESSION['nik'] = $row['nik'];
