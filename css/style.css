@@ -243,11 +243,7 @@ h5 {
 
 }
 
-.card {
-    flex: 1;
-    border: none;
 
-}
 
 .custom-line {
     height: 10px;
@@ -673,64 +669,6 @@ h4 {
     font-weight: bold;
 }
 
-
-
-.card {
-    
-    border: 1px solid #000000;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    background-color: #D9D9D9;
-}
-.card1 {
-    margin: 20px 20px 20px 20px;
-    border: 1px solid #000000;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.card-body {
-    padding: 20px;
-}
-
-.card-img-top {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    width: 50%;
-    height: 100px;
-    align-self: center;
-}
-
-.card-body {
-    padding: 20px;
-}
-
-.card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.card-title-riwayat {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.card1-title {
-    background-color: #B2B2B2;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    border-bottom: solid 1px rgb(0, 0, 0);
-    
-}
-.card-text {
-    font-size: 1rem;
-    color: #555;
-}
-.card1-text {
-    font-size: 1rem;
-    color: #000000;
-}
 .custom-line {
     height: 10px;
     width: 100%;
@@ -926,6 +864,7 @@ h4 {
     align-items: center;
     background: white;
     margin-top: 50px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     padding: 28px;
     margin-bottom: 50px;
     border-radius: 10px;
