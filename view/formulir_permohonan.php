@@ -60,7 +60,7 @@ $user_id = $_SESSION['id'];
                 </div>
 
                 <div class="item">
-                    <a href="">Login</a>
+                    <a href="../controller/logout.php">Logout</a>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@ $user_id = $_SESSION['id'];
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="">Login</a>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/logout.php">Logout</a>
                             </div>
                         </div>
                     </div>

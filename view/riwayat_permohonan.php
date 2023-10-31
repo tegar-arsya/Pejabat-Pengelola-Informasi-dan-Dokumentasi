@@ -4,17 +4,12 @@ if (!isset($_SESSION['id'])) {
     header("Location: ../index.php");
     exit();
 }
-
 $user_id = $_SESSION['id'];
 include('../koneksi/config.php');
-// Periksa apakah nomor registrasi ada dalam sesi
 if (!isset($_SESSION['nomer_registrasi'])) {
-    // Handle jika nomor registrasi tidak ada dalam sesi
-    // Misalnya, alihkan pengguna ke halaman lain atau tampilkan pesan kesalahan
     header("Location: halaman_error.php");
     exit();
 }
-
 $nomer_registrasi = $_SESSION['nomer_registrasi'];
 ?>
 <!DOCTYPE html>
@@ -30,7 +25,6 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    <!-- Jarallax CSS -->
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -44,7 +38,6 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
     <link rel="stylesheet" href="../css/style.css" />
     <title>-</title>
 </head>
-
 <body>
     <!-- navbar -->
     <header>
@@ -107,7 +100,7 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="">Login</a>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/logout.php">Logout</a>
                             </div>
                         </div>
                     </div>

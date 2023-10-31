@@ -74,7 +74,8 @@ $user_id = $_SESSION['id'];
                         </div>
                         <div class="modal-body">
                             <div class="modal-line">
-                                <i class="fa-solid fa-circle-info"></i><a href="../view/formulir_permohonan.php">Permohonan Informasi</a>
+                                <i class="fa-solid fa-circle-info"></i><a
+                                    href="../view/formulir_permohonan.php">Permohonan Informasi</a>
                             </div>
 
                             <div class="modal-line">
@@ -99,8 +100,8 @@ $user_id = $_SESSION['id'];
             <h3>Pengajuan Keberatan</h3>
             <div class="main-user-info">
                 <div class="user-input-box1">
-                <label for="nik">Masukkan NIK *</label>
-                <input type="text" id="nik" name="nik" required />
+                    <label for="nik">Masukkan NIK *</label>
+                    <input type="text" id="nik" name="nik" required />
                 </div>
 
             </div>

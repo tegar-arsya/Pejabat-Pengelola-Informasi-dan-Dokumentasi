@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];
 
     // Query untuk mengambil detail permohonan dan data registrasi berdasarkan ID permohonan
-    $query = "SELECT p.id, r.nomer_registrasi,r.nik, r.no_hp, r.foto_ktp,  r.alamat, p.nama_pengguna, p.opd_yang_dituju, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi, p.cara_mendapatkan_informasi, p.cara_mendapatkan_salinan, p.tanggal_permohonan
+    $query = "SELECT p.id, r.nomer_registrasi,r.nik, r.no_hp, r.foto_ktp,  r.alamat, r.email,p.nama_pengguna, p.opd_yang_dituju, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi, p.cara_mendapatkan_informasi, p.cara_mendapatkan_salinan, p.tanggal_permohonan
               FROM permohonan_informasi p
               JOIN registrasi r ON p.id_user = r.nik
               WHERE p.id = $id_permohonan";
@@ -48,6 +48,8 @@ if (isset($_GET['id'])) {
     <link rel="icon" type="image/png" sizes="16x16" href="../images/logo_jateng.png">
     <!-- Custom Stylesheet -->
     <link href="../plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link href="../css/style-admin.css" rel="stylesheet">
 
 </head>
@@ -99,6 +101,12 @@ if (isset($_GET['id'])) {
                                             </a></td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Email:</strong></td>
+                                        <td>
+                                            <?php echo $row['email']; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>No Hp:</strong></td>
                                         <td>
                                             <?php echo $row['no_hp']; ?>
@@ -126,6 +134,36 @@ if (isset($_GET['id'])) {
                                 <button class="btn btn-primary" onclick="goBack()">Back</button>
                                 <button class="btn btn-success" id="verifikasiBtn">Verifikasi</button>
                                 <button class="btn btn-danger" onclick="belumValid()">Belum Valid</button>
+                                <div id="alasanPenolakanForm" class="hidden">
+                                    <form action="../smtpmail/sendmail.php" method="POST">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td>Nama :</td>
+                                                <td><?php echo $row['nama_pengguna']; ?></td>
+                                                <td><input type="hidden" name="nama" value="<?php echo $row['nama_pengguna']; ?>"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email :</td>
+                                                <td><?php echo $row['email']; ?></td>
+                                                <td><input type="hidden" name="email" value="<?php echo $row['email']; ?>"></td>
+                                            </tr>
+
+                                            <td>Subjek :</td>
+                                            <td><input type="text" name="subjek" size="30"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>alasan :</td>
+                                                <td><textarea name="alasan" cols="32" rows="5"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><input type="submit" class="btn btn-primary" name="kirim" value="Kirim"></td>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -208,31 +246,45 @@ if (isset($_GET['id'])) {
         });
     </script>
     <script>
+        var isButtonClicked = false; // Variabel untuk melacak apakah tombol sudah diklik
+
         document.getElementById('simpanVerif').addEventListener('click', function () {
-    var idPermohonan = <?php echo $id_permohonan; ?>;
+            if (isButtonClicked) {
+                return; // Jika tombol sudah diklik, keluar dari fungsi
+            }
 
-    // Kirim permintaan verifikasi ke server melalui Ajax
-    $.ajax({
-        url: '../controller/simpan_verifikasi.php',
-        type: 'POST',
-        data: { id: idPermohonan },
-        success: function (response) {
-            // Tanggapi respons dari server setelah verifikasi berhasil
-            var nomorRegistrasi = response; // Ambil nomor registrasi dari respons
+            var idPermohonan = <?php echo $id_permohonan; ?>;
 
-            // Sisipkan nomor registrasi ke dalam elemen dengan ID nomorRegistrasiCell
-            $('#nomorRegistrasiCell').text(nomorRegistrasi);
+            // Menandai bahwa tombol sudah diklik
+            isButtonClicked = true;
 
-            alert('Verifikasi berhasil.');
-            
-        },
-        error: function (xhr, status, error) {
-            console.error(xhr.responseText);
-        }
-    });
-});
+            // Kirim permintaan verifikasi ke server melalui Ajax
+            $.ajax({
+                url: '../controller/simpan_verifikasi.php',
+                type: 'POST',
+                data: { id: idPermohonan },
+                success: function (response) {
+                    // Tanggapi respons dari server setelah verifikasi berhasil
+                    var nomorRegistrasi = response; // Ambil nomor registrasi dari respons
 
+                    // Sisipkan nomor registrasi ke dalam elemen dengan ID nomorRegistrasiCell
+                    $('#nomorRegistrasiCell').text(nomorRegistrasi);
+
+                    alert('Verifikasi berhasil.');
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
     </script>
+
+    <script>
+        function belumValid() {
+            $('#alasanPenolakanForm').removeClass('hidden');
+        }</script>
+
+
     <script src="../plugins/common/common.min.js"></script>
     <script src="../js/custom.min.js"></script>
     <script src="../js/settings.js"></script>
