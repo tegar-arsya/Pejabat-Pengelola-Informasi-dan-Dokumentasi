@@ -11,7 +11,7 @@ include('../koneksi/config.php');
 if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];
 
-    
+
 }
 
 
@@ -77,6 +77,7 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                                 <h4 class="card-title">Daftar Permohonan Informasi</h4>
+                                <input type="button" class="btn btn-success" value="export Excel" onclick="window.open('../controller/export_excel.php')">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered ">
                                         <thead>
@@ -124,8 +125,8 @@ if (isset($_GET['id'])) {
                                                     } else {
                                                         echo "<td>Belum Verifikasi</td>";
                                                     }
-                                                    
-                                                    
+
+
                                                     echo "</tr>";
                                                 }
                                             } else {
@@ -172,10 +173,44 @@ if (isset($_GET['id'])) {
         });
     </script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#permohonanTable').DataTable();
+    <script>
+        $(document).ready(function () {
+            $('#permohonanTable').DataTable();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+    $('#exportExcel').click(function() {
+        var data = [];
+        $('#permohonanTable tbody tr').each(function() {
+            var rowData = [];
+            $(this).find('td').each(function() {
+                rowData.push($(this).text());
+            });
+            data.push(rowData);
+        });
+
+        $.ajax({
+            url: '../controller/export_spreadsheet.php',
+            method: 'POST',
+            data: { data: data },
+            dataType: 'json', // Tentukan tipe data yang diharapkan dari server
+            success: function(response) {
+                // Respons dari server seharusnya berisi URL file Excel
+                if (response && response.fileUrl) {
+                    // Redirect pengguna ke file Excel yang dihasilkan
+                    window.location.href = response.fileUrl;
+                } else {
+                    console.error('Invalid response from server.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
     });
+});
 </script>
     <script src="../plugins/common/common.min.js"></script>
     <script src="../js/custom.min.js"></script>
