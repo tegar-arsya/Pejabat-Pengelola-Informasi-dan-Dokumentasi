@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['id'])) {
-    header("Location: ../view/login_admin.php");
+    header("Location: ../view/admin");
     exit();
 }
 $user_id = $_SESSION['id'];

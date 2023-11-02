@@ -5,25 +5,18 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 $user_id = $_SESSION['id'];
-
-// Ambil nilai ID pengguna dari parameter URL
 if (isset($_GET['id'])) {
     $id_pengguna = $_GET['id'];
 } else {
-    // Handle jika parameter id tidak ada dalam URL
     echo "ID Pengguna tidak ditemukan.";
     exit();
 }
-// Lakukan koneksi ke database (sesuaikan dengan konfigurasi database Anda)
 include('../koneksi/config.php');
-
-// Lakukan kueri SQL untuk mengambil informasi yang diminta berdasarkan ID pengguna
 $sql = "SELECT nama_pengguna, informasi_yang_dibutuhkan FROM permohonan_informasi WHERE id = $id_pengguna";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Output data dari setiap baris hasil kueri
     while ($row = $result->fetch_assoc()) {
         $informasi_yang_diminta = $row['informasi_yang_dibutuhkan'];
         $nama_pemohon = $row['nama_pengguna'];
@@ -31,8 +24,6 @@ if ($result->num_rows > 0) {
 } else {
     echo "Informasi yang diminta tidak ditemukan.";
 }
-
-// Tutup koneksi ke database
 $conn->close();
 ?>
 
@@ -78,30 +69,26 @@ $conn->close();
             </div>
             <div class="navb-items d-none d-xl-flex">
                 <div class="item">
-                    <a href="">Permohonan Informasi</a>
+                    <a href="../view/formulir">Permohonan Informasi</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Pengajuan Keberatan</a>
+                    <a href="../view/aduan">Pengajuan Keberatan</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Paduan</a>
+                    <a href="../components/panduan.html">Paduan</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Login</a>
+                    <a href="../controller/logout.php">Logout</a>
                 </div>
             </div>
-
-            <!-- Button trigger modal -->
             <div class="mobile-toggler d-lg-none">
                 <a href="#" data-bs-toggle="modal" data-bs-target="#navbModal">
                     <i class="fa-solid fa-bars"></i>
                 </a>
             </div>
-
-            <!-- Modal -->
             <div class="modal fade" id="navbModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -114,20 +101,20 @@ $conn->close();
 
                         <div class="modal-body">
                             <div class="modal-line">
-                                <i class="fa-solid fa-circle-info"></i><a href="">Permohonan Informasi</a>
+                                <i class="fa-solid fa-circle-info"></i><a href="../view/formulir">Permohonan Informasi</a>
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-file-invoice"></i><a href="">Pengajuan Keberatan</a>
+                                <i class="fa-solid fa-file-invoice"></i><a href="../view/aduan">Pengajuan Keberatan</a>
                             </div>
 
                             <div class="modal-line">
                                 <i class="fa-solid fa-chalkboard-user"></i>
-                                <a href="">Panduan</a>
+                                <a href="../components/panduan.html">Panduan</a>
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="">Login</a>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/logout.php">Logout</a>
                             </div>
                         </div>
                     </div>

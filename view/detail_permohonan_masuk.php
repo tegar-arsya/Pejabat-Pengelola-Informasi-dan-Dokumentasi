@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['id'])) {
-    header("Location: ../view/login_admin.php");
+    header("Location: ../view/admin");
     exit();
 }
 $user_id = $_SESSION['id'];
@@ -25,12 +25,12 @@ if (isset($_GET['id'])) {
         $nomorRegistrasi = $row['nomer_registrasi'];
     } else {
         // Redirect atau tampilkan pesan kesalahan jika permohonan tidak ditemukan
-        header("Location: halaman_error.php");
+        header("Location: ../components/eror.html");
         exit();
     }
 } else {
     // Redirect atau tampilkan pesan kesalahan jika parameter ID permohonan tidak ada dalam URL
-    header("Location: halaman_error.php");
+    header("Location: ../components/eror.html");
     exit();
 }
 

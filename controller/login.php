@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nama_belakang'] = $row['nama_belakang'];
         $_SESSION['nik'] = $row['nik'];
         // Arahkan ke halaman formulir_permohonan.php atau halaman lain yang sesuai
-        header("Location: ../view/formulir_permohonan.php");
+        header("Location: ../view/formulir");
     } else {
         // Jika tidak cocok, arahkan kembali ke halaman login dengan pesan error
         $_SESSION['login_error'] = "Email atau password salah. Silakan coba lagi.";

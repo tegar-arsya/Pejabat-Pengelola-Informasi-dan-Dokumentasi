@@ -23,7 +23,7 @@ if(isset($_SESSION['nik'])) {
                     $id_pengguna = $row['id'];
 
                     // Redirect ke halaman selanjutnya dengan membawa ID pengguna
-                    header("Location: ../view/form_pengajuan_keberatan.php?id=$id_pengguna");
+                    header("Location: ../view/form-keberatan?id=$id_pengguna");
                     exit();
                 } else {
                     // Jika tidak ada baris data yang cocok, tampilkan pesan kesalahan menggunakan alert

@@ -51,19 +51,19 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
             </div>
             <div class="navb-items d-none d-xl-flex">
                 <div class="item">
-                    <a href="">Permohonan Informasi</a>
+                    <a href="../view/formulir">Permohonan Informasi</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Pengajuan Keberatan</a>
+                    <a href="../view/aduan">Pengajuan Keberatan</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Paduan</a>
+                    <a href="../components/panduan.html">Paduan</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Login</a>
+                    <a href="../controller/logout.php">Logout/a>
                 </div>
             </div>
 
@@ -87,16 +87,16 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
 
                         <div class="modal-body">
                             <div class="modal-line">
-                                <i class="fa-solid fa-circle-info"></i><a href="">Permohonan Informasi</a>
+                                <i class="fa-solid fa-circle-info"></i><a href="../view/formulir">Permohonan Informasi</a>
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-file-invoice"></i><a href="">Pengajuan Keberatan</a>
+                                <i class="fa-solid fa-file-invoice"></i><a href="../view/aduan">Pengajuan Keberatan</a>
                             </div>
 
                             <div class="modal-line">
                                 <i class="fa-solid fa-chalkboard-user"></i>
-                                <a href="">Panduan</a>
+                                <a href="../components/panduan.html">Panduan</a>
                             </div>
 
                             <div class="modal-line">

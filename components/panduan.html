@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/logo_jateng.png">
+  <style>
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .popup-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* CSS untuk gambar panduan */
+    .guide-image {
+      width: 100%; /* Gambar akan mengisi 100% dari lebar popup-content */
+      max-width: 700px; /* Maksimum lebar gambar adalah 300px */
+      margin: 0 10px; /* Atur margin antara gambar */
+    }
+
+    /* Media queries untuk tata letak responsif */
+    @media (max-width: 768px) {
+      .popup-content {
+        flex-direction: column; /* Gambar akan ditampilkan di bawah satu sama lain pada layar kecil */
+      }
+
+      .guide-image {
+        margin: 10px 0; /* Atur margin antara gambar pada layar kecil */
+      }
+    }
+  </style>
+  <title>Panduan Pengguna</title>
+</head>
+<body>
+
+
+<!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+  
+    <img class="guide-image" src="../img/panduan.png" alt="Gambar Panduan 1">
+    <img class="guide-image" src="../img/panduan2.png" alt="Gambar Panduan 2">
+    
+  </div>
+</div>
+
+<script>
+  // Fungsi untuk menampilkan popup
+  function showPopup() {
+    var popup = document.getElementById("popup");
+    popup.style.display = "block";
+  }
+  window.onload = showPopup;
+ 
+</script>
+
+</body>
+</html>

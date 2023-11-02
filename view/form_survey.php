@@ -48,19 +48,19 @@ $user_id = $_SESSION['id'];
             </div>
             <div class="navb-items d-none d-xl-flex">
                 <div class="item">
-                    <a href="">Permohonan Informasi</a>
+                    <a href="../view/formulir">Permohonan Informasi</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Pengajuan Keberatan</a>
+                    <a href="../view/aduan">Pengajuan Keberatan</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Paduan</a>
+                <a href="../components/panduan.html">Paduan</a>
                 </div>
 
                 <div class="item">
-                    <a href="">Login</a>
+                <a href="../controller/logout.php">Logout</a>
                 </div>
             </div>
 

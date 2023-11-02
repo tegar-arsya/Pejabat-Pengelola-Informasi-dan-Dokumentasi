@@ -1,0 +1,62 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /PERMOHONANINFORMASI/view/
+    # Menghapus ekstensi .php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+    
+    # Mengarahkan /aduan ke pengajuan_keberatan.php
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/aduan
+    RewriteRule ^aduan$ pengajuan_keberatan.php [NC,L]
+    
+    # Mengarahkan /formulir ke formulir_permohonan.php
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/formulir
+    RewriteRule ^formulir$ formulir_permohonan.php [NC,L]
+    
+    # Mengarahkan /survey ke form_survey.php
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/survey
+    RewriteRule ^survey$ form_survey.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/listkeberatan
+    RewriteRule ^listkeberatan$ daftar_keberatan_masuk.php [NC,L]
+    
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/listopd
+    RewriteRule ^listopd$ daftar_opd.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/listPI
+    RewriteRule ^listPI$ daftar_permohonan_informasi.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/listPM
+    RewriteRule ^listPM$ daftar_permohonan_masuk.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/dashboard
+    RewriteRule ^dashboard$ dashboard.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/detailKeberatan
+    RewriteRule ^detailKeberatan$ detail_pengajuan_keberatan_informasi.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/detail-PM
+    RewriteRule ^detail-PM$ detail_permohonan_masuk.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/form-keberatan
+    RewriteRule ^form-keberatan$ form_pengajuan_keberatan.php [NC,L]
+    
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/admin
+    RewriteRule ^admin$ login_admin.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/registrasi
+    RewriteRule ^registrasi$ register.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/riwayat
+    RewriteRule ^riwayat$ riwayat_permohonan.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/SKM
+    RewriteRule ^SKM$ survey_kepuasan_masyarakat.php [NC,L]
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/panduan-pengguna
+    RewriteRule ^panduan-pengguna$ panduan.php [NC,L]
+</IfModule>
+

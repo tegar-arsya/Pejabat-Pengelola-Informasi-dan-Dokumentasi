@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['id'])) {
-    header("Location: ../view/login_admin.php");
+    header("Location: ../view/admin");
     exit();
 }
 $user_id = $_SESSION['id'];
@@ -104,9 +104,9 @@ if (isset($_GET['id'])) {
                                                             <td>" . $row["alasan_pengguna_informasi"] . "</td>
                                                             <td>" . $row["opd_yang_dituju"] . "</td>
                                                             <td>
-                                                                <a href='detail_permohonan_masuk.php?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
+                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
                                                                 <button type='button' data-id='" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
-                                                                <a href='detail_permohonan_masuk.php?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
+                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
                                                             </td>
                                                         </tr>";
                                                 }

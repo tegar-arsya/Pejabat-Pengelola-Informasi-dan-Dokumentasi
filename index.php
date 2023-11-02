@@ -13,7 +13,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/fontawesome/css/all.css">
+    <link rel="stylesheet" href="./fontawesome/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
@@ -36,13 +36,13 @@
             </div>
             <div class="navb-items d-none d-xl-flex">
                 <div class="item">
-                    <a href="../view/formulir_permohonan.php">Permohonan Informasi</a>
+                    <a href="">Permohonan Informasi</a>
                 </div>
                 <div class="item">
-                    <a href="../view/pengajuan_keberatan.php">Pengajuan Keberatan</a>
+                    <a href="">Pengajuan Keberatan</a>
                 </div>
                 <div class="item">
-                    <a href="">Paduan</a>
+                    <a href="components/panduan.html">Paduan</a>
                 </div>
                 <div class="item">
                     <a href="">Login</a>
@@ -69,7 +69,8 @@
                                 <i class="fa-solid fa-file-invoice"></i><a href="">Pengajuan Keberatan</a>
                             </div>
                             <div class="modal-line">
-                                <i class="fa-solid fa-chalkboard-user"></i> <a href="">Panduan</a>
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                                <a href="components/panduan.html">Panduan</a>
                             </div>
                             <div class="modal-line">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="">Login</a>
@@ -116,7 +117,7 @@
                                 </div>
                                 <div class="d-flex float-end">
                                     <p class="mb-0 me-2">Belum Terdaftar ?</p>
-                                    <a class="text-" href="./view/register.php">Register</a>
+                                    <a class="text-" href="./view/registrasi">Register</a>
                                 </div>
                             </form>
                         </div>

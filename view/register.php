@@ -43,7 +43,7 @@
                     <a href="">Pengajuan Keberatan</a>
                 </div>
                 <div class="item">
-                    <a href="">Paduan</a>
+                    <a href="../view/components/panduan.html">Paduan</a>
                 </div>
                 <div class="item">
                     <a href="">Login</a>
@@ -73,7 +73,7 @@
                                 <i class="fa-solid fa-file-invoice"></i><a href="">Pengajuan Keberatan</a>
                             </div>
                             <div class="modal-line">
-                                <i class="fa-solid fa-chalkboard-user"></i> <a href="">Panduan</a>
+                                <i class="fa-solid fa-chalkboard-user"></i> <a href="../view/components/panduan.html">Panduan</a>
                             </div>
                             <div class="modal-line">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="">Login</a>
