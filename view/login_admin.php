@@ -5,13 +5,13 @@
     <title>Login 01</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/img/logo_jateng.png">
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../Assets/css/login.css">
 
 </head>
 
@@ -20,7 +20,7 @@
         <div class="container">
             <div class="row justify-content-center" style="margin-top: -80px;">
                 <div class="col-md-6 text-center mb-5">
-                    <img class="img" src="../img/logo_jateng.png" />
+                    <img class="img" src="../Assets/img/logo_jateng.png" />
                     <h2 class="heading-section" style="font-weight: bold; font-size: 22px;">PERMOHONAN INFORMASI</h2>
                     <h3 style="font-size: 22px;">PROVINSI JAWA TENGAH</h3>
                 </div>
@@ -60,10 +60,10 @@
         </div>
     </section>
 
-    <script src="../js/jquery.min.js"></script>
-    <script src="../js/popper.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/main.js"></script>
+    <script src="../Assets/js/jquery.min.js"></script>
+    <script src="../Assets/js/popper.js"></script>
+    <script src="../Assets/js/bootstrap.min.js"></script>
+    <script src="../Assets/js/main.js"></script>
 
 </body>
 

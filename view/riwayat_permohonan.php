@@ -5,12 +5,27 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 $user_id = $_SESSION['id'];
-include('../koneksi/config.php');
+include('../controller/koneksi/config.php');
 if (!isset($_SESSION['nomer_registrasi'])) {
-    header("Location: halaman_error.php");
+    header("Location: ../components/eror.html");
     exit();
 }
 $nomer_registrasi = $_SESSION['nomer_registrasi'];
+$query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
+$result = $conn->query($query);
+
+// Array untuk menyimpan data timeline
+$timelineData = [];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $status = $row['status'];
+        $tanggal = $row['tanggal_verifikasi']; // Sesuaikan dengan nama kolom di tabel Anda
+        
+        // Tambahkan data ke dalam objek timelineData
+        $timelineData[] = array("date" => $tanggal, "status" => $status);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,148 +45,89 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../fontawesome/css/all.css" />
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../Assets/css/style.css" />
+
     <title>-</title>
 </head>
+
 <body>
     <!-- navbar -->
-    <header>
-        <div class="container-fluid">
-            <div class="navb-logo">
-                <img src="../img/logo_jateng.png" alt="Logo" />
-            </div>
-            <div class="info">
-                <h4>LAYANAN PERMOHONAN INFORMASI</h4>
-                <h5>PROVINSI JAWA TENGAH</h5>
-            </div>
-            <div class="navb-items d-none d-xl-flex">
-                <div class="item">
-                    <a href="../view/formulir">Permohonan Informasi</a>
-                </div>
-
-                <div class="item">
-                    <a href="../view/aduan">Pengajuan Keberatan</a>
-                </div>
-
-                <div class="item">
-                    <a href="../components/panduan.html">Paduan</a>
-                </div>
-
-                <div class="item">
-                    <a href="../controller/logout.php">Logout/a>
-                </div>
-            </div>
-
-            <!-- Button trigger modal -->
-            <div class="mobile-toggler d-lg-none">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#navbModal">
-                    <i class="fa-solid fa-bars"></i>
-                </a>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="navbModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <img src="/img/logo_jateng.png" alt="Logo" />
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="modal-line">
-                                <i class="fa-solid fa-circle-info"></i><a href="../view/formulir">Permohonan Informasi</a>
-                            </div>
-
-                            <div class="modal-line">
-                                <i class="fa-solid fa-file-invoice"></i><a href="../view/aduan">Pengajuan Keberatan</a>
-                            </div>
-
-                            <div class="modal-line">
-                                <i class="fa-solid fa-chalkboard-user"></i>
-                                <a href="../components/panduan.html">Panduan</a>
-                            </div>
-
-                            <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/logout.php">Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php include '../components/navbar.php'; ?>
     <div class="custom-line"></div>
     <h1 class="form-title">Detail Permohonan<br />Informasi Publik</h1>
     <div class="container-riwayat">
         <div class="left-container">
-        <div class="box-left">
-            <div style="width: 100%; border-radius: 10px; border: 1px black solid">
-                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Permohonan Informasi
+            <div class="box-left">
+                <div style="width: 100%; border-radius: 10px; border: 1px black solid">
+                    <div
+                        style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                        <div
+                            style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                            Permohonan Informasi
+                        </div>
                     </div>
-                </div>
-                <table class="table table-bordered">
-                    <?php
-                    if (!isset($_SESSION['nomer_registrasi'])){
-                        header("Location: halaman_error.php");
-                        exit();
-                    }
-                    $nomer_registrasi = $_SESSION['nomer_registrasi'];
-                    $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
-                    $result = $conn->query($query);
-                    if ($result->num_rows > 0) {
-                        // Data ditemukan, tampilkan atau proses data di sini
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td><strong>Nama :</strong></td>";
-                            echo "<td>{$row['nama_pengguna']}</td>";
-                            echo "</tr>";
-                
-                            echo "<tr>";
-                            echo "<td><strong>Tanggal Permohonan:</strong></td>";
-                            echo "<td>{$row['tanggal_permohonan']}</td>";
-                            echo "</tr>";
-                
-                            echo "<tr>";
-                            echo "<td><strong>Nomor Register:</strong></td>";
-                            echo "<td>{$row['nomer_registrasi']}</td>";
-                            echo "</tr>";
-                
-                            echo "<tr>";
-                            echo "<td><strong>Informasi yang Diminta:</strong></td>";
-                            echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
-                            echo "</tr>";
-                
-                            echo "<tr>";
-                            echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
-                            echo "<td>{$row['alasan_pengguna_informasi']}</td>";
-                            echo "</tr>";
-                
-                            echo "<tr>";
-                            echo "<td><strong>OPD Yang Dituju:</strong></td>";
-                            echo "<td>{$row['opd_yang_dituju']}</td>";
-                            echo "</tr>";
+                    <table class="table table-bordered">
+                        <?php
+                        if (!isset($_SESSION['nomer_registrasi'])) {
+                            header("Location: halaman_error.php");
+                            exit();
                         }
-                    } else {
-                        // Data tidak ditemukan, berikan respons sesuai ke pengguna
-                        echo "<tr><td colspan='2'>Data permohonan tidak ditemukan.</td></tr>";
-                    }
-                    ?>
-            
-                </table>
-            </div>
+                        $nomer_registrasi = $_SESSION['nomer_registrasi'];
+                        $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
+                        $result = $conn->query($query);
+                        if ($result->num_rows > 0) {
+                            // Data ditemukan, tampilkan atau proses data di sini
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td><strong>Nama :</strong></td>";
+                                echo "<td>{$row['nama_pengguna']}</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<td><strong>Tanggal Permohonan:</strong></td>";
+                                echo "<td>{$row['tanggal_permohonan']}</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<td><strong>Nomor Register:</strong></td>";
+                                echo "<td>{$row['nomer_registrasi']}</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<td><strong>Informasi yang Diminta:</strong></td>";
+                                echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
+                                echo "<td>{$row['alasan_pengguna_informasi']}</td>";
+                                echo "</tr>";
+
+                                echo "<tr>";
+                                echo "<td><strong>OPD Yang Dituju:</strong></td>";
+                                echo "<td>{$row['opd_yang_dituju']}</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            // Data tidak ditemukan, berikan respons sesuai ke pengguna
+                            echo "<tr><td colspan='2'>Data permohonan tidak ditemukan.</td></tr>";
+                        }
+                        ?>
+
+                    </table>
+                </div>
             </div>
             <div style="width: 100%; border-radius: 10px; border: 1px black solid">
-                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Jawaban Permohonan Informasi
+                <div
+                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                    <div
+                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                        Jawaban Permohonan Informasi
                     </div>
                 </div>
                 <table class="table table-bordered">
@@ -192,14 +148,17 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
                         <td></td>
                     </tr>
                 </table>
-                
-                    <img src="../img/logo_jateng.png" style="width: 50px;" alt="">
-                    Admin PPID Dishub Prov Jateng
+
+                <img src="../Assets/img/logo_jateng.png" style="width: 50px;" alt="">
+                Admin PPID Dishub Prov Jateng
                 </p>
             </div>
             <div style="width: 100%; background: white; border-radius: 10px; border: 1px black solid">
-                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Survey
+                <div
+                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                    <div
+                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                        Survey
                     </div>
                 </div>
                 <h5 style="text-align: center;">Apakah permohonan informasi Anda sudah terjawab?</h5>
@@ -210,17 +169,96 @@ $nomer_registrasi = $_SESSION['nomer_registrasi'];
             </div>
         </div>
         <div class="right-container">
-            <div class="box-right" style="width: 100%; height: 100%; border-radius: 10px; border: 1px black solid">
-                <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">Tindak Lanjut
-                    </div>
+        <div class="box-right" style="width: 100%; height: 100%; border-radius: 10px; border: 1px black solid">
+            <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
+                <div style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                    Tindak Lanjut
                 </div>
-                
+            </div>
+            <div class="timeline-container">
+                <?php
+                // Loop untuk membuat timeline dari data yang didapatkan dari database
+                foreach ($timelineData as $index => $item) {
+                    $date = $item['date'];
+                    $status = $item['status'];
+                ?>
+                    <div class="timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-number"><?php echo $index + 1; ?></div>
+                        <div class="timeline-content">
+                            <strong><?php echo $date; ?></strong><br>
+                            Status: <?php echo $status; ?>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
+    </div>
     <?php include '../components/footer.php'; ?>
-    <script src="js/survey.js"></script>
+    
+    <script>
+        var timelineData = <?php echo json_encode($timelineData); ?>;
+
+function createTimelineItem(date, status, number) {
+    var timelineItem = document.createElement("div");
+    timelineItem.className = "timeline-item";
+
+    var timelineLine = document.createElement("div");
+    timelineLine.className = "timeline-line";
+
+    var timelineNumber = document.createElement("div");
+    timelineNumber.className = "timeline-number";
+    timelineNumber.textContent = number;
+
+    var timelineContent = document.createElement("div");
+    timelineContent.className = "timeline-content";
+    timelineContent.innerHTML = "<strong>" + date + "</strong><br>Status: " + status;
+
+    timelineItem.appendChild(timelineLine);
+    timelineItem.appendChild(timelineNumber);
+    timelineItem.appendChild(timelineContent);
+
+    return timelineItem;
+}
+
+var timelineContainer = document.querySelector(".timeline-container");
+
+// Fungsi untuk membuat timeline dari data yang ada
+function createTimeline() {
+    timelineContainer.innerHTML = ""; // Bersihkan kontainer timeline terlebih dahulu
+
+    timelineData.forEach(function (item, index) {
+        var timelineItem = createTimelineItem(item.date, item.status, index + 1);
+        timelineContainer.appendChild(timelineItem);
+    });
+}
+
+// Inisialisasi timeline saat halaman dimuat
+createTimeline();
+
+// Fungsi untuk menangani klik tombol "Ya"
+function handleYesClick() {
+    // Lakukan aksi yang diperlukan ketika pengguna memilih "Ya"
+    alert("Terima kasih atas tanggapan Anda!");
+}
+
+// Fungsi untuk menangani klik tombol "Tidak"
+function handleNoClick() {
+    // Lakukan aksi yang diperlukan ketika pengguna memilih "Tidak"
+    alert("Terima kasih atas tanggapan Anda! Kami akan memperbaiki pelayanan kami.");
+}
+
+// Menangani klik tombol "Ya"
+var yesButton = document.querySelector(".button-ya");
+yesButton.addEventListener("click", handleYesClick);
+
+// Menangani klik tombol "Tidak"
+var noButton = document.querySelector(".button-tdk");
+noButton.addEventListener("click", handleNoClick);
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>

@@ -8,7 +8,7 @@ if ($_POST['user-input'] !== $_SESSION['captcha']) {
     exit();
 }
 
-include('../koneksi/config.php');
+include('../controller/koneksi/config.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -20,79 +20,21 @@ $user_id = $_SESSION['id'];
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
     <!-- Jarallax CSS -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/img/logo_jateng.png">
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
-    <link rel="stylesheaet" href="/fontawesome/css/all.css">
+    <link rel="stylesheaet" href="../Assets/fontawesome/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../Assets/css/style.css">
     <title>Pengajuan Keberatan</title>
 </head>
 
 <body id="page-top">
 
     <!-- navbar -->
-    <header>
-        <div class="container-fluid">
-            <div class="navb-logo">
-                <img src="../img/logo_jateng.png" alt="Logo">
-            </div>
-            <div class="info">
-                <h4>LAYANAN PERMOHONAN INFORMASI</h4>
-                <H5>PROVINSI JAWA TENGAH</H5>
-            </div>
-            <div class="navb-items d-none d-xl-flex">
-                <div class="item">
-                    <a href="../view/formulir">Permohonan Informasi</a>
-                </div>
-                <div class="item">
-                    <a href="../view/aduan">Pengajuan Keberatan</a>
-                </div>
-                <div class="item">
-                    <a href="../components/panduan.html">Paduan</a>
-                </div>
-                <div class="item">
-                    <a href="../controller/logout.php">Logout</a>
-                </div>
-            </div>
-            <!-- Button trigger modal -->
-            <div class="mobile-toggler d-lg-none">
-                <a href="#" data-bs-toggle="modal" data-bs-target="#navbModal">
-                    <i class="fa-solid fa-bars"></i>
-                </a>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="navbModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <img src="../img/logo_jateng.png" alt="Logo">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                                    class="fa-solid fa-xmark"></i></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="modal-line">
-                                <i class="fa-solid fa-circle-info"></i><a
-                                    href="../view/formulir">Permohonan Informasi</a>
-                            </div>
-
-                            <div class="modal-line">
-                                <i class="fa-solid fa-file-invoice"></i><a href="../view/aduan">Pengajuan Keberatan</a>
-                            </div>
-                            <div class="modal-line">
-                                <i class="fa-solid fa-chalkboard-user"></i> <a href="../components/panduan.html">Panduan</a>
-                            </div>
-                            <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/logout.php">Logout</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    <?php include '../components/navbar.php'; ?>
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Pengajuan Keberatan Informasi</h1>

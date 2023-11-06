@@ -12,14 +12,14 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
     <!-- Jarallax CSS -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/img/logo_jateng.png">
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
-    <link rel="stylesheaet" href="/fontawesome/css/all.css">
+    <link rel="stylesheaet" href="../Assets/fontawesome/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../Assets/css/style.css">
     <title>Daftar</title>
 </head>
 
@@ -29,7 +29,7 @@
     <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <img src="../img/logo_jateng.png" alt="Logo">
+                <img src="../Assets/img/logo_jateng.png" alt="Logo">
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>
@@ -60,7 +60,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <img src="../img/logo_jateng.png" alt="Logo">
+                            <img src="../Assets/img/logo_jateng.png" alt="Logo">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                                     class="fa-solid fa-xmark"></i></button>
                         </div>
@@ -177,9 +177,9 @@
         </form>
     </div>
     <?php include '../components/footer.php'; ?>
-    <script src="../js/data.js"></script>
-    <script src="../js/provinsi.js"></script>
-    <script src="../js/kota.js"></script>
+    <script src="../Model/data.js"></script>
+    <script src="../Model/provinsi.js"></script>
+    <script src="../Model/kota.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>

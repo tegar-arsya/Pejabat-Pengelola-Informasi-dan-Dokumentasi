@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../koneksi/config.php');
+include('../controller/koneksi/config.php');
 
 // Periksa apakah pengguna telah login
 if(isset($_SESSION['nik'])) {

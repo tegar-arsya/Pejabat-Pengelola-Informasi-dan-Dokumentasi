@@ -9,7 +9,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link href="../css/style-admin.css" rel="stylesheet">
+    <link href="../Assets/css/style-admin.css" rel="stylesheet">
     
 </head>
 
@@ -40,7 +40,7 @@
                     <div class="form-input-content">
                         <div class="row justify-content-center">
                             <div class="col-md-6 text-center mb-5">
-                                <img class="img" src="../img/logo_jateng.png" width="100px"/>
+                                <img class="img" src="../Assets/img/logo_jateng.png" width="100px"/>
                                 <h2 class="heading-section" style="font-weight: bold; font-size: 22px;">PERMOHONAN INFORMASI</h2>
                                 <h3 style="font-size: 22px;">PROVINSI JAWA TENGAH</h3>
                             </div>
@@ -78,11 +78,11 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <script src="../plugins/common/common.min.js"></script>
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/settings.js"></script>
-    <script src="../js/gleek.js"></script>
-    <script src="../js/styleSwitcher.js"></script>
+    <script src="../Assets/plugins/common/common.min.js"></script>
+    <script src="../Assets/js/custom.min.js"></script>
+    <script src="../Assets/js/settings.js"></script>
+    <script src="../Assets/js/gleek.js"></script>
+    <script src="../Assets/js/styleSwitcher.js"></script>
 </body>
 </html>
 

@@ -9,7 +9,7 @@ if ($_POST['user-input'] !== $_SESSION['captcha']) {
     exit();
 }
 
-include('../koneksi/config.php');
+include('../controller/koneksi/config.php');
 
 if(isset($_GET['id'])){
     $id_pengguna = $_GET['id'];

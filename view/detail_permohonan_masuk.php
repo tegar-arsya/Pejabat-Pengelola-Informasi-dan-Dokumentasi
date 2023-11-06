@@ -6,7 +6,7 @@ if (!isset($_SESSION['id'])) {
 }
 $user_id = $_SESSION['id'];
 
-include('../koneksi/config.php');
+include('../controller/koneksi/config.php');
 
 if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];
@@ -45,12 +45,12 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PERMOHONAN INFORMASI PROVINSI JAWA TENGAH</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/images/logo_jateng.png">
     <!-- Custom Stylesheet -->
-    <link href="../plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <link href="../css/style-admin.css" rel="stylesheet">
+    <link href="../Assets/css/style-admin.css" rel="stylesheet">
 
 </head>
 
@@ -96,7 +96,7 @@ if (isset($_GET['id'])) {
                                     </tr>
                                     <tr>
                                         <td><strong>Foto KTP:</strong></td>
-                                        <td><a href="../uploads/<?php echo $row['foto_ktp']; ?>" target="_blank">
+                                        <td><a href="../Assets/uploads/<?php echo $row['foto_ktp']; ?>" target="_blank">
                                                 <?php echo $row['foto_ktp']; ?>
                                             </a></td>
                                     </tr>
@@ -135,7 +135,7 @@ if (isset($_GET['id'])) {
                                 <button class="btn btn-success" id="verifikasiBtn">Verifikasi</button>
                                 <button class="btn btn-danger" onclick="belumValid()">Belum Valid</button>
                                 <div id="alasanPenolakanForm" class="hidden">
-                                    <form action="../smtpmail/sendmail.php" method="POST">
+                                    <form action="../controller/smtpmail/sendmail.php" method="POST">
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td>Nama :</td>
@@ -285,15 +285,15 @@ if (isset($_GET['id'])) {
         }</script>
 
 
-    <script src="../plugins/common/common.min.js"></script>
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/settings.js"></script>
-    <script src="../js/gleek.js"></script>
-    <script src="../js/styleSwitcher.js"></script>
+    <script src="../Assets/plugins/common/common.min.js"></script>
+    <script src="../Assets/js/custom.min.js"></script>
+    <script src="../Assets/js/settings.js"></script>
+    <script src="../Assets/js/gleek.js"></script>
+    <script src="../Assets/js/styleSwitcher.js"></script>
 
-    <script src="../plugins/tables/js/jquery.dataTables.min.js"></script>
-    <script src="../plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="../plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+    <script src="../Assets/plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="../Assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="../Assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
 </body>
 

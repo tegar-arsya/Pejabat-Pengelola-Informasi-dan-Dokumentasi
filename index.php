@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="icon" type="image/png" sizes="16x16" href="./img/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./Assets/img/logo_jateng.png">
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
@@ -20,7 +20,7 @@
         crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="Assets/css/style.css">
     <title>LAYANAN PERMOHONAN INFORMASI PROVINSI JAWA TENGAH</title>
 </head>
 
@@ -28,7 +28,7 @@
     <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <img src="img/logo_jateng.png" alt="Logo">
+                <img src="Assets/img/logo_jateng.png" alt="Logo">
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>
@@ -57,7 +57,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <img src="img/logo_jateng.png" alt="Logo">
+                            <img src="Assets/img/logo_jateng.png" alt="Logo">
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
                                     class="fa-solid fa-xmark"></i></button>
                         </div>
@@ -129,7 +129,7 @@
     <footer class="footer">
 
     <div class="left-section">
-        <img src="img/logo_jateng.png" alt="Logo">
+        <img src="Assets/img/logo_jateng.png" alt="Logo">
         <h4 style="font-size: 15px; margin-left: 70px; margin-top: -40px;">LAYANAN PERMOHONAN INFORMASI</h4>
         <h5 style="font-size: 15px; margin-left: 70px;">PROVINSI JAWA TENGAH</h5>
         <p style="margin-left: 70px; margin-top: 30px;">Alamat</p>

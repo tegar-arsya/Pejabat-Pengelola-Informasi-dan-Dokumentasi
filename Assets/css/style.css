@@ -1137,3 +1137,58 @@ button#cancel-button {
 }
 
 
+.timeline-container {
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 1000px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-date {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.timeline-content {
+    background-color: #D9D9D9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ... tambahkan gaya lain sesuai kebutuhan ... */
+.timeline-line {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #0D9F00; /* Warna garis vertikal */
+}
+
+.timeline-number {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 20px;
+    background-color: #0D9F00; /* Warna bulat nomor */
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 40px; /* Sesuaikan dengan lebar nomor urutan dan garis vertikal */
+}

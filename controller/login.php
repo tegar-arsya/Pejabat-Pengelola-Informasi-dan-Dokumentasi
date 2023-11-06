@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../koneksi/config.php';
+require '../controller/koneksi/config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];

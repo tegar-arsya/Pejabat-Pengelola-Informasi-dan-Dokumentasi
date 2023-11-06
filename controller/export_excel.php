@@ -6,7 +6,7 @@ if (!isset($_SESSION['id'])) {
 }
 $user_id = $_SESSION['id'];
 
-include('../koneksi/config.php');
+include('../controller/koneksi/config.php');
 
 if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];

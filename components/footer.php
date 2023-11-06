@@ -1,7 +1,7 @@
 <footer class="footer">
 
     <div class="left-section">
-        <img src="../img/logo_jateng.png" alt="Logo">
+        <img src="../Assets/img/logo_jateng.png" alt="Logo">
         <h4 style="font-size: 15px; margin-left: 70px; margin-top: -40px;">LAYANAN PERMOHONAN INFORMASI</h4>
         <h5 style="font-size: 15px; margin-left: 70px;">PROVINSI JAWA TENGAH</h5>
         <p style="margin-left: 70px; margin-top: 30px;">Alamat</p>

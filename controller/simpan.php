@@ -1,6 +1,6 @@
 <?php
 
-require '../koneksi/config.php';
+require '../controller/koneksi/config.php';
 // Menerima data dari formulir
 $namadepan = $_POST['namadepan'];
 $namabelakang = $_POST['namabelakang'];
@@ -21,7 +21,7 @@ $password = $_POST['password'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // Mengelola unggahan file
-$targetDirectory = "../uploads/";
+$targetDirectory = "../Assets/uploads/";
 $targetFile = $targetDirectory . basename($_FILES["fotoktp"]["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));

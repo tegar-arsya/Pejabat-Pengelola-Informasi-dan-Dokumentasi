@@ -1,5 +1,5 @@
 <?php
-require '../koneksi/config.php';
+require '../controller/koneksi/config.php';
 
 // Menerima data dari formulir
 $namapengguna = $_POST['name'];

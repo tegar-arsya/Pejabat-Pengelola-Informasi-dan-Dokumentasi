@@ -15,10 +15,10 @@ $user_id = $_SESSION['id'];
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PERMOHONAN INFORMASI PROVINSI JAWA TENGAH</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/images/logo_jateng.png">
     <!-- Custom Stylesheet -->
-    <link href="../plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="../css/style-admin.css" rel="stylesheet">
+    <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../Assets/css/style-admin.css" rel="stylesheet">
 
 </head>
 
@@ -134,15 +134,15 @@ $user_id = $_SESSION['id'];
             alert('Tombol batal Ditekan!');
         }
     </script>
-    <script src="../plugins/common/common.min.js"></script>
-    <script src="../js/custom.min.js"></script>
-    <script src="../js/settings.js"></script>
-    <script src="../js/gleek.js"></script>
-    <script src="../js/styleSwitcher.js"></script>
+    <script src="../Assets/plugins/common/common.min.js"></script>
+    <script src="../Assets/js/custom.min.js"></script>
+    <script src="../Assets/js/settings.js"></script>
+    <script src="../Assets/js/gleek.js"></script>
+    <script src="../Assets/js/styleSwitcher.js"></script>
 
-    <script src="../plugins/tables/js/jquery.dataTables.min.js"></script>
-    <script src="../plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
-    <script src="../plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+    <script src="../Assets/plugins/tables/js/jquery.dataTables.min.js"></script>
+    <script src="../Assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="../Assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 
 </body>
 
