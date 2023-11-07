@@ -7,10 +7,14 @@ Options -Indexes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}.php -f
     RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
     
     # Mengarahkan /aduan ke pengajuan_keberatan.php
     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/home
     RewriteRule ^home$ index.php [NC,L]
-    
+
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/admin
+    RewriteRule ^admin$ login_admin.php [NC,L]
+
 </IfModule>
 

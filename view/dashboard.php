@@ -60,7 +60,7 @@ $user_id = $_SESSION['id'];
                                 <h3 class="card-title text-white">Registrasi</h3>
                                 <div class="d-inline-block">
                                     <h2 class="text-white"><?php echo $totalRegistrasi; ?></h2>
-                                    <p class="text-white mb-0">Jan - March 2019</p>
+                                    <p class="text-white mb-0">Pengguna</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
                             </div>
@@ -80,12 +80,12 @@ $user_id = $_SESSION['id'];
                     </div>
                     <?php
                     include('../controller/koneksi/config.php');
-                    $sql = "SELECT COUNT(*) as total_registrasi FROM registrasi";
+                    $sql = "SELECT COUNT(*) as total_Permohonan FROM permohonan_informasi";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_assoc();
-                        $totalRegistrasi = $row['total_registrasi'];
+                        $totalPermohonan = $row['total_Permohonan'];
                     } else {
                         $totalRegistrasi = 0;
                     }
@@ -97,9 +97,10 @@ $user_id = $_SESSION['id'];
                             <div class="card-body">
                                 <h3 class="card-title text-white">PEMOHON</h3>
                                 <div class="d-inline-block">
-                                    <h2 class="text-white"><?php echo $totalRegistrasi; ?></h2>
+                                    <h2 class="text-white"><?php echo $totalPermohonan; ?></h2>
+                                    <p class="text-white mb-0">Permohonan Informasi</p>
                                 </div>
-                                <span class="float-right display-5 opacity-5"><i class="fa fa-list"></i></span>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
     <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <img src="Assets/img/logo_jateng.png" alt="Logo">
+                <a href="./view/admin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>

@@ -47,57 +47,6 @@ $user_id = $_SESSION['id'];
                 <div class="user-input-box1">
                     <label for="opd">OPD yang di tuju</label>
                     <select id="opd" name="opd" required>
-                        <option>Sekretaris Daerah Provinsi Jawa Tengah</option>
-                        <option>Sekretaris DPRD Provinsi Jawa Tengah</option>
-                        <option>Insprektur Provinsi Jawa Tengah</option>
-                        <option>Kepala Pelaksana Harian Badan Penanggulangan Bencana Daerah Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Kesatuan Bangsa, Politik Dan Perlindungan Masyarakat Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Perencanaan Pembangunan, Penelitian Dan Pengembangan Daerah Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Kepegawaian Daerah Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Pengembangan Sumber Daya Manusia Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Pengelola Pendapatan Daerah Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Penghubung Provinsi Jawa Tengah</option>
-                        <option>Kepala Badan Pengelola Keuangan dan Aset Daerah Provinsi Jawa Tengah</option>
-                        <option>Kepala Satuan Polisi Pamong Praja Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Pendidikan Dan Kebudayaan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Kesehatan Jawa Tengah</option>
-                        <option>Kepala Dinas Pekerjaan Umum Bina Marga Dan Cipta Karya Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Pekerjaan Umum Sumber Daya Air Dan Penataan Ruang Provinsi Jawa Tengah</option>
-                        <option>Kepala Diqnas Perumahan Rakyat Dan Kawasan Permukiman Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Sosial Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Tenaga Kerja Dan Transmigrasi Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Energi Dan Sumber Daya Mineral Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Kepemudaan, Olahraga Dan Pariwisata Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Perhubungan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Komunikasi Dan Informatika Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Perindustrian Dan Perdagangan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Koperasi, Usaha Kecil Dan Menengah Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Pertanian Dan Perkebunan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Ketahanan Pangan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Peternakan Dan Kesehatan Hewan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Kelautan Dan Perikanan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Lingkungan Hidup dan Kehutanan Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Pemberdayaan Masyarakat, Desa, Kependudukan Dan Catatan Sipil Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Pemberdayaan Perempuan, Perlindungan Anak, Pengendalian Penduduk Dan Keluarga Berencana Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Penanaman Modal Dan Pelayanan Terpadu Satu Pintu Provinsi Jawa Tengah</option>
-                        <option>Kepala Dinas Kearsipan Dan Perpustakaan Provinsi Jawa Tengah</option>
-                        <option>Kepala RSUD Dr. Moewardi Provinsi Jawa Tengah</option>
-                        <option>Kepala RSUD Prof. Dr. Margono Soekardjo Provinsi Jawa Tengah</option>
-                        <option>Kepala RSUD Tugurejo Provinsi Jawa Tengah</option>
-                        <option>Kepala RSUD Kelet Provinsi Jawa Tengah</option>
-                        <option>Kepala RSJD Dr. Amino Gondohutomo Provinsi Jawa Tengah</option>
-                        <option>Kepala RSJD Surakarta Provinsi Jawa Tengah</option>
-                        <option>Kepala RSJD Dr. RM Soedjarwadi Provinsi Jawa Tengah</option>
-                        <option>Direktur PT. Bank Jateng</option>
-                        <option>Direktur PT.Trans Marga Jateng</option>
-                        <option>Direktur PT> Asuransi Bangun Askrida</option>
-                        <option>Direktur PT. Sarana Patra Jateng/ Direktur PT. Sarana Patra Hulu Cepu</option>
-                        <option>Direktur PD. Air Bersih Jawa Tengah</option>
-                        <option>Direktur PD. Citra Mandiri Jawa Tengah</option>
-                        <option>Direktur PD. BPR/BKK Jawa Tengah</option>
-                        <option>Direktur PT. PRPP Jawa Tengah</option>
-                        <option>Direktur PT. Sarana Pembangunan Jawa Tengah</option>
-                        <option>Direktur PT. Kawan Indutri Wijayakusuma</option>
                     </select>
                 </div>
             </div>
@@ -151,6 +100,7 @@ $user_id = $_SESSION['id'];
     </div>
     <?php include '../components/footer.php'; ?>
     <script src="../Model/script.js"></script>
+    <script src="../Model/opd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>

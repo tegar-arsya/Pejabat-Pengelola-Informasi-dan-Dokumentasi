@@ -27,7 +27,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
                 // Jika penyimpanan data di server berhasil, tampilkan popup SweetAlert2
                 Swal.fire({
                     title: 'Berhasil Terkirim',
-                    html: 'Permohonan informasi publik anda telah berhasil terkirim, untuk detail lebih lanjut mohon untuk dicek di bagian <a href="../view/riwayat_permohonan.php" style="color: red; text-decoration: underline;">riwayat permohonan</a>',
+                    html: 'Permohonan informasi publik anda telah berhasil terkirim, untuk detail lebih lanjut mohon untuk dicek di bagian <a href="../view/riwayat" style="color: red; text-decoration: underline;">riwayat permohonan</a>',
                     icon: 'success',
                 });
                 

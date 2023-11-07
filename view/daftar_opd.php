@@ -31,7 +31,7 @@ $user_id = $_SESSION['id'];
         </div>
     </div>
     <div id="main-wrapper">
-    <?php include '../components/navbar.html'; ?>
+        <?php include '../components/navbar.html'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -44,25 +44,36 @@ $user_id = $_SESSION['id'];
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
+                                                <th>Nama</th>
+                                                <th>Alamat</th>
+                                                <th>Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Tegar Arsyadani</td>
-                                                <td>System Architect</td>
-                                                <td>Edinburgh</td>
-                                                <td>61</td>
-                                                <td>2011/04/25</td>
-                                                <td>$320,800</td>
-                                            </tr>
+                                            <?php
+                                            include('../controller/koneksi/config.php');
+
+                                            $sql = "SELECT * FROM tbl_daftar_opd";
+                                            $result = $conn->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<tr>
+                                                            <td>" . $row["nama"] . "</td>
+                                                            <td>" . $row["alamat_opd"] . "</td>
+                                                            <td>" . $row["email_opd"] . "</td>
+            
+                                                        </tr>";
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='6'>Tidak ada data</td></tr>";
+                                            }
+                                            $conn->close();
+                                            ?>
                                         </tbody>
                                     </table>
+                                    <button class="btn btn-primary" onclick="goBack()">Back</button>
+                                    <button class="btn btn-danger" onclick="belumValid()">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -81,4 +92,5 @@ $user_id = $_SESSION['id'];
     <script src="../Assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="../Assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
 </body>
+
 </html>
