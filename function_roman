@@ -1,0 +1,27 @@
+//roman permohonan dan keberatan. tinggal ganti function
+
+
+DELIMITER //
+CREATE FUNCTION to_roman_month(month_num INT) RETURNS VARCHAR(3)
+BEGIN
+    DECLARE result VARCHAR(3);
+
+    CASE month_num
+        WHEN 1 THEN SET result = 'I';
+        WHEN 2 THEN SET result = 'II';
+        WHEN 3 THEN SET result = 'III';
+        WHEN 4 THEN SET result = 'IV';
+        WHEN 5 THEN SET result = 'V';
+        WHEN 6 THEN SET result = 'VI';
+        WHEN 7 THEN SET result = 'VII';
+        WHEN 8 THEN SET result = 'VIII';
+        WHEN 9 THEN SET result = 'IX';
+        WHEN 10 THEN SET result = 'X';
+        WHEN 11 THEN SET result = 'XI';
+        WHEN 12 THEN SET result = 'XII';
+        ELSE SET result = 'Invalid Month';
+    END CASE;
+
+    RETURN result;
+END //
+DELIMITER ;
