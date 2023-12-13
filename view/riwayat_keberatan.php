@@ -77,11 +77,9 @@ if ($resultJawaban->num_rows > 0) {
         <div class="row">
             <div class="col-md-8">
             <div class="box-left">
-                <div style="width: 100%; border-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                        <div
-                            style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                <div class="information">
+                    <div class="fill">
+                        <div id="fill">
                             Identitas Pemohon
                         </div>
                     </div>
@@ -167,11 +165,9 @@ if ($resultJawaban->num_rows > 0) {
                     </table>
                 </div>
             </div>
-            <div style="width: 100%; margin-top: 20px;border-radius: 10px; border: 1px black solid">
-                <div
-                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+            <div class="information">
+                <div class="fill">
+                    <div id="fill">
                         Dikuasakan Kepada
                     </div>
                 </div>
@@ -222,11 +218,9 @@ if ($resultJawaban->num_rows > 0) {
                 Admin PPID Dishub Prov Jateng
                 </p>
             </div>
-            <div id="tabelcontainer" style="width: 100%; margin-top: 20px;border-radius: 10px; border: 1px black solid">
-                <div
-                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+            <div id="tabelcontainer" id="tableContainer">
+                <div class="fill">
+                    <div id="fill">
                         Jawaban Pengajuan Keberatan
                     </div>
                 </div>
@@ -292,24 +286,22 @@ if ($resultJawaban->num_rows > 0) {
             $surveyKomplit = ($resultSurveyk->num_rows > 0);
             $surveyPesan = $surveyKomplit ? "Terima kasih telah mengisi survey, silahkan unduh jawaban Keberatan Anda." : "Apakah keberatan informasi Anda sudah terjawab?";
             ?>
-            <div style="width: 100%; margin-top: 20px;background: white; border-radius: 10px; border: 1px black solid">
-                <div
-                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+            <div class="survey-information">
+                <div class="fill">
+                    <div id="fill">
                         Survey
                     </div>
                 </div>
                 <?php if ($surveyKomplit): ?>
-                <h5 style="text-align: center;"><?php echo $surveyPesan; ?></h5>
-                <div style="text-align: center;">
+                <h5 id="message"><?php echo $surveyPesan; ?></h5>
+                <div id="message">
                     <a href="../controller/download-responsek.php?registrasi=<?php echo $nomer_registrasi_keberatan; ?>" target="_blank">
                             <button class="button-ya" type="button">Unduh Jawaban</button>
                         </a>
                 </div>
                 <?php else: ?>
-                <h5 style="text-align: center;"><?php echo $surveyPesan; ?></h5>
-                <div style="text-align: center;">
+                <h5 id="message"><?php echo $surveyPesan; ?></h5>
+                <div id="message">
                     <a href="../view/surveyKeberatan?registrasi=<?php echo $nomer_registrasi_keberatan; ?>"> <button class="button-ya" type="button">Ya</button> </a>
                     <button class="button-tdk" type="button">Tidak</button>
                 </div>
@@ -317,11 +309,9 @@ if ($resultJawaban->num_rows > 0) {
             </div>
             </div>
             <div class="col-md-4">
-            <div class="box-right" style="border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
-                <div
-                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+            <div class="box-right" id="follow-up">
+                <div class="fill">
+                    <div id="fill">
                         Tindak Lanjut
                     </div>
                 </div>
