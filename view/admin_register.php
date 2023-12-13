@@ -57,6 +57,13 @@
                                     <div class="form-group">
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="role">Role:</label>
+                                        <select class="form-control" id="role" name="role">
+                                            <option value="superadmin">Super Admin</option>
+                                            <!-- Tambahkan opsi role lain jika diperlukan -->
+                                        </select>
+                                    </div>
                                     <button class="btn login-form__btn submit w-100" style="
                                     background-color: #9F0000;
                                 ">Sign in</button>

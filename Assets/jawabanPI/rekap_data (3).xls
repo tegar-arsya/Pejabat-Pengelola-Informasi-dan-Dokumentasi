@@ -1,0 +1,21 @@
+
+<h1 style="text-align: center; margin-top: 100px;">REKAP DATA PERMOHONAN INFORMASI</h1>
+<div class="table-responsive">
+    <table border="10" align="center">
+        <thead>
+            <tr>
+                <th>No. Register</th>
+                <th>Nama</th>
+                <th>No.HP</th>
+                <th>Informasi yang Dibutuhkan</th>
+                <th>OPD yang ditujui</th>
+                <th>Tanggal Masuk</th>
+                <th>Tangal Verifikasi</th>
+                <th>Tanggal Selesai</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>0330/PPID-Jateng/XI/2023</td><td>arsyadani gokil</td><td>081353677822</td><td>mencoba </td><td>BADAN PENGELOLA KEUANGAN DAN ASET DAERAH</td><td>2023-11-18 12:15:46</td><td>2023-11-21 12:37:45</td><td></td><td>Pending</td></tr><tr><td>0337/PPID-Jateng/XI/2023</td><td>TEGAR ARSYADANI</td><td>081353677822</td><td>testing </td><td>TESTING DEV</td><td>2023-11-21 08:53:39</td><td>2023-11-21 13:16:39</td><td></td><td>Sudah Verifikasi</td></tr>        </tbody>
+    </table>
+</div>

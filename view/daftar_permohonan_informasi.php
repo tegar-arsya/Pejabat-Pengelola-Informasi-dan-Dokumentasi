@@ -1,5 +1,9 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
+
 session_start();
+session_regenerate_id(true);
+
 if (!isset($_SESSION['id'])) {
     header("Location: ../view/admin");
     exit();
@@ -46,17 +50,20 @@ if (isset($_GET['id'])) {
                                 <div class="row" style="background-color: #9F0000;">
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="nik" name="nik" placeholder="Nomor NIK">
+                                            <input type="text" class="form-control" id="nik" name="nik"
+                                                placeholder="Nomor NIK">
                                         </div>
                                     </div>
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Pemohon">
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                placeholder="Nama Pemohon">
                                         </div>
                                     </div>
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" id="registrasi" name="registrasi"  placeholder="Nomor Registrasi">
+                                            <input type="text" class="form-control" id="registrasi" name="registrasi"
+                                                placeholder="Nomor Registrasi">
                                         </div>
                                     </div>
                                     <div class="col-md-2 daftar-permohonan">
@@ -65,16 +72,19 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                                 <h4 class="card-title">Daftar Permohonan Informasi</h4>
-                                <input type="button" class="btn btn-success" value="export Excel"
-                                    onclick="window.open('../controller/export_excel.php')">
+                                
+                                <button id="exportExcel" style="border : none;" onclick="window.open('../controller/export_excel.php')">
+                                <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #058a2d; font-size: 30px;">
+                            </i>
+                        </button>
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered ">
+                                    <table id="permohonanTable" class="table table-striped table-bordered ">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="select-all"></th>
                                                 <th>No. Register</th>
                                                 <th>Nama</th>
-                                                <th>No.HP</th>
+                                                <th>No.HP</th> 
                                                 <th>Informasi yang Dibutuhkan</th>
                                                 <th>OPD yang ditujui</th>
                                                 <th>Tanggal Masuk</th>
@@ -86,40 +96,67 @@ if (isset($_GET['id'])) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = "SELECT vp.*, sk.tanggal_survey, pi.nama_pengguna FROM verifikasi_permohonan vp 
+                                            $query = "SELECT DISTINCT vp.nomer_registrasi, vp.*, sk.tanggal_survey, pi.nama_pengguna, tr.tanggal_penolakan, pk.kode_permohonan_informasi
+                                            FROM verifikasi_permohonan vp
                                             LEFT JOIN survey_kepuasan sk ON vp.nomer_registrasi = sk.nomer_registrasi
-                                            LEFT JOIN permohonan_informasi pi ON vp.nama_pengguna = pi.nama_pengguna";
-                                            $result = $conn->query($query);
+                                            LEFT JOIN permohonan_informasi pi ON vp.nama_pengguna = pi.nama_pengguna
+                                            LEFT JOIN tbl_rejected tr ON vp.nomer_registrasi = tr.nomer_registrasi
+                                            LEFT JOIN pengajuan_keberatan pk ON vp.nomer_registrasi = pk.kode_permohonan_informasi";
+                                            $stmt = $conn->prepare($query);
+                                            $stmt->execute();
+                                            $result = $stmt->get_result();
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
                                                     echo "<td><input type='checkbox' class='select-row'></td>";
-                                                    echo "<td>{$row['nomer_registrasi']}</td>";
-                                                    echo "<td>{$row['nama_pengguna']}</td>";
-                                                    echo "<td>{$row['no_hp']}</td>";
-                                                    echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
-                                                    echo "<td>{$row['opd_yang_dituju']}</td>";
-                                                    echo "<td>{$row['tanggal_permohonan']}</td>";
-                                                    echo "<td>{$row['tanggal_verifikasi']}</td>";
-                                                    echo "<td>{$row['tanggal_survey']}</td>";
-                                                    echo "<td><button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button>";
-                                                    echo "<button class='btn btn-success btn-sm' onclick='status()'>Status</button></td>";
+                                                    echo "<td>" . htmlspecialchars($row['nomer_registrasi']) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row['nama_pengguna']) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row['no_hp']) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row['informasi_yang_dibutuhkan']) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row['opd_yang_dituju']) . "</td>";
+                                                    echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";
+                                                    echo "<td>" . (!empty($row['tanggal_verifikasi']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_verifikasi']))) : '') . "</td>";
+                                                    echo "<td>" . (!empty($row['tanggal_survey']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_survey']))) : '') . "</td>";
+                                                    echo "<td> <button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button>";
+                                                    echo "<button class='btn btn-danger btn-sm' onclick='HapusVerifikasi(\"{$row['nomer_registrasi']}\")'>Hapus</button>";
+                                                    echo "<a href='formAnswer?registrasi=" . $row["nomer_registrasi"] . "' class='btn btn-success btn-sm'>Jawaban Permohonan</a>";
+                                                    
                                                     $status = '';
-                                                    if (!empty($row['tanggal_survey'])) {
-                                                        $status = 'Permohonan Selesai';
-                                                    } elseif (!empty($row['tanggal_verifikasi'])) {
-                                                        $status = 'Sudah Verifikasi';
+                                                    if (!empty($row['kode_permohonan_informasi'])) {
+                                                        // Jika ada pengajuan keberatan, atur status ke 'Pengajuan Keberatan'
+                                                        $status = 'Pengajuan Keberatan';
                                                     } else {
+                                                        $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+                                                        if (!empty($row['tanggal_survey'])) {
+                                                        $status = 'Permohonan Selesai';
+                                                    } elseif (!empty($row['tanggal_verifikasi']) && empty($row['tanggal_penolakan'])) {
+                                                        $status = 'Permohonan informasi Sudah Diverifikasi Oleh Admin.';
+                                                    } elseif (!empty($row['tanggal_penolakan'])) {
+                                                        // Cek apakah sudah 3 hari setelah tanggal penolakan
+                                                        $tanggalPenolakan = (new DateTime())->setTimestamp(strtotime($row['tanggal_penolakan']));
+                                                        $tanggalPenolakan->add(new DateInterval('P3D')); // Tambah 3 hari
+                                                        // echo 'Tanggal Penolakan: ' . $tanggalPenolakan->format('Y-m-d H:i:s') . '<br>';
+                                                        // echo 'Sekarang: ' . $sekarang->format('Y-m-d H:i:s') . '<br>';
+
+                                                        if ($sekarang <= $tanggalPenolakan) {
+                                                            $status = 'Pending';
+                                                        } else {
+                                                            // Jika lebih dari 3 hari, dianggap 'Gugur'
+                                                            $status = 'Gugur';
+                                                        }
+
+                                                    }else {
                                                         $status = 'Belum Verifikasi';
                                                     }
-                                                    $updateStatusQuery = "UPDATE verifikasi_permohonan SET status='$status' WHERE nomer_registrasi='{$row['nomer_registrasi']}'";
+                                                }
+                                                    $updateStatusQuery = "UPDATE verifikasi_permohonan SET status='$status'
+                                                    WHERE nomer_registrasi='{$row['nomer_registrasi']}'";
                                                     $conn->query($updateStatusQuery);
 
-                                                    echo "<td>{$status}</td>";
+                                                    echo "<td>" . htmlspecialchars($status) . "</td>";
                                                     echo "</tr>";
                                                 }
                                             } else {
-                                                echo "<tr><td colspan='11'>Tidak ada data permohonan yang ditemukan.</td></tr>";
                                             }
                                             ?>
 
@@ -154,6 +191,12 @@ if (isset($_GET['id'])) {
         $(document).ready(function () {
             $('#permohonanTable').DataTable();
         });
+//         $(document).ready(function () {
+//     $('#permohonanTable').DataTable({
+//         "order": [[1, 'asc']], // Urutkan berdasarkan kolom nomer registrasi (kolom ke-1) secara ascending (asc)
+//     });
+// });
+
     </script>
     <script>
         $(document).ready(function () {
@@ -185,6 +228,52 @@ if (isset($_GET['id'])) {
             });
         });
     </script>
+    <script>
+    $(document).ready(function () {
+        function reloadData() {
+            $.ajax({
+                url: '../Model/refreshTabel.php',
+                method: 'GET',
+                success: function (data) {
+                    $('#permohonanTable tbody').html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching data: ' + error);
+                }
+                dataTable.order([1, 'asc']).draw();
+            });
+        }
+
+        setInterval(function () {
+            reloadData();
+        }, 5000); // Setiap 5 detik
+    });
+</script>
+<!-- Add this script inside the head tag or at the end of the body tag -->
+<script>
+    function HapusVerifikasi(nomer_registrasi) {
+        if (confirm("Apakah Anda Ingin Menghapusnya?")) {
+            $.ajax({
+                type: "POST",
+                url: '../controller/hapus_verifikasi.php',
+                data: { nomer_registrasi: nomer_registrasi },
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === "success") {
+                        // Reload the page or update the table after successful deletion
+                        location.reload();
+                    } else {
+                        alert("Error: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error: " + error);
+                }
+            });
+        }
+    }
+</script>
+
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

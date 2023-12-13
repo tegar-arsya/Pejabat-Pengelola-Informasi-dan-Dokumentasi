@@ -76,7 +76,29 @@ if (isset($_GET['id'])) {
                                     </div>
                                 </div>
                                 <h4 class="card-title">Data Daftar Permohonan</h4>
+                                <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
                                 <div class="table-responsive">
+                                    <div class="filter-container">
+                                        <h4 class="card-title" style="margin-top: 20px;">Filter</h4>
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="verified">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Verifikasi
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="unverified">
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Unverifikasi
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="reset">
+                                            <label class="form-check-label" for="flexRadioDefault3">
+                                                Reset
+                                            </label>
+                                        </div>
+                                    </div>
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
@@ -89,16 +111,28 @@ if (isset($_GET['id'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php
+                                            <?php
                                             include('../controller/koneksi/config.php');
 
-                                            $sql = "SELECT * FROM permohonan_informasi";
+                                            $sql = "SELECT pi.*, vp.tanggal_verifikasi
+                                                    FROM permohonan_informasi pi
+                                                    LEFT JOIN verifikasi_permohonan vp ON pi.nomer_registrasi = vp.nomer_registrasi
+                                                    WHERE 1";
+                                                    if (isset($_GET['status']) && $_GET['status'] !== 'reset') {
+                                                        $status = $_GET['status'];
+                                                        if ($status === 'verified') {
+                                                            $sql .= " AND vp.nomer_registrasi IS NOT NULL";
+                                                        } elseif ($status === 'unverified') {
+                                                            $sql .= " AND vp.nomer_registrasi IS NULL";
+                                                        }
+                                                    }
                                             $result = $conn->query($sql);
 
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
+                                                    $formattedDate = date('d-m-Y H:i:s', strtotime($row["tanggal_permohonan"]));
                                                     echo "<tr>
-                                                            <td>" . $row["tanggal_permohonan"] . "</td>
+                                                            <td>" . $formattedDate . "</td>
                                                             <td>" . $row["nama_pengguna"] . "</td>
                                                             <td>" . $row["informasi_yang_dibutuhkan"] . "</td>
                                                             <td>" . $row["alasan_pengguna_informasi"] . "</td>
@@ -134,30 +168,62 @@ if (isset($_GET['id'])) {
         Scripts
     ***********************************-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Tangani klik tombol Hapus
-        $('.delete-btn').click(function() {
-            var id = $(this).data('id');
+    <script>
+        $(document).ready(function () {
+            // Tangani klik tombol Hapus
+            $('.delete-btn').click(function () {
+                var id = $(this).data('id');
 
-            // Kirim permintaan penghapusan ke server melalui Ajax
-            $.ajax({
-                url: '../controller/hapusdata_permohonan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
-                type: 'POST',
-                data: { id: id },
-                success: function(response) {
-                    // Perbarui tabel atau lakukan aksi lain yang diperlukan setelah penghapusan berhasil
-                    // Contoh: reload halaman
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    // Tangani kesalahan jika diperlukan
-                }
+                // Kirim permintaan penghapusan ke server melalui Ajax
+                $.ajax({
+                    url: '../controller/hapusdata_permohonan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        // Perbarui tabel atau lakukan aksi lain yang diperlukan setelah penghapusan berhasil
+                        // Contoh: reload halaman
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        // Tangani kesalahan jika diperlukan
+                    }
+                });
             });
         });
+    </script>
+    <script>
+        function cetakPDF() {
+            $.ajax({
+                url: '../controller/pdfPI.php', // Ganti dengan path ke skrip PHP Anda
+                type: 'GET',
+                success: function (response) {
+                    // Logika untuk menangani respons, jika diperlukan
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    // Tangani kesalahan jika diperlukan
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+<script>
+    $(document).ready(function () {
+        $('input[name="flexRadioDefault"]').change(function () {
+            var status = $(this).val();
+            filterData(status);
+        });
     });
-</script>
 
+    function filterData(status) {
+        var url = window.location.href.split('?')[0];
+        if (status === 'reset') {
+            window.location.href = url;
+        } else {
+            window.location.href = url + '?status=' + status;
+        }
+    }
+</script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

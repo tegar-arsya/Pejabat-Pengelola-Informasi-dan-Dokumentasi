@@ -46,7 +46,7 @@
                     <a href="../view/components/panduan.html">Paduan</a>
                 </div>
                 <div class="item">
-                    <a href="">Login</a>
+                    <a href="../home">Login</a>
                 </div>
             </div>
             <!-- Button trigger modal -->
@@ -148,8 +148,8 @@
                     <input type="text" id="alamat" name="alamat" required />
                 </div>
                 <div class="user-input-box">
-                    <label for="kota_kabupaten">Kota/Kabupaten</label>
-                    <select id="kota_kabupaten" name="kota_kabupaten" required>
+                    <label for="negara">Negara</label>
+                    <select id="negara" name="negara" required>
                     </select>
                 </div>
                 <div class="user-input-box">
@@ -158,12 +158,18 @@
                     </select>
                 </div>
                 <div class="user-input-box">
+                    <label for="kota_kabupaten">Kota/Kabupaten</label>
+                    <select id="kota_kabupaten" name="kota_kabupaten" required>
+                    </select>
+                </div>
+                
+                <div class="user-input-box">
                     <label for="kode_pos">KODE POS</label>
                     <input type="text" id="kode_pos" name="kode_pos" required />
                 </div>
                 <div class="user-input-box">
                     <label for="email">EMAIL</label>
-                    <input type="text" id="email" name="email" required />
+                    <input type="text" id="email" name="email" placeholder="Isikan Email Dengan Benar" required />
                 </div>
                 <div class="user-input-box">
                     <label for="password">PASSWORD</label>
@@ -178,8 +184,8 @@
     </div>
     <?php include '../components/footer.php'; ?>
     <script src="../Model/data.js"></script>
-    <script src="../Model/provinsi.js"></script>
-    <script src="../Model/kota.js"></script>
+    <script src="../Model/api.js"></script>
+    <!-- <script src="../Model/kota.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>

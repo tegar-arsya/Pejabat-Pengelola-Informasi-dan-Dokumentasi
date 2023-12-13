@@ -42,8 +42,8 @@ $user_id = $_SESSION['id'];
             <h3>Pengajuan Keberatan</h3>
             <div class="main-user-info">
                 <div class="user-input-box1">
-                    <label for="nik">Masukkan NIK *</label>
-                    <input type="text" id="nik" name="nik" required />
+                    <label for="nik">Masukkan Nomor Registrasi *</label>
+                    <input type="text" id="nomer_registrasi" name="nomer_registrasi" required />
                 </div>
 
             </div>

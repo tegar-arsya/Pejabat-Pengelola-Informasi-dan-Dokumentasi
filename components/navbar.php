@@ -15,9 +15,17 @@
                 <div class="item">
                     <a href="../view/aduan">Pengajuan Keberatan</a>
                 </div>
-
+                <div class="item dropdown">
+                    <a class="dropdown-toggle" href="#" id="riwayatDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Riwayat
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="riwayatDropdown">
+                        <a class="dropdown-item" href="../view/daftarRiwayat">Riwayat Permohonan</a>
+                        <a class="dropdown-item" href="../view/daftarkeberatanPengguna">Riwayat Keberatan</a>
+                    </div>
+                </div>
                 <div class="item">
-                    <a href="../components/panduan.html">Paduan</a>
+                    <a href="../components/panduan">Paduan</a>
                 </div>
 
                 <div class="item">
@@ -46,6 +54,17 @@
 
                             <div class="modal-line">
                                 <i class="fa-solid fa-file-invoice"></i><a href="../view/aduan">Pengajuan Keberatan</a>
+                            </div>
+
+                            <div class="modal-line dropdown">
+                                <i class="fa-solid fa-history"></i>
+                                <a class="dropdown-toggle" href="#" id="riwayatDropdownMobile" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Riwayat
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="riwayatDropdownMobile">
+                                  <a class="dropdown-item" href="../view/daftarRiwayat">Riwayat Permohonan</a>
+                                    <a class="dropdown-item" href="../view/daftarkeberatanPengguna">Riwayat Keberatan</a>
+                                </div>
                             </div>
 
                             <div class="modal-line">

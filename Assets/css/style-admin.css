@@ -11319,6 +11319,7 @@ table.dataTable thead .sorting::after {
   border-radius: 0.625rem;
   box-shadow: 6px 11px 41px -28px #a99de7; }
   .card-title {
+    margin-top: 20px;
     font-size: 18px;
     font-weight: 500;
     line-height: 18px; }
@@ -14729,12 +14730,105 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
       background-color: #464646;
       width: 100%;
   }
+  #logo-title-container {
+    display: none;
+}
+
+/* Media query untuk layar yang lebih kecil */
+@media only screen and (max-width: 768px) {
+    /* Sesuaikan gaya untuk layar yang lebih kecil */
+    #logo-title-container {
+        display: block; /* Tampilkan logo dan judul ketika sidebar terbuka */
+    }
+}
 .daftar-permohonan{
   margin-top: 20px;
 }.hidden {
   display: none;
 }
 
+#answerForm {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  max-width: 90%; /* Maksimum lebar 90% dari lebar tampilan */
+  width: 600px;
+  height: 70%;
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-radius: 8px;
+}
 
+#answerForm .modal-content {
+  margin-top: 20px;
+  border: #000000; /* Menambah border */
+  
+}
 
+/* Gunakan media query untuk penyesuaian responsif */
+@media (max-width: 768px) {
+  #answerForm {
+      width: 90%; /* Lebar maksimum untuk layar kecil */
+  }
+}
+
+#answerForm label {
+  display: block;
+  margin-bottom: 10px;
+  color: #495057;
+}
+
+#answerForm input,
+#answerForm textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+#answerForm button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+#answerForm button:hover {
+  background-color: red;
+}
+
+#answerForm .close {
+  position: absolute;
+
+  right: 10px;
+  font-size: 30px;
+  color: red;
+  cursor: pointer;
+}
+
+.form-check-input {
+  margin-top: 0.2rem;
+}
+
+.form-check-label {
+  margin-top: 0.2rem;
+}
+
+/* Gaya untuk div container filter */
+.filter-container {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
 /*# sourceMappingURL=style.css.map */

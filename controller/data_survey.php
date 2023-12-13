@@ -7,24 +7,18 @@ if ($_POST['user-input'] !== $_SESSION['captcha']) {
     echo json_encode($response);
     exit();
 }
-
 include('../controller/koneksi/config.php');
-
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nomer_registrasi = $_SESSION['nomer_registrasi'];
-    $nama_depan = $_SESSION['nama_depan'];
-    $nama_belakang = $_SESSION['nama_belakang'];
-    $usia = $_POST['usia'];
-    $pendidikan_terakhir = $_POST['pendidikanterakhir'];
-    $pekerjaan = $_POST['pekerjaan'];
+    $nomer_registrasi = $_POST['nomer_registrasi'];
+    $email = $_POST['email'];
+    $nama = $_POST['nama'];
+    $alamat = $_POST['alamat'];
+    $notel = $_POST['notel'];
     $jenis_layanan = implode(", ", $_POST['jenis_layanan']);
-    $cara_mendapatkan_informasi = $_POST['caramendapatkaninformasi'];
-    $cara_mendapatkan_salinan = $_POST['caramendapatkansalinan'];
-
-    $sql = "INSERT INTO survey_kepuasan (nomer_registrasi, nama_pengguna, usia, pendidikan_terakhir, pekerjaan, jenis_layanan, mendapatkan_informasi, mendapatkan_salinan)
-    VALUES ('$nomer_registrasi','$nama_depan $nama_belakang', '$usia', '$pendidikan_terakhir', '$pekerjaan', '$jenis_layanan', '$cara_mendapatkan_informasi', '$cara_mendapatkan_salinan')";
-
+    $feedback = implode(", ", $_POST['feedback']);
+    $saran = $_POST['saran'];
+    $sql = "INSERT INTO survey_kepuasan (nomer_registrasi,email, nama_pengguna, alamat, no_hp, jenis_layanan, feedback, saran)
+    VALUES ('$nomer_registrasi','$email', '$nama', '$alamat', '$notel', '$jenis_layanan', '$feedback', '$saran')";
     if ($conn->query($sql) === TRUE) {
         $response = array("success" => true);
         echo json_encode($response);

@@ -330,10 +330,6 @@ h5 {
 
 }
 
-.info {
-    margin-left: -200px;
-
-}
 
 @media (max-width: 992px) {
     header .container-fluid {
@@ -467,7 +463,7 @@ header {
 header .container-fluid {
 
     width: 100%;
-    padding: 0 60px;
+    padding: 0 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -754,8 +750,7 @@ h4 {
 }
 
 .info {
-    margin-left: -200px;
-
+    margin-left: -80px;
 }
 
 @media (max-width: 992px) {
@@ -959,7 +954,14 @@ h4 {
     border: 1px solid grey;
     padding: 0 10px;
 }
-
+.user-input-box1 textarea {
+    height: 80px;
+    width: 100%;
+    border-radius: 7px;
+    outline: none;
+    border: 1px solid grey;
+    padding: 0 10px;
+}
 /* Tambahkan aturan CSS untuk mengatur lebar kolom email */
 .user-input-box select {
     width: 100%;
@@ -1114,27 +1116,41 @@ button#cancel-button {
     width: 40%; /* Atur lebar container sesuai kebutuhan Anda */
     padding: 20px;
 }
+.left-container-survey{
+    margin-left: -50px;
+    width: 20%; /* Atur lebar container sesuai kebutuhan Anda */
+    padding: 20px;
+}
+.right-container-survey {
+    margin-left: -80px;
+    width: 100%; /* Atur lebar container sesuai kebutuhan Anda */
+    padding: 20px;
+}
 .box-right {
     background-color: #ffffff;
     margin-bottom: 20px;
     border: 1px solid #000000;
     
 }
-.button-ya{
-    background-color: #9F0000 ;
+.button-ya {
+    background-color: #9F0000;
     color: #ffffff;
     border-radius: 10px;
-    border-color: none;
+    border: none; /* Remove border */
+    outline: none; /* Remove outline */
     width: 30%;
     margin: 20px 20px 20px 20px;
 }
-.button-tdk{
+
+.button-tdk {
     background-color: #959595;
     color: #ffffff;
     border-radius: 10px;
-    border-color: none;
+    border: none; /* Remove border */
+    outline: none; /* Remove outline */
     width: 30%;
 }
+
 
 
 .timeline-container {
@@ -1191,4 +1207,9 @@ button#cancel-button {
     position: relative;
     margin-bottom: 20px;
     padding-left: 40px; /* Sesuaikan dengan lebar nomor urutan dan garis vertikal */
+}
+.timeline-logo {
+    width: 20px; /* Sesuaikan lebar logo */
+    height: 20px; /* Sesuaikan tinggi logo */
+    margin-right: 10px; /* Sesuaikan margin jika diperlukan */
 }

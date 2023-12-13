@@ -5,12 +5,12 @@ require '../controller/koneksi/config.php';
 $namapengguna = $_POST['name'];
 $username = $_POST['username'];
 $password = $_POST['password'];
-
+$role     = $_POST['role'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 // Menyimpan nama pengguna, email, dan password ke database
-$sql = $conn->prepare("INSERT INTO admin (nama_pengguna, username, password) VALUES (?, ?, ?)");
-$sql->bind_param("sss", $namapengguna, $username, $hashed_password);
+$sql = $conn->prepare("INSERT INTO admin (nama_pengguna, username, password, role) VALUES (?, ?, ?,?)");
+$sql->bind_param("ssss", $namapengguna, $username, $hashed_password,$role);
 
 if ($sql->execute()) {
     header("Location: ../view/login_admin.php");

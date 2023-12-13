@@ -1,48 +1,29 @@
 <?php
 session_start();
 include('../controller/koneksi/config.php');
-
-// Periksa apakah pengguna telah login
 if(isset($_SESSION['nik'])) {
-    // Nama pengguna yang login
     $nik_session = $_SESSION['nik'];
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nik_input = $_POST['nik'];
-
-        // Bandingkan nama pengguna yang dimasukkan dengan nama pengguna dari session
-        if($nik_input == $nik_session) {
-            // Cari ID permohonan informasi berdasarkan nama pengguna
-            $sql = "SELECT id FROM permohonan_informasi WHERE id_user = '$nik_input'";
-            $result = mysqli_query($conn, $sql);
-
-            if ($result) {
-                // Periksa apakah ada baris data yang cocok
-                if (mysqli_num_rows($result) > 0) {
-                    $row = mysqli_fetch_assoc($result);
-                    $id_pengguna = $row['id'];
-
-                    // Redirect ke halaman selanjutnya dengan membawa ID pengguna
-                    header("Location: ../view/form-keberatan?id=$id_pengguna");
-                    exit();
-                } else {
-                    // Jika tidak ada baris data yang cocok, tampilkan pesan kesalahan menggunakan alert
-                    echo "<script>alert('Nama pengguna tidak ditemukan dalam database.'); window.location.href = document.referrer;</script>";
-                    exit();
-                }
+        $nomer_registrasi_input = $_POST['nomer_registrasi'];
+        $sql = "SELECT id FROM permohonan_informasi WHERE nomer_registrasi = ? AND id_user = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ss", $nomer_registrasi_input, $nik_session);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if ($result) {
+            if (mysqli_num_rows($result) > 0) {
+                header("Location: ../view/form-keberatan?registrasi=$nomer_registrasi_input");
+                exit();
             } else {
-                // Handle kesalahan jika query tidak berhasil
-                echo "Error: " . mysqli_error($conn);
+                echo "<script>alert('Nomer registrasi tidak ditemukan dalam database atau tidak sesuai dengan pengguna.'); window.location.href = document.referrer;</script>";
+                exit();
             }
         } else {
-            // Jika nama pengguna tidak sesuai dengan session, tampilkan pesan kesalahan menggunakan alert
-            echo "<script>alert('Anda hanya bisa mencari informasi diri sendiri.'); window.location.href = document.referrer;</script>";
-            exit();
+            echo "Error: " . mysqli_error($conn);
         }
     }
 } else {
-    // Jika pengguna belum login, arahkan ke halaman login
-    header("Location: ../path/to/login.php");
+    header("Location: ../home");
     exit();
 }
 ?>

@@ -110,7 +110,7 @@
                                         placeholder="Password" required />
                                 </div>
                                 <div class="text-">
-                                    <a href="#!">Lupa Password?</a>
+                                    <a href="./view/resetPassword">Lupa Password?</a>
                                 </div>
                                 <div class="text-center pt-1 mb-5 pb-1">
                                     <button class="btn btn-block btn-lg btn-mrh mb-3" type="submit">Login</button>
@@ -122,6 +122,7 @@
                             </form>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>

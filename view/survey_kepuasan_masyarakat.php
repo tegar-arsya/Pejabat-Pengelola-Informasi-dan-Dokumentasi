@@ -45,12 +45,13 @@ $user_id = $_SESSION['id'];
                                         <thead>
                                             <tr>
                                                 <th>Nama</th>
-                                                <th>Usia</th>
-                                                <th>Pendidikan Terakhir</th>
-                                                <th>Pekerjaan</th>
-                                                <th>Jenis Layanan</th>
-                                                <th>Cara Mendapatkan Informasi</th>
-                                                <th>Cara Mendapatkan Salinan</th>
+                                                <th>Email</th>
+                                                <th>Alamat</th>
+                                                <th>No Hp</th>
+                                                <th>Jenis Layanan Yang Diminta</th>
+                                                <th>Pelayanan Publik Yang Kami Berikan</th>
+                                                <th>Saran Atau Keluhan</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -62,7 +63,16 @@ $user_id = $_SESSION['id'];
 
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
-                                                    echo "<tr><td>" . $row["nama_pengguna"] . "</td><td>" . $row["usia"] . "</td><td>" . $row["pendidikan_terakhir"] . "</td><td>" . $row["pekerjaan"] . "</td><td>" . $row["jenis_layanan"] . "</td><td>" . $row["mendapatkan_informasi"] . "</td><td>" . $row["mendapatkan_salinan"] . "</td></tr>";
+                                                    echo "<tr>";
+                                                echo "<td>" . $row["nama_pengguna"] . "</td>";
+                                                echo "<td>" . $row["email"] . "</td>";
+                                                echo "<td>" . $row["alamat"] . "</td>";
+                                                echo "<td>" . $row["no_hp"] . "</td>";
+                                                echo "<td>" . $row["jenis_layanan"] . "</td>";
+                                                echo "<td>" . $row["feedback"] . "</td>";
+                                                echo "<td>" . $row["saran"] . "</td>";
+                                                echo "<td><a href='../controller/HapusSKM?id=" . $row["id"] . "'>Hapus</a></td>";
+                                                echo "</tr>";
                                                 }
                                             } else {
                                                 echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
@@ -77,33 +87,9 @@ $user_id = $_SESSION['id'];
                     </div>
                 </div>
             </div>
-            <!-- #/ container -->
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a>
-                    2018</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
+        <?php include '../components/footer.html'; ?>
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

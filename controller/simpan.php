@@ -14,11 +14,17 @@ $pekerjaan = $_POST['pekerjaan'];
 $alamat = $_POST['alamat'];
 $kotakabupaten = $_POST['kota_kabupaten'];
 $provinsi = $_POST['provinsi'];
+$negara = $_POST['negara'];
 $kodepos = $_POST['kode_pos'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+
+$namaProvinsi = getNamaProvinsiById($provinsi);
+$namaKotaKabupaten = getNamaKotaKabupatenById($provinsi, $kotakabupaten);
+
 
 // Mengelola unggahan file
 $targetDirectory = "../Assets/uploads/";
@@ -46,8 +52,8 @@ if ($uploadOk == 0) {
     // Mencoba mengunggah file
     if (move_uploaded_file($_FILES["fotoktp"]["tmp_name"], $targetFile)) {
         // Menyimpan nama file, email, dan password ke database
-        $sql = $conn->prepare("INSERT INTO registrasi (nama_depan, nama_belakang, jenis_nik, jenis_pemohon, nik, no_hp, foto_ktp, npwp, pekerjaan, alamat, kota_kabupaten, provinsi, kode_pos, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
-        $sql->bind_param("sssssssssssssss", $namadepan, $namabelakang, $jenisnik, $jenispemohon, $nik, $nohp, $fotoktp, $npwp, $pekerjaan, $alamat, $kotakabupaten, $provinsi, $kodepos, $email, $hashed_password);
+        $sql = $conn->prepare("INSERT INTO registrasi (nama_depan, nama_belakang, jenis_nik, jenis_pemohon, nik, no_hp, foto_ktp, npwp, pekerjaan, alamat, kota_kabupaten, provinsi, negara, kode_pos, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+        $sql->bind_param("ssssssssssssssss", $namadepan, $namabelakang, $jenisnik, $jenispemohon, $nik, $nohp, $fotoktp, $npwp, $pekerjaan, $alamat, $namaKotaKabupaten, $namaProvinsi, $negara, $kodepos, $email, $hashed_password);
 
         if ($sql->execute()) {
             header("Location: ../index.php");
@@ -60,4 +66,34 @@ if ($uploadOk == 0) {
     }
 }
 $conn->close();
+// Fungsi untuk mendapatkan nama provinsi berdasarkan ID
+function getNamaProvinsiById($id) {
+    $apiUrl = "https://tegar-arsya.github.io/api-indonesia/api/provinces.json";
+    $response = file_get_contents($apiUrl);
+    $provinces = json_decode($response, true);
+
+    foreach ($provinces as $province) {
+        if ($province['id'] == $id) {
+            return $province['name'];
+        }
+    }
+
+    return "Provinsi Tidak Ditemukan";
+}
+
+// Fungsi untuk mendapatkan nama kota/kabupaten berdasarkan ID
+// Fungsi untuk mendapatkan nama kota/kabupaten berdasarkan ID
+function getNamaKotaKabupatenById($provinceId, $regencyId) {
+    $apiUrl = "https://tegar-arsya.github.io/api-indonesia/api/regencies/{$provinceId}.json";
+    $response = file_get_contents($apiUrl);
+    $regencies = json_decode($response, true);
+
+    foreach ($regencies as $regency) {
+        if ($regency['id'] == $regencyId) {
+            return $regency['name'];
+        }
+    }
+
+    return "Kota/Kabupaten Tidak Ditemukan";
+}
 ?>

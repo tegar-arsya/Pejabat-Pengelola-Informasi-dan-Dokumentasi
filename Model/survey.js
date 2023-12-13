@@ -25,7 +25,7 @@ document.getElementById('mySurvey').addEventListener('submit', function(event) {
             if (data.success) {
                 Swal.fire({
                     title: 'Berhasil Terkirim',
-                    html: 'Permohonan informasi publik anda telah berhasil terkirim, untuk detail lebih lanjut mohon untuk dicek di bagian <a href="link-riwayat-permohonan" style="color: red; text-decoration: underline;">riwayat permohonan</a>',
+                    html: 'Terima kasih telah mengisi Kuesioner Indeks Kepuasan Masyarakat. Mohon masuk ke halaman riwayat permohonan untuk mengunduh jawaban permohonan informasi atau klik link berikut ini <a href="../view/daftarRiwayat" style="color: red; text-decoration: underline;">riwayat permohonan</a>',
                     icon: 'success',
                 });
                 

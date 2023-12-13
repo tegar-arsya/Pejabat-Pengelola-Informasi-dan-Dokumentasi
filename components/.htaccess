@@ -1,0 +1,18 @@
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /PERMOHONANINFORMASI/components/
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+    
+    # Mengarahkan /aduan ke pengajuan_keberatan.php
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/components/panduan
+    RewriteRule ^panduan$ panduan.html [NC,L]
+    
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/components/ErorAkses
+    RewriteRule ^ErorAkses$ eror1.html [NC,L]
+    
+</IfModule>
+
