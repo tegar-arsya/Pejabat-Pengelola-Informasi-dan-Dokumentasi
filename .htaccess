@@ -14,7 +14,7 @@ Options -Indexes
     RewriteRule ^home$ index.php [NC,L]
 
     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/admin
-    RewriteRule ^admin$ login_admin.php [NC,L]
+    RewriteRule ^admin$ loginAdmin.php [NC,L]
     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/resetPassword
     RewriteRule ^resetPassword$ resetPW.php [NC,L]
 </IfModule>

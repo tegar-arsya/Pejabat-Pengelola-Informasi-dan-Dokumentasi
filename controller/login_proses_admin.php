@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../view/dashboard"); // Ganti dashboard dengan halaman yang sesuai
     } else {
         $_SESSION['login_error'] = "Username atau password salah. Silakan coba lagi.";
-        echo "<script>window.location.href='../view/login_admin.php'; alert('" . $_SESSION['login_error'] . "');</script>";
+        echo "<script>window.location.href='../view/loginAdmin.php'; alert('" . $_SESSION['login_error'] . "');</script>";
     }
 }
 $conn->close();

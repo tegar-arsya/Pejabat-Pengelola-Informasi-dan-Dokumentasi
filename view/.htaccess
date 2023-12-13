@@ -48,7 +48,7 @@ Options -Indexes
     RewriteRule ^form-keberatan$ form_pengajuan_keberatan.php [NC,L]
     
     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/admin
-    RewriteRule ^admin$ login_admin.php [NC,L]
+    RewriteRule ^admin$ loginAdmin.php [NC,L]
 
     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/registrasi
     RewriteRule ^registrasi$ register.php [NC,L]
