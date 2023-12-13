@@ -107,7 +107,10 @@ if ($resultJawaban->num_rows > 0) {
                                 echo "<td><strong>Nomor Register Keberatan</strong></td>";
                                 echo "<td>{$row['nomer_registrasi_keberatan']}</td>";
                                 echo "</tr>";
-
+                                echo "<tr>";
+                                echo "<td><strong>Nomor Register Permohonan</strong></td>";
+                                echo "<td>{$row['nomer_registrasi_permohonan']}</td>";
+                                echo "</tr>";
                                 echo "<tr>";
                                 echo "<td><strong>Alasan Keberatan</strong></td>";
                                 echo "<td>{$row['alasan_keberatan']}</td>";
