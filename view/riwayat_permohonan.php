@@ -95,11 +95,9 @@ if ($resultJawaban->num_rows > 0) {
             <div class="col-md-8">
                 <!-- Left Container Content -->
                 <div class="box-left">
-                <div style="width: 100%; border-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                        <div
-                            style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                <div class="up">
+                    <div class="fill">
+                        <div class="style-font">
                             Permohonan Informasi
                         </div>
                     </div>
@@ -195,11 +193,9 @@ if ($resultJawaban->num_rows > 0) {
 
                     </table>
                 </div>
-                <div id="tableContainer" style="width: 100%; margin-top: 20px;border-radius: 10px; border: 1px black solid">
-                <div
-                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                <div id="tableContainer">
+                <div class="fill">
+                    <div>
                         Jawaban Permohonan Informasi
                     </div>
                 </div>
@@ -276,26 +272,22 @@ if ($resultJawaban->num_rows > 0) {
             $surveyMessage = $surveyCompleted ? "Terima kasih telah mengisi survey, silahkan unduh jawaban permohonan Anda." : "Apakah permohonan informasi Anda sudah terjawab?";
             ?>
 
-            <div style="width: 100%; margin-top: 20px;background: white; border-radius: 10px; border: 1px black solid">
-                <div
-                    style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+            <div class="up-survey">
+                <div class="fill">
+                    <div class="style-font">
                         Survey
                     </div>
                 </div>
                 <?php if ($surveyCompleted): ?>
-                    <h5 style="text-align: center;"><?php echo $surveyMessage; ?></h5>
-                    <div style="text-align: center;">
-                        <!-- Add a link to download the response -->
+                    <h5 class="message"><?php echo $surveyMessage; ?></h5>
+                    <div class="message">
                         <a href="../controller/download-response.php?registrasi=<?php echo $nomer_registrasi; ?>" target="_blank">
                             <button class="button-ya" type="button">Unduh Jawaban</button>
                         </a>
                     </div>
                 <?php else: ?>
-                    <h5 style="text-align: center;"><?php echo $surveyMessage; ?></h5>
-                    <div style="text-align: center;">
-                        <!-- Add a link to the survey page -->
+                    <h5 class="message"><?php echo $surveyMessage; ?></h5>
+                    <div class="message">
                         <a href="../view/survey?registrasi=<?php echo $nomer_registrasi; ?>">
                             <button class="button-ya" type="button">Ya</button>
                         </a>
@@ -306,12 +298,9 @@ if ($resultJawaban->num_rows > 0) {
             </div>
             </div>
             <div class="col-md-4">
-                <!-- Right Container Content -->
-                <div class="box-right" style="border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px">
-                    <!-- Add your content for the right container -->
-                    <div style="width: 100%; height: 10%; background: #9F0000; border-top-left-radius: 10px; border-top-right-radius: 10px; border: 1px black solid">
-                    <div
-                        style="width: 100%; color: white; font-size: 25px; font-family: Inter; font-weight: 700; word-wrap: break-word; margin-top: 20px;">
+                <div class="box-right follow-up">
+                    <div class="fill">
+                    <div class="style-font">
                         Tindak Lanjut
                     </div>
                 </div>
