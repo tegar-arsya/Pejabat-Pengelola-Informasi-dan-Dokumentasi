@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $targetFilePath)) {
         $insertQuery = "INSERT INTO answer_admin (nama_pic, jawaban_permohonan, lampiran, nik_pemohon, nomer_registrasi_pemohon, status_balasan) 
-                        VALUES ('$namaPIC', '$jawabanPermohonan', '$lampiranName','$nikPemohon','$norek','Jawaban permohonan informasi telah dikirimkan melalui email. Silakan cek email yang digunakan saat mengajukan permohonan informasi')";
+                        VALUES ('$namaPIC', '$jawabanPermohonan', '$lampiranName','$nikPemohon','$norek','Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.')";
         $insertResult = $conn->query($insertQuery);
 
         if ($insertResult) {
@@ -36,18 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isSMTP();
             $mail->Host = "tls://smtp.gmail.com";
             $mail->SMTPAuth = true;
-            $mail->Username = "tegararsyadani0117@gmail.com";
-            $mail->Password = "npou byeu poie uadd";
+            $mail->Username = "ppid.diskominfo.jtg3@gmail.com";
+            $mail->Password = "ymgj whgy zdps duic";
             $mail->SMTPSecure = "tls";
             $mail->Port = 587;
-            $mail->From = "tegararyadani0117@gmail.com";
-            $mail->FromName = "Admin PPID Jawa Tengah";
+            $mail->From = "ppid.diskominfo.jtg3@gmail.com";
+            $mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah";
 
             $mail->addAddress($_POST['email'], $_POST['nama']);
 
             $mail->isHTML(true);
             $mail->Subject = "Jawaban Permohonan Informasi";
-            $mail->Body = "Berikut jawaban Permohonan Informasi Kami lampirkan dibawah ini <br><br>";
+            $mail->Body = "Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.<br><br>";
             if ($mail->send()) {
                 echo json_encode(['status' => 'success', 'message' => 'Jawaban Permohonan Sukses. Email berhasil terkirim.']);
                 header("Location: ../view/listPI");

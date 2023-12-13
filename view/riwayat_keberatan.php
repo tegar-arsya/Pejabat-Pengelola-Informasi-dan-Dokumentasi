@@ -11,7 +11,7 @@ if (!isset($_GET['registrasi'])) {
     exit();
 }
 $nomer_registrasi_keberatan = $_GET['registrasi'];
-$nik = $_SESSION['nik'];
+// $nik = $_SESSION['nik'];
 $query = "SELECT * FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
 $result = $conn->query($query);
 

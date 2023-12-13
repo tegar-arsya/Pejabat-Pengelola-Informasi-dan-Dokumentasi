@@ -232,7 +232,7 @@ if (isset($_GET['id'])) {
     $(document).ready(function () {
         function reloadData() {
             $.ajax({
-                url: '../Model/refreshTabel.php',
+                url: '../Model/AdminrefreshTabel.php',
                 method: 'GET',
                 success: function (data) {
                     $('#permohonanTable tbody').html(data);

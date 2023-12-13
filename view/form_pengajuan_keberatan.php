@@ -246,9 +246,9 @@ $conn->close();
         </form>
     </div>
     <?php include '../components/footer.php'; ?>
-    <script src="../Model/aduan.js"></script>
-    <script src="../Model/data.js"></script>
-    <script src="../Model/api.js"></script>
+    <script src="../Model/User/aduan.js"></script>
+    <script src="../Model/User/data.js"></script>
+    <script src="../Model/User/api.js"></script>
     <script>
         // In your Javascript
         $(document).ready(function () {

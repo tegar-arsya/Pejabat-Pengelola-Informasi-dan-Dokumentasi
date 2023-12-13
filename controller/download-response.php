@@ -1,6 +1,6 @@
 <?php
 // Ensure the registrasi parameter is set
-
+include('../controller/koneksi/config.php');
 if (isset($_GET['registrasi'])) {
     $nomer_registrasi = $_GET['registrasi'];
 

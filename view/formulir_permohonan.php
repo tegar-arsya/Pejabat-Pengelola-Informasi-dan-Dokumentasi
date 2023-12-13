@@ -138,7 +138,7 @@ $opdOptions = getOPDData();
         </form>
     </div>
     <?php include '../components/footer.php'; ?>
-    <script src="../Model/script.js"></script>
+    <script src="../Model/User/script.js"></script>
     <script>
 // In your Javascript
 $(document).ready(function() {

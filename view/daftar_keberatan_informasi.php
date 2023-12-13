@@ -223,7 +223,7 @@ if (isset($_GET['id'])) {
     $(document).ready(function () {
         function reloadDataK() {
             $.ajax({
-                url: '../Model/refreshTabelKeberatan.php',
+                url: '../Model/Admin/refreshTabelKeberatan.php',
                 method: 'GET',
                 success: function (data) {
                     $('#permohonanTable tbody').html(data);

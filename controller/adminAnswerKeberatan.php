@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $targetFilePath)) {
         // Simpan data ke dalam tabel answer_admin
         $insertQuery = "INSERT INTO keberatananswer_admin (nama_pic, jawaban_keberatan, lampiran, nik_pemohon, nomer_registrasi_keberatan, status_balasan) 
-                        VALUES ('$namaPIC', '$jawabankeberatan', '$lampiranName','$nikPemohon','$norek','Jawaban permohonan informasi telah dikirimkan melalui email. Silakan cek email yang digunakan saat mengajukan permohonan informasi')";
+                        VALUES ('$namaPIC', '$jawabankeberatan', '$lampiranName','$nikPemohon','$norek','Jawaban keberatan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat keberatan sesuai dengan nomer registrasi keberatan anda untuk mengunduh jawaban keberatan anda. ')";
         
         $insertResult = $conn->query($insertQuery);
 
@@ -49,18 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isSMTP();
             $mail->Host = "tls://smtp.gmail.com";
             $mail->SMTPAuth = true;
-            $mail->Username = "tegararsyadani0117@gmail.com";
-            $mail->Password = "npou byeu poie uadd";
+            $mail->Username = "ppid.diskominfo.jtg3@gmail.com";
+            $mail->Password = "ymgj whgy zdps duic";
             $mail->SMTPSecure = "tls";
             $mail->Port = 587;
-            $mail->From = "tegararyadani0117@gmail.com";
-            $mail->FromName = "Admin PPID Jawa Tengah";
+            $mail->From = "ppid.diskominfo.jtg3@gmail.com";
+            $mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah";
 
             $mail->addAddress($_POST['email'], $_POST['nama']);
 
             $mail->isHTML(true);
             $mail->Subject = "Jawaban Keberatan Informasi";
-            $mail->Body = "Berikut jawaban Keberatan Informasi Kami lampirkan dibawah ini <br><br>";
+            $mail->Body = "Jawaban keberatan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat keberatan sesuai dengan nomer registrasi keberatan anda untuk mengunduh jawaban keberatan anda. <br><br>";
 
             // $mail->addAttachment($targetFilePath);
             if ($mail->send()) {

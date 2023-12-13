@@ -149,7 +149,7 @@ $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
         </form>
     </div>
     <?php include '../components/footer.php';?>
-    <script src="../model/survey.js"></script>
+    <script src="../model/User/survey.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>
