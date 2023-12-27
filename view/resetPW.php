@@ -1,3 +1,6 @@
+<?php
+include('../Model/CSRF/csrf.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +42,7 @@
     <div class="container">
         <h1 class="form-title">Reset Password</h1>
         <form action="../controller/reset_password.php" method="POST">
+        <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
             <div class="main-user-info">
                 <div class="user-input-box">
                     <label for="email">Email:</label>

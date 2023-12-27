@@ -1,60 +1,6 @@
 <?php
-session_start();
-if (!isset($_SESSION['id'])) {
-    header("Location: ../index.php");
-    exit();
-}
-$user_id = $_SESSION['id'];
+require '../controller/User/applicationHistory.php';
 include('../controller/koneksi/config.php');
-if (!isset($_GET['registrasi'])) {
-    header("Location: ../components/eror.html");
-    exit();
-}
-
-$nomer_registrasi = $_GET['registrasi'];
-// $nik = $_SESSION['nik'];
-$query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
-$result = $conn->query($query);
-
-// Array untuk menyimpan data timeline
-$timelineData = [];
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $status = $row['status'];
-        $tanggal = $row['tanggal_verifikasi']; // Sesuaikan dengan nama kolom di tabel Anda
-
-        // Tambahkan data ke dalam objek timelineData
-        $timelineData[] = array("date" => date('d-m-Y H:i:s', strtotime($tanggal)), "status" => $status);
-    }
-}
-
-// Menambahkan data dari notifikasi_pengiriman ke timelineData
-$queryNotifikasi = "SELECT * FROM notifikasi_pengiriman WHERE nomer_registrasi = '$nomer_registrasi'";
-$resultNotifikasi = $conn->query($queryNotifikasi);
-
-if ($resultNotifikasi->num_rows > 0) {
-    while ($rowNotifikasi = $resultNotifikasi->fetch_assoc()) {
-        $statusNotifikasi = $rowNotifikasi['status'];
-        $tanggalMasukNotifikasi = $rowNotifikasi['tanggal_masuk'];
-
-        // Tambahkan data ke dalam objek timelineData
-        $timelineData[] = array("date" => date('d-m-Y H:i:s', strtotime($tanggalMasukNotifikasi)), "status" => $statusNotifikasi);
-    }
-}
-
-$queryJawaban = "SELECT * FROM answer_admin WHERE nomer_registrasi_pemohon = '$nomer_registrasi'";
-$resultJawaban = $conn->query($queryJawaban);
-
-if ($resultJawaban->num_rows > 0) {
-    while ($rowJawaban = $resultJawaban->fetch_assoc()) {
-        $statusJawaban = $rowJawaban['status_balasan'];
-        $tanggalMasukJawaban = $rowJawaban['tanggal_jawaban'];
-
-        // Tambahkan data ke dalam objek timelineData
-        $timelineData[] = array("date" => date('d-m-Y H:i:s', strtotime($tanggalMasukJawaban)), "status" => $statusJawaban);
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,6 +28,8 @@ if ($resultJawaban->num_rows > 0) {
         crossorigin="anonymous" />
     <link rel="stylesheet" href="../Assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <title>Riwayat Permohonan</title>
 </head>
 
@@ -102,11 +50,16 @@ if ($resultJawaban->num_rows > 0) {
                         </div>
                     </div>
                     <table class="table table-bordered">
-                        <?php
-
-                        
+                        <?php               
                         $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
                         $result = $conn->query($query);
+
+                        // Menambahkan data dari tbl_rejected
+                        $queryRejected = "SELECT * FROM tbl_rejected WHERE nomer_registrasi = '$nomer_registrasi'";
+                        $resultRejected = $conn->query($queryRejected);
+
+                        $isRejected = $resultRejected->num_rows > 0;
+
                         if ($result->num_rows > 0) {
                             // Data ditemukan, tampilkan atau proses data di sini
                             while ($row = $result->fetch_assoc()) {
@@ -139,6 +92,14 @@ if ($resultJawaban->num_rows > 0) {
                                 echo "<td><strong>OPD Yang Dituju:</strong></td>";
                                 echo "<td>{$row['opd_yang_dituju']}</td>";
                                 echo "</tr>";
+
+                                // Tampilkan tombol tolak hanya jika permohonan ini telah ditolak
+                                // if ($isRejected) {
+                                //     echo "<tr>";
+                                //     echo "
+                                //     <td colspan='2'><a class='btn btn-danger' href='editFOrm.php?registrasi={$nomer_registrasi}'>Edit Formulir</a></td>";
+                                //     echo "</tr>";
+                                // }
                             }
                         } else {
                             $query_alternatif = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp, r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
@@ -195,7 +156,7 @@ if ($resultJawaban->num_rows > 0) {
                 </div>
                 <div id="tableContainer">
                 <div class="fill">
-                    <div>
+                    <div class="style-font">
                         Jawaban Permohonan Informasi
                     </div>
                 </div>
@@ -469,6 +430,7 @@ function previewLampiran(file_path) {
 }
 
 </script>
+<script src="../Model/Auth/TimeOutUser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>

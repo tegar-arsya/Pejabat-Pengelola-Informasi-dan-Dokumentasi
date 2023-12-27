@@ -41,7 +41,7 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <div id="main-wrapper">
-        <?php include '../components/navbar.html'; ?>
+    <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -139,7 +139,7 @@ if (isset($_GET['id'])) {
                                                             <td>" . $row["opd_yang_dituju"] . "</td>
                                                             <td>
                                                                 <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
-                                                                <button type='button' data-id='" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
+                                                                <button type='button' data-id='" . $row["nomer_registrasi"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
                                                                 <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
                                                             </td>
                                                         </tr>";
@@ -224,6 +224,7 @@ if (isset($_GET['id'])) {
         }
     }
 </script>
+    <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

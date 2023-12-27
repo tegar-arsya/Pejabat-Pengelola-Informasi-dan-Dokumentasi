@@ -1,3 +1,6 @@
+<?php
+include('../Model/CSRF/csrf.php');
+?>
 <!DOCTYPE html>
 <html class="h-100" lang="en">
 
@@ -37,7 +40,8 @@
                         <div class="card login-form mb-0">
                             <div class="card-body pt-5">
                                 <h3 style="text-align: center;">Sign in to start your session</h3>
-                                <form action="../controller/login_proses_admin.php" method="POST" enctype="multipart/form-data" class="mt-5 mb-5 login-input">
+                                <form action="../controller/Admin/login_proses_admin.php" method="POST" enctype="multipart/form-data" class="mt-5 mb-5 login-input">
+                                <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
                                     <div class="form-group">
                                         <input type="username" class="form-control" id="username" name="username" placeholder="username" required>
                                     </div>

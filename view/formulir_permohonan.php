@@ -147,6 +147,7 @@ $(document).ready(function() {
 </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
+    <script src="../Model/Auth/TimeOutUser.js"></script>
 </body>
 
 </html>

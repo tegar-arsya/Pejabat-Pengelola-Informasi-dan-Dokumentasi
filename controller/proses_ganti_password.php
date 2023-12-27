@@ -5,7 +5,6 @@ require '../controller/koneksi/config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
-
     // Lakukan validasi password (misalnya: minimal panjang password)
     if (strlen($password) < 8) {
         echo "<script>alert('Password harus memiliki minimal 8 karakter. Silakan coba lagi.');</script>";
@@ -15,8 +14,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Lakukan verifikasi token reset password
-    $email = $_SESSION['reset_email'];
-    $token = $_SESSION['reset_token'];
+    $email = $_POST['email'];
+    $token = $_POST['token'];
 
     // Ambil token dari database (sesuaikan dengan struktur tabel Anda)
     $cek_token = $conn->prepare("SELECT * FROM registrasi WHERE email = ? AND token_reset_password = ?");

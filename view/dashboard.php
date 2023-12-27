@@ -15,14 +15,10 @@ $user_id = $_SESSION['id'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PERMOHONAN INFORMASI PROVINSI JAWA TENGAH</title>
-    <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../Assets/images/logo_jateng.png">
-    <!-- Pignose Calender -->
     <link href="../Assets/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
-    <!-- Chartist -->
     <link rel="stylesheet" href="../Assets/plugins/chartist/css/chartist.min.css">
     <link rel="stylesheet" href="../Assets/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
-    <!-- Custom Stylesheet -->
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
@@ -38,7 +34,7 @@ $user_id = $_SESSION['id'];
         </div>
     </div>
     <div id="main-wrapper">
-        <?php include '../components/navbar.html'; ?>
+    <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
                 <div class="row">
@@ -128,7 +124,7 @@ $user_id = $_SESSION['id'];
         </div>
     </div>
     <?php include '../components/footer.html'; ?>
-
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function toggleGraph(graphId) {
@@ -209,7 +205,6 @@ $user_id = $_SESSION['id'];
             });
         }
     </script>
-    </div>
     <script>
         function toggleTable(tableId) {
             var table = document.getElementById(tableId);
@@ -230,7 +225,7 @@ $user_id = $_SESSION['id'];
             }
         }
     </script>
-
+    <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/topojson/topojson.min.js"></script>
     <script src="../Assets/plugins/datamaps/datamaps.world.min.js"></script>
     <script src="../Assets/plugins/raphael/raphael.min.js"></script>

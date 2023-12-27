@@ -26,6 +26,25 @@ if ($result -> num_rows > 0) {
 else {
     
 }
+$queryTabelLain = "SELECT * FROM pengajuan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+$resultTabelLain = $conn->query($queryTabelLain);
+
+if ($resultTabelLain->num_rows > 0) {
+    while ($row = $resultTabelLain->fetch_assoc()) {
+        $nama = $row['nama_pemohon']; 
+        $tgl =$row['tanggal_permohonan'];
+        $code =$row['kode_permohonan_informasi'];
+        $noreg =$row['nomer_registrasi_keberatan'];
+        $nik =$row['nik_pemohon'];
+        $email =$row['email_pemohon'];
+        $foto =$row['foto_ktp_pemohon'];
+        $opd =$row['opd_yang_dituju'];
+        $inf =$row['informasi_yang_diminta'];
+        $alasan =$row['alasan_keberatan'];
+    }
+} else {
+    // Tidak ada hasil yang ditemukan
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,48 +71,91 @@ else {
         </div>
     </div>
     <div id="main-wrapper">
-        <?php include '../components/navbar.html'; ?>
+    <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
+                <div class="col-12">
+                        <div class="card">
+                            <h1>Detail Pengajuan Keberatan Informasi</h1>
+                            <div class="card-body">
+                                <h4>Identitas Pemohon</h4>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td><strong>Nama Pemohon</strong></td>
+                                        <td>
+                                            <?php echo $nama; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tanggal Permohonan</strong></td>
+                                        <td>
+                                        <?php echo !empty($tgl) ? date('d-m-Y H:i:s', strtotime($tgl)) : ''; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nomor Registasi Permohonan</strong></td>
+                                        <td>
+                                            <?php echo $code; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nomor Register Keberatan</strong></td>
+                                        <td id="nomorRegistrasiCell">
+                                            <?php echo $noreg; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>NIK</strong></td>
+                                        <td>
+                                            <?php echo $nik; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email Pemohon</strong></td>
+                                        <td>
+                                            <?php echo $email; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Foto KTP</strong></td>
+                                        <td><a href="../Assets/uploads/<?php echo $foto; ?>"
+                                                target="_blank">
+                                                <?php echo $foto; ?>
+                                            </a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Opd Yang Di Tuju</strong></td>
+                                        <td>
+                                            <?php echo $opd; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Informasi yang Dibutuhkan</strong></td>
+                                        <td>
+                                            <?php echo $inf; ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Alasan Keberatan</strong></td>
+                                        <td>
+                                            <?php echo $alasan; ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h1>Pengajuan Keberatan</h1>
-                                <div class="row" style="background-color: #9F0000;">
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" id="nik" name="nik"
-                                                placeholder="Nomor NIK">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="nama" name="nama"
-                                                placeholder="Nama Pemohon">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" id="registrasi" name="registrasi"
-                                                placeholder="Nomor Registrasi">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 daftar-permohonan">
-                                        <button type="button" class="btn btn-primary btn-block" onclick="cariData()"
-                                            style="background-color: #F19C12;">Cari</button>
-                                    </div>
-                                </div>
-                                <h4 class="card-title">Data Daftar Pengajuan Keberatan</h4>
-                                <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
+                                <h1>Catatan</h1>
+                                <h4 class="card-title">Daftar Catatan</h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama</th>
                                                 <th>No.Register Keberatan</th>
                                                 <th>Keterangan</th>
                                                 <th>Status</th>
@@ -102,8 +164,6 @@ else {
                                         <tbody>
                                         <?php
                                             include('../controller/koneksi/config.php');
-
-                                            
                                             $sql = "SELECT * FROM note_admin WHERE nomer_registrasi_keberatan =  '$nomer_registrasi_keberatan'";
                                             $result = $conn->query($sql);
                                             if ($result->num_rows > 0) {
@@ -112,7 +172,6 @@ else {
                                                     $formattedDate = date('d-m-Y', strtotime($row["keterangan"]));
                                                     echo "<tr>
                                                             <td>" . $counter . "</td>
-                                                            <td>" . $row["nama_pemohon"] . "</td>
                                                             <td>" . $row["nomer_registrasi_keberatan"] . "</td>
                                                             <td>" . $formattedDate . "</td>
                                                             <td>" . $row["status"] . "</td>
@@ -135,13 +194,7 @@ else {
         </div>
         <?php include '../components/footer.html'; ?>
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
+    <script src="../Model/Auth/TimeOut.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>

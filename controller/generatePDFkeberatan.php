@@ -20,7 +20,7 @@ if (isset($_POST['id'])) {
     // Query to fetch data for PDF generation
     $query = "SELECT  nomer_registrasi_keberatan, informasi_yang_diminta, kuasa_permohonan, nama_pemohon, nama,
     email, nik, no_hp, foto_ktp, alamat, kota_kabupaten, negara, kode_pos, provinsi, opd_yang_dituju, pekerjaan,
-    unggah_surat_kuasa, alasan_keberatan, tanggal_pengajuan, tanggal_permohonan, nik_pemohon
+    unggah_surat_kuasa, alasan_keberatan, tanggal_pengajuan, tanggal_permohonan, nik_pemohon, email_pemohon
     FROM pengajuan_keberatan WHERE id = $idPermohonan";
 
     $result = $conn->query($query);
@@ -35,6 +35,7 @@ if (isset($_POST['id'])) {
             $kuasapermohon = $row['kuasa_permohonan'];
             $nama = $row['nama'];
             $email = $row['email'];
+            $email_pemohon = $row['email_pemohon'];
             $noHp = $row['no_hp'];
             $fotoktp = $row['foto_ktp'];
             $alamat = $row['alamat'];
@@ -266,7 +267,7 @@ if (isset($_POST['id'])) {
             $mail->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
             $mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
 
-            $mail->addAddress($row['email'], $row['nama']); // Email penerima.
+            $mail->addAddress($row['email_pemohon'], $row['nama']); // Email penerima.
 
             $mail->isHTML(true);
 

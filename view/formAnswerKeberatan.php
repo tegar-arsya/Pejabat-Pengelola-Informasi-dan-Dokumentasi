@@ -52,7 +52,7 @@ else {
         </div>
     </div>
     <div id="main-wrapper">
-        <?php include '../components/navbar.html'; ?>
+    <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -64,7 +64,7 @@ else {
                                 <form method="post" action="../controller/adminAnswerKeberatan.php" enctype="multipart/form-data">
                                     <div class="mb-3">
                                         <label for="namaPIC" class="form-label">Nama PIC</label>
-                                        <input type="text" class="form-control" id="namaPIC" name="namaPIC" value="<?php echo isset($_SESSION['nama_pengguna']) ? htmlspecialchars($_SESSION['nama_pengguna']) : ''; ?>" required readonly>
+                                        <input type="text" class="form-control" id="namaPIC" name="namaPIC" value="<?php echo htmlspecialchars($_SESSION['nama_pengguna']);?> " required readonly>
                                     </div>
                                     <div class="mb-3">
                                         <label for="jawabanPermohonan" class="form-label">jawaban Permohonan</label>
@@ -88,6 +88,7 @@ else {
         </div>
         <?php include '../components/footer.html'; ?>
     </div>
+    <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

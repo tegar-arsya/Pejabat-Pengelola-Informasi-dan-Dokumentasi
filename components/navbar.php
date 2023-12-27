@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="item">
-                    <a href="../controller/logout.php">Logout</a>
+                    <a href="../controller/User/logout.php">Logout</a>
                 </div>
             </div>
             <div class="mobile-toggler d-lg-none">
@@ -73,7 +73,7 @@
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/logout.php">Logout</a>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/User/logout.php">Logout</a>
                             </div>
                         </div>
                     </div>

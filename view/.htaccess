@@ -107,5 +107,7 @@ Options -Indexes
     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/Note
     RewriteRule ^Note$ formNote.php [NC,L]
 
+    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/admin
+    RewriteRule ^admin$ loginAdmin.php [NC,L]
 </IfModule>
 

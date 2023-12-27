@@ -1102,6 +1102,7 @@ button#cancel-button {
 }
 
 .timeline-content {
+    color: #fff;
     background-color: #D9D9D9;
     padding: 15px;
     border-radius: 8px;
@@ -1152,6 +1153,34 @@ button#cancel-button {
     /* Sesuaikan tinggi logo */
     margin-right: 10px;
     /* Sesuaikan margin jika diperlukan */
+}
+
+.timeline-item:nth-child(1) .timeline-line,
+.timeline-item:nth-child(1) .timeline-number,
+.timeline-item:nth-child(1) .timeline-content {
+    background-color: #3498db;
+    /* Warna untuk nomor urutan pertama (biru) */
+}
+
+.timeline-item:nth-child(2) .timeline-line,
+.timeline-item:nth-child(2) .timeline-number,
+.timeline-item:nth-child(2) .timeline-content {
+    background-color: #9b59b6;
+    /* Warna untuk nomor urutan kedua (ungu) */
+}
+
+.timeline-item:nth-child(3) .timeline-line,
+.timeline-item:nth-child(3) .timeline-number,
+.timeline-item:nth-child(3) .timeline-content {
+    background-color: #f39c12;
+    /* Warna untuk nomor urutan ketiga (kuning) */
+}
+
+.timeline-item:nth-child(4) .timeline-line,
+.timeline-item:nth-child(4) .timeline-number,
+.timeline-item:nth-child(4) .timeline-content {
+    background-color: #2ecc71;
+    /* Warna untuk nomor urutan keempat (hijau) */
 }
 
 .up {

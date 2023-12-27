@@ -38,7 +38,7 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <div id="main-wrapper">
-        <?php include '../components/navbar.html'; ?>
+    <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -72,7 +72,7 @@ if (isset($_GET['id'])) {
                                 </div>
                                 <h4 class="card-title">Daftar Keberatan Informasi</h4>
                                 
-                                <button id="exportExcel" style="border : none;" onclick="window.open('../controller/exportExcelKeberatan.php')">
+                                <button id="exportExcel" style="border : none;" onclick="window.open('../controller/Admin/ExportExcelKeberatan.php')">
                                 <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #058a2d; font-size: 30px;">
                             </i>
                         </button>
@@ -186,8 +186,10 @@ if (isset($_GET['id'])) {
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#permohonanTable').DataTable();
-        });
+        $('#permohonanTable').DataTable({
+        "order": [[1, 'asc']]
+    });
+    });
     </script>
     <script>
         $(document).ready(function () {
@@ -199,22 +201,6 @@ if (isset($_GET['id'])) {
                         rowData.push($(this).text());
                     });
                     data.push(rowData);
-                });
-                $.ajax({
-                    url: '../controller/export_spreadsheet.php',
-                    method: 'POST',
-                    data: { data: data },
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response && response.fileUrl) {
-                            window.location.href = response.fileUrl;
-                        } else {
-                            console.error('Invalid response from server.');
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                    }
                 });
             });
         });
@@ -241,12 +227,12 @@ if (isset($_GET['id'])) {
 </script>
 <!-- Add this script inside the head tag or at the end of the body tag -->
 <script>
-    function HapusVerifikasi(nomer_registrasi) {
+    function HapusVerifikasi(nomer_registrasi_keberatan) {
         if (confirm("Apakah Anda Ingin Menghapusnya?")) {
             $.ajax({
                 type: "POST",
-                url: '../controller/hapus_verifikasi.php',
-                data: { nomer_registrasi: nomer_registrasi },
+                url: '../controller/Admin/DeleteVerifikasi.php',
+                data: { nomer_registrasi_keberatan: nomer_registrasi_keberatan },
                 dataType: "json",
                 success: function (response) {
                     if (response.status === "success") {
@@ -263,7 +249,7 @@ if (isset($_GET['id'])) {
         }
     }
 </script>
-
+<script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

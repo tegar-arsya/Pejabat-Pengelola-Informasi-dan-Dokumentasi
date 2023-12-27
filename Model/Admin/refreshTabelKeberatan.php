@@ -1,5 +1,5 @@
 <?php
-include('../controller/koneksi/config.php');
+include('../../controller/koneksi/config.php');
 $data = reloadDataK();
 
 if (!empty($data)) {
@@ -54,7 +54,7 @@ if (!empty($data)) {
 
 <?php
 function reloadDataK() {
-    include('../controller/koneksi/config.php');
+    include('../../controller/koneksi/config.php');
     $query = "SELECT DISTINCT vk.nomer_registrasi_keberatan, vk.*, vk.tanggal_permohonan, vk.tanggal_verifikasi, sk.tanggal_survey, pk.nama_pemohon, vk.alasan_keberatan, vk.opd_yang_dituju, tp.tanggal_penolakan
                                             FROM verifikasi_keberatan vk
                                             LEFT JOIN survey_kepuasan_keberatan sk ON vk.nama_pemohon = sk.nama_pengguna

@@ -38,7 +38,7 @@ $user_id = $_SESSION['id'];
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Pengajuan Keberatan Informasi</h1>
-        <form action="../controller/cari_code.php" method="POST" enctype="multipart/form-data">
+        <form action="../controller/User/cari_code.php" method="POST" enctype="multipart/form-data">
             <h3>Pengajuan Keberatan</h3>
             <div class="main-user-info">
                 <div class="user-input-box1">
@@ -54,7 +54,9 @@ $user_id = $_SESSION['id'];
     </div>
     <?php include '../components/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
-    "></script>
+    ">
+</script>
+<script src="../Model/Auth/TimeOutUser.js"></script>
 </body>
 
 </html>

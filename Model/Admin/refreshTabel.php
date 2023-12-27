@@ -1,5 +1,5 @@
 <?php
-include('../controller/koneksi/config.php');
+include('../../controller/koneksi/config.php');
 $data = reloadData();
 
 if (!empty($data)) {
@@ -16,7 +16,7 @@ if (!empty($data)) {
         echo "<td>" . (!empty($row['tanggal_survey']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_survey']))) : '') . "</td>";
         echo "<td><button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button>";
         echo "<button class='btn btn-danger btn-sm' onclick='HapusVerifikasi(\"{$row['nomer_registrasi']}\")'>Hapus</button>";
-        echo "<a href='formAnswer?registrasi=" . $row["nomer_registrasi"] . "' class='btn btn-success btn-sm'>Jawaban Permohonan</a>";
+        echo "<a href='formAnswer?registrasi=" . $row["nomer_registrasi"] . "' class='btn btn-success btn-sm'>Jawab</a>";
 
         // Pastikan bahwa nilai status adalah valid
         $status = htmlspecialchars($row['status']);
@@ -38,6 +38,7 @@ if (!empty($data)) {
 
                     if ($sekarang <= $tanggalPenolakan) {
                         $status = 'Pending';
+                        $note = !empty($row['note']) ? $row['note'] : '';
                     } else {
                         // Jika lebih dari 3 hari, dianggap 'Gugur'
                         $status = 'Gugur';
@@ -45,7 +46,6 @@ if (!empty($data)) {
                 } else {
                     $status = 'Belum Verifikasi';
                 }
-
                 // Update status ke database
                 $updateStatusQuery = "UPDATE verifikasi_permohonan SET status=? WHERE nomer_registrasi=?";
                 $stmt = $conn->prepare($updateStatusQuery);
@@ -55,7 +55,13 @@ if (!empty($data)) {
             }
         }
 
-        echo "<td>" . htmlspecialchars($status) . "</td>";
+        // Gabungkan status dan note jika status adalah 'Pending'
+        $statusDisplay = $status;
+        if ($status === 'Pending') {
+            $statusDisplay .= " ($note)";
+        }
+
+        echo "<td>" . htmlspecialchars($statusDisplay) . "</td>";
         echo "</tr>";
     }
 } else {
@@ -63,13 +69,14 @@ if (!empty($data)) {
 }
 
 function reloadData() {
-    include('../controller/koneksi/config.php');
-    $query = "SELECT DISTINCT vp.nomer_registrasi, vp.*, sk.tanggal_survey, pi.nama_pengguna, tr.tanggal_penolakan, pk.kode_permohonan_informasi
+    include('../../controller/koneksi/config.php');
+    $query = "SELECT DISTINCT vp.nomer_registrasi, vp.*, sk.tanggal_survey, pi.nama_pengguna, tr.note, tr.tanggal_penolakan, pk.kode_permohonan_informasi
     FROM verifikasi_permohonan vp
     LEFT JOIN survey_kepuasan sk ON vp.nomer_registrasi = sk.nomer_registrasi
     LEFT JOIN permohonan_informasi pi ON vp.nama_pengguna = pi.nama_pengguna
     LEFT JOIN tbl_rejected tr ON vp.nomer_registrasi = tr.nomer_registrasi
-    LEFT JOIN pengajuan_keberatan pk ON vp.nomer_registrasi = pk.kode_permohonan_informasi";
+    LEFT JOIN pengajuan_keberatan pk ON vp.nomer_registrasi = pk.kode_permohonan_informasi
+    ORDER BY vp.nomer_registrasi ASC";
 
     $result = $conn->query($query);
 

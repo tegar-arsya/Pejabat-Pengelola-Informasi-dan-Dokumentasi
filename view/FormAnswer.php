@@ -11,7 +11,7 @@ if (!isset($_GET['registrasi'])) {
     exit();
 }
 $nomer_registrasi = $_GET['registrasi'];
-
+$pic = $_SESSION['nama_pengguna'];
 $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
 $result = $conn->query($query);
 
@@ -52,7 +52,7 @@ else {
         </div>
     </div>
     <div id="main-wrapper">
-        <?php include '../components/navbar.html'; ?>
+    <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -88,6 +88,7 @@ else {
         </div>
         <?php include '../components/footer.html'; ?>
     </div>
+    <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>

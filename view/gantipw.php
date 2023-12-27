@@ -41,9 +41,14 @@
         <form action="../controller/proses_ganti_password.php" method="POST">
             <div class="main-user-info">
                 <div class="user-input-box">
-                <label for="password">Password Baru:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Simpan Password Baru</button>
+                    <input type="hidden" name="token" value="<?php echo htmlspecialchars($_GET['token']); ?>">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="password">Password Baru:</label>
+                    <input type="password" id="password" name="password" required>
+                    
+                <button type="submit">Simpan Password Baru</button>
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js

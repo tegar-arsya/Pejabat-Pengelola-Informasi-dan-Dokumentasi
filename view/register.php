@@ -1,3 +1,6 @@
+<?php
+include('../Model/CSRF/csrf.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -103,6 +106,7 @@
     <div class="container">
         <h1 class="form-title">Registration</h1>
         <form action="../controller/simpan.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
             <h3>Personal Infromation</h3>
             <div class="main-user-info">
                 <div class="user-input-box">
