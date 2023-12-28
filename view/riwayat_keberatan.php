@@ -177,7 +177,7 @@ include('../controller/koneksi/config.php');
                 Admin PPID Dishub Prov Jateng
                 </p>
             </div>
-            <div id="tabelcontainer">
+            <div id="tabelcontainer" class="up">
                 <div class="fill">
                     <div class="style-font">
                         Jawaban Pengajuan Keberatan

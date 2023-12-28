@@ -1,21 +1,33 @@
+# Options -Indexes
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteBase /PERMOHONANINFORMASI/
+#     # Menghapus ekstensi .php
+#     RewriteCond %{REQUEST_FILENAME} !-d
+#     RewriteCond %{REQUEST_FILENAME}.php -f
+#     RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+    
+#     # Mengarahkan /aduan ke pengajuan_keberatan.php
+#     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/home
+#     RewriteRule ^home$ index.php [NC,L]
+
+#     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/Admin
+#     RewriteRule ^Admin$ loginAdmin.php [NC,L]
+#     RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/resetPassword
+#     RewriteRule ^resetPassword$ resetPW.php [NC,L]
+# </IfModule>
+
 Options -Indexes
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /PERMOHONANINFORMASI/
     # Menghapus ekstensi .php
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}.php -f
     RewriteRule ^([^\.]+)$ $1.php [NC,L]
-
-    
-    # Mengarahkan /aduan ke pengajuan_keberatan.php
-    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/home
-    RewriteRule ^home$ index.php [NC,L]
-
-    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/Admin
     RewriteRule ^Admin$ loginAdmin.php [NC,L]
-    RewriteCond %{REQUEST_URI} ^/PERMOHONANINFORMASI/view/resetPassword
+    RewriteRule ^home$ index.php [NC,L]
     RewriteRule ^resetPassword$ resetPW.php [NC,L]
 </IfModule>
-

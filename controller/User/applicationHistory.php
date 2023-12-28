@@ -50,7 +50,7 @@ if ($result_check_rejected->num_rows > 0) {
         if ($tanggal_rejected < $tiga_hari_sebelumnya) {
             $timelineData[] = array("date" => date('d-m-Y H:i:s', $tanggal_rejected), "status" => 'Permohonan Gugur');
         } else {
-            $timelineData[] = array("date" => date('d-m-Y H:i:s', $tanggal_rejected), "status" => 'Pending ' . $alasan_tolak);
+            $timelineData[] = array("date" => date('d-m-Y H:i:s', $tanggal_rejected), "status" => 'Pending ' . "($alasan_tolak)");
         }
 
         $penolakan_ditemukan = true;
