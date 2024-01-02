@@ -1,0 +1,22 @@
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered ">
+        <thead>
+            <tr>
+                <th><input type="checkbox" class="select-all"></th>
+                <th>No. Register</th>
+                <th>Nama</th>
+                <th>No.HP</th>
+                <th>Informasi yang Dibutuhkan</th>
+                <th>OPD yang ditujui</th>
+                <th>Tanggal Masuk</th>
+                <th>Tangal Verifikasi</th>
+                <th>Tanggal Selesai</th>
+                <th>Aksi</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><input type='checkbox' class='select-row'></td><td>0032/PI/2023</td><td>TEGAR ARSYADANI</td><td>081353677822</td><td>rekap data 2020 sampai 2022</td><td>Sekretaris Daerah Provinsi Jawa Tengah</td><td>2023-10-26 14:54:38</td><td>2023-10-30 09:07:22</td><td>2023-10-26 20:03:20</td><td><button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button><button class='btn btn-success btn-sm' onclick='status()'>Status</button></td><td>Permohonan Selesai</td></tr><tr><td><input type='checkbox' class='select-row'></td><td>0036/PI/2023</td><td>Mokhammad Alfin Alfaridzi</td><td>081215847069</td><td>rekap data dari 5 tahun terakhir</td><td>Kepala Badan Pengelola Pendapatan Daerah Provinsi Jawa Tengah</td><td>2023-10-31 10:37:40</td><td>2023-10-31 10:50:10</td><td></td><td><button class='btn btn-info btn-sm' onclick='showDetail()'>Detail</button><button class='btn btn-success btn-sm' onclick='status()'>Status</button></td><td>Sudah Verifikasi</td></tr>        </tbody>
+    </table>
+</div>
