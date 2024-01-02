@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2023 at 04:36 AM
+-- Generation Time: Jan 02, 2024 at 03:39 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -94,7 +94,8 @@ CREATE TABLE `answer_admin` (
 
 INSERT INTO `answer_admin` (`id`, `nama_pic`, `jawaban_permohonan`, `lampiran`, `tanggal_jawaban`, `nik_pemohon`, `nomer_registrasi_pemohon`, `status_balasan`) VALUES
 (26, 'SUPER ADMIN', 'berikut jawaban anda', 'Desain tanpa judul.pdf', '2023-12-24 10:14:27', '3315182709010001', '0370/PPID-Jateng/XII/2023', 'Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.'),
-(27, 'SUPER ADMIN', 'FH', 'Desain tanpa judul.pdf', '2023-12-25 04:38:16', '3315182709010001', '0367/PPID-Jateng/XII/2023', 'Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.');
+(27, 'SUPER ADMIN', 'FH', 'Desain tanpa judul.pdf', '2023-12-25 04:38:16', '3315182709010001', '0367/PPID-Jateng/XII/2023', 'Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.'),
+(28, 'SUPER ADMIN', 'iii', 'Desain tanpa judul.pdf', '2024-01-02 01:17:07', '3315182709010001', '0375/PPID-Jateng/XII/2023', 'Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.');
 
 -- --------------------------------------------------------
 
@@ -156,7 +157,8 @@ CREATE TABLE `notifikasi_pengiriman` (
 INSERT INTO `notifikasi_pengiriman` (`id`, `nomer_registrasi`, `nama_pengguna`, `opd_yang_dituju`, `status`, `tanggal_masuk`) VALUES
 (25, '0369/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', 'TESTING DEV', 'Permohonan diposisikan ke TESTING DEV', '2023-12-24 05:09:06'),
 (27, '0370/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', 'TESTING DEV', 'Permohonan diposisikan ke TESTING DEV', '2023-12-24 09:36:53'),
-(28, '0367/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', 'TESTING DEV', 'Permohonan diposisikan ke TESTING DEV', '2023-12-25 04:37:45');
+(28, '0367/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', 'TESTING DEV', 'Permohonan diposisikan ke TESTING DEV', '2023-12-25 04:37:45'),
+(29, '0375/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', 'TESTING DEV', 'Permohonan diposisikan ke TESTING DEV', '2024-01-02 01:16:23');
 
 -- --------------------------------------------------------
 
@@ -281,7 +283,8 @@ INSERT INTO `permohonan_informasi` (`id`, `nomer_registrasi`, `id_user`, `nama_p
 (369, '0369/PPID-Jateng/XII/2023', '3315182709010001', 'TEGAR ARSYADANI', 'TESTING DEV', 'rekap data permohonan informasi jateng tahun 2023', 'skripsi', 'Mendapatkan Salinan Informasi Softcopy', 'Email', NULL, '2023-12-21 04:28:51'),
 (370, '0370/PPID-Jateng/XII/2023', '3315182709010001', 'TEGAR ARSYADANI', 'TESTING DEV', 'rekap data tahun 2023', 'sebagai skrpisi', 'Mendapatkan Salinan Informasi Hardcopy', 'Kurir / Pos', 'update', '2023-12-21 04:31:07'),
 (374, '0374/PPID-Jateng/XII/2023', '3315182709010001', 'TEGAR ARSYADANI', 'TESTING DEV', 'laporan ', 'lapor', 'Mendapatkan Salinan Informasi Hardcopy', 'Faximile', NULL, '2023-12-27 04:09:53'),
-(375, '0375/PPID-Jateng/XII/2023', '3315182709010001', 'TEGAR ARSYADANI', 'TESTING DEV', 'dvdvddvcdcdssvddvdvdv', 'vdvdvdvwvwevlewdas edc', 'Mendapatkan Salinan Informasi Hardcopy', 'Kurir / Pos', NULL, '2023-12-28 01:33:21');
+(375, '0375/PPID-Jateng/XII/2023', '3315182709010001', 'TEGAR ARSYADANI', 'TESTING DEV', 'dvdvddvcdcdssvddvdvdv', 'vdvdvdvwvwevlewdas edc', 'Mendapatkan Salinan Informasi Hardcopy', 'Kurir / Pos', NULL, '2023-12-28 01:33:21'),
+(376, '0376/PPID-Jateng/I/2024', '3315182709010001', 'TEGAR ARSYADANI', 'TESTING DEV', 'efefefsdsdsds', 'ffs', 'Mendapatkan Salinan Informasi Hardcopy', 'Kurir / Pos', NULL, '2024-01-01 07:05:19');
 
 --
 -- Triggers `permohonan_informasi`
@@ -610,9 +613,7 @@ CREATE TABLE `user_admin` (
 --
 
 INSERT INTO `user_admin` (`id`, `nama_pengguna`, `username`, `password`, `role`) VALUES
-(5, 'SUPER ADMIN', 'ppidjateng@gmail.com', '$2y$10$bzRXvxHcu.daO/.loS37auzTu/qeKMeIQvJL1ycS30D.jx4nGx0Cu', 'superadmin'),
-(6, 'TEGAR ARSYADANI', 'tegararsyadani0117@gmail.com', '$2y$10$7sg5d4zYX38gxjCkls7b8uYXqUQn94ls75lZz/TipN1Thjz2bYuf.', ''),
-(0, 'TEGAR ARSYADANI', 'tegararsya0117@gmail.com', '$2y$10$aL8larZkN0ytBWSUmzZT6u2bC6kdiFOeRGWfFBVbkLU8jbboXmcv2', '');
+(8, 'PPID UTAMA', 'ppidutama.jateng@gmail.com', '$2y$10$39AsRWi4F3pvVZAoWtBQ5udeS1.xy5J9Xjh5ysdVGhFIVDXXzAEqK', 'superadmin');
 
 -- --------------------------------------------------------
 
@@ -679,8 +680,9 @@ CREATE TABLE `verifikasi_permohonan` (
 INSERT INTO `verifikasi_permohonan` (`id`, `nomer_registrasi`, `nama_pengguna`, `tanggal_permohonan`, `nik`, `foto_ktp`, `email`, `no_hp`, `alamat`, `informasi_yang_dibutuhkan`, `alasan_pengguna_informasi`, `id_permohonan`, `tanggal_verifikasi`, `opd_yang_dituju`, `status`) VALUES
 (166, '0369/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-21 11:28:51', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'rekap data permohonan informasi jateng tahun 2023', 'skripsi', 369, '2023-12-24 05:08:50', 'TESTING DEV', 'Pengajuan Keberatan'),
 (168, '0370/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-21 11:31:07', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'rekap data tahun 2023', 'sebagai skrpisi', 370, '2023-12-24 09:36:13', 'TESTING DEV', 'Permohonan Selesai'),
-(169, '0361/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-05 11:04:45', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'test', 'tes1', 361, '2023-12-25 03:12:24', 'TESTING DEV', 'Pending (data tidak lengkapi. silahkan mengisi formulir lagi                         )'),
-(170, '0367/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-13 11:42:00', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'dvvssv', 'dsvdvdvdvdv', 367, '2023-12-25 04:37:24', 'TESTING DEV', 'Permohonan Selesai');
+(169, '0361/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-05 11:04:45', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'test', 'tes1', 361, '2023-12-25 03:12:24', 'TESTING DEV', 'Gugur'),
+(170, '0367/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-13 11:42:00', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'dvvssv', 'dsvdvdvdvdv', 367, '2023-12-25 04:37:24', 'TESTING DEV', 'Permohonan Selesai'),
+(171, '0375/PPID-Jateng/XII/2023', 'TEGAR ARSYADANI', '2023-12-28 08:33:21', '3315182709010001', '2021_10_21_21_17_IMG_1375.JPG', 'tegararsya0117@gmail.com', '081353677822', 'desa Curug', 'dvdvddvcdcdssvddvdvdv', 'vdvdvdvwvwevlewdas edc', 375, '2024-01-02 01:16:12', 'TESTING DEV', 'Permohonan informasi Sudah Diverifikasi Oleh Admin.');
 
 --
 -- Indexes for dumped tables
@@ -765,6 +767,12 @@ ALTER TABLE `tbl_rejected`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_admin`
+--
+ALTER TABLE `user_admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `verifikasi_keberatan`
 --
 ALTER TABLE `verifikasi_keberatan`
@@ -784,7 +792,7 @@ ALTER TABLE `verifikasi_permohonan`
 -- AUTO_INCREMENT for table `answer_admin`
 --
 ALTER TABLE `answer_admin`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `keberatananswer_admin`
@@ -802,7 +810,7 @@ ALTER TABLE `note_admin`
 -- AUTO_INCREMENT for table `notifikasi_pengiriman`
 --
 ALTER TABLE `notifikasi_pengiriman`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `notifikasi_pengiriman_keberatan`
@@ -820,7 +828,7 @@ ALTER TABLE `pengajuan_keberatan`
 -- AUTO_INCREMENT for table `permohonan_informasi`
 --
 ALTER TABLE `permohonan_informasi`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=376;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=377;
 
 --
 -- AUTO_INCREMENT for table `registrasi`
@@ -859,6 +867,12 @@ ALTER TABLE `tbl_rejected`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
+-- AUTO_INCREMENT for table `user_admin`
+--
+ALTER TABLE `user_admin`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `verifikasi_keberatan`
 --
 ALTER TABLE `verifikasi_keberatan`
@@ -868,7 +882,7 @@ ALTER TABLE `verifikasi_keberatan`
 -- AUTO_INCREMENT for table `verifikasi_permohonan`
 --
 ALTER TABLE `verifikasi_permohonan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
