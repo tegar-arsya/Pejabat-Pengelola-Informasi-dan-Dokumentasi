@@ -153,4 +153,5 @@ Options -Indexes
     RewriteRule ^EditAdmin$ editAdmin.php [NC,L]
     RewriteRule ^Note$ formNote.php [NC,L]
     RewriteRule ^admin$ loginAdmin.php [NC,L]
+    RewriteRule ^adminRegister$ admin_register.php [NC,L]
 </IfModule>
