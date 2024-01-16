@@ -40,8 +40,9 @@ $mail = new PHPMailer;
 	// setelah pengaturan email
 	$nomerRegistrasi = $_POST['nomer_registrasi_keberatan'];
 	$name = $_POST['namapemohon'];
-	$query = $conn->prepare("INSERT INTO tbl_penolakan (nomer_registrasi_keberatan, nama_pemohon) VALUES (?, ?)");
-	$query->bind_param("ss", $nomerRegistrasi, $name);
+	$alasan = $_POST['alasan'];
+	$query = $conn->prepare("INSERT INTO tbl_penolakan (nomer_registrasi_keberatan, nama_pemohon, note) VALUES (?, ?,?)");
+	$query->bind_param("sss", $nomerRegistrasi, $name, $alasan);
 	
 // Eksekusi query
 if ($query->execute()) {

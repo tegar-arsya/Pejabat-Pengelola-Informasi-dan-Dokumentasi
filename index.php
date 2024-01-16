@@ -140,7 +140,7 @@ include('./Model/CSRF/csrf.php');
         <h5 style="font-size: 15px; margin-left: 70px;">PROVINSI JAWA TENGAH</h5>
         <p style="margin-left: 70px; margin-top: 30px;">Alamat : Jl. Menteri Supeno I / 2, Kode POS 50243
 Semarang, Jawa Tengah</p>
-        <p style="margin-left: 70px;">ppidutama.jateng@gmail.com<</p>
+        <p style="margin-left: 70px;">ppidutama.jateng@gmail.com</p>
     </div>
     <div class="right-section">
         <div class="social-media">

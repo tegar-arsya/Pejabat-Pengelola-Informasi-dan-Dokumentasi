@@ -47,7 +47,7 @@ include('../Model/CSRF/csrf.php');
                 <div class="user-input-box">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
-                    <button class="btn btn-primary" type="submit">Reset Password</button>
+                    <button class="btn btn-mrh" type="submit">Reset Password</button>
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js

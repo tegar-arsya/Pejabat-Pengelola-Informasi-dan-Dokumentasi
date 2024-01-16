@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
     $idPermohonan = $_POST['id'];
 
     // Query to get registration number from the registration table based on id_user and nik
-    $query = "SELECT nama_pemohon, nomer_registrasi_keberatan, 
+    $query = "SELECT nama_pemohon, nomer_registrasi_keberatan, kode_permohonan_informasi,
     tanggal_permohonan, nik_pemohon, foto_ktp, informasi_yang_diminta, alasan_keberatan, nama,
     pekerjaan, unggah_surat_kuasa
     FROM pengajuan_keberatan WHERE id = $idPermohonan";

@@ -30,7 +30,7 @@ header("Content-Disposition: attachment; filename=rekap_data_keberatan.xls");
             <?php
             $query = "SELECT DISTINCT vk.nomer_registrasi_keberatan, vk.*, vk.tanggal_permohonan, vk.tanggal_verifikasi, sk.tanggal_survey, pk.nama_pemohon, vk.alasan_keberatan, vk.opd_yang_dituju, tp.tanggal_penolakan
             FROM verifikasi_keberatan vk
-            LEFT JOIN survey_kepuasan_keberatan sk ON vk.nama_pemohon = sk.nama_pengguna
+            LEFT JOIN survey_kepuasan_keberatan sk ON vk.nomer_registrasi_keberatan = sk.nomer_registrasi_keberatan
             LEFT JOIN pengajuan_keberatan pk ON vk.nomer_registrasi_keberatan = pk.nomer_registrasi_keberatan
             LEFT JOIN tbl_penolakan tp ON vk.nomer_registrasi_keberatan = tp.nomer_registrasi_keberatan
             ORDER BY vk.nomer_registrasi_keberatan ASC";

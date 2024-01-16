@@ -45,12 +45,8 @@ $user_id = $_SESSION['id'];
                                         <thead>
                                             <tr>
                                                 <th>Nama</th>
-                                                <th>Email</th>
-                                                <th>Alamat</th>
-                                                <th>No Hp</th>
+                                                <th>Pekerjaan</th>
                                                 <th>Jenis Layanan Yang Diminta</th>
-                                                <th>Pelayanan Publik Yang Kami Berikan</th>
-                                                <th>Saran Atau Keluhan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -65,12 +61,8 @@ $user_id = $_SESSION['id'];
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
                                                 echo "<td>" . $row["nama_pengguna"] . "</td>";
-                                                echo "<td>" . $row["email"] . "</td>";
-                                                echo "<td>" . $row["alamat"] . "</td>";
-                                                echo "<td>" . $row["no_hp"] . "</td>";
+                                                echo "<td>" . $row["pekerjaan"] . "</td>";
                                                 echo "<td>" . $row["jenis_layanan"] . "</td>";
-                                                echo "<td>" . $row["feedback"] . "</td>";
-                                                echo "<td>" . $row["saran"] . "</td>";
                                                 echo "<td><a href='../controller/HapusSKMK?id=" . $row["id"] . "'>Hapus</a></td>";
                                                 echo "</tr>";
                                                 }
