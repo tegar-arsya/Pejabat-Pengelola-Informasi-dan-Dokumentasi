@@ -569,6 +569,7 @@ CREATE TABLE `tbl_penolakan` (
   `id` int(100) NOT NULL,
   `nomer_registrasi_keberatan` varchar(255) NOT NULL,
   `nama_pemohon` varchar(255) NOT NULL,
+`note` varchar(255) NOT NULL,
   `tanggal_penolakan` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
