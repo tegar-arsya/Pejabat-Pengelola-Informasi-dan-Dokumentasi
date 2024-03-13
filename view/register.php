@@ -1,5 +1,5 @@
 <?php
-include('../Model/CSRF/csrf.php');
+include '../Model/CSRF/csrf.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@ include('../Model/CSRF/csrf.php');
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Jarallax CSS -->
@@ -28,14 +28,14 @@ include('../Model/CSRF/csrf.php');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Bootstrap JS (popper.js and bootstrap.js are required for dropdowns) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS (popper.js and bootstrap.js are required for dropdowns) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="../Assets/css/style.css" />
     <title>Daftar</title>
@@ -91,7 +91,8 @@ include('../Model/CSRF/csrf.php');
                                 <i class="fa-solid fa-file-invoice"></i><a href="">Pengajuan Keberatan</a>
                             </div>
                             <div class="modal-line">
-                                <i class="fa-solid fa-chalkboard-user"></i> <a href="../view/components/panduan.html">Panduan</a>
+                                <i class="fa-solid fa-chalkboard-user"></i> <a
+                                    href="../view/components/panduan.html">Panduan</a>
                             </div>
                             <div class="modal-line">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="">Login</a>
@@ -106,7 +107,7 @@ include('../Model/CSRF/csrf.php');
     <div class="container">
         <h1 class="form-title">Registration</h1>
         <form action="../controller/simpan.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+            <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
             <h3>Personal Infromation</h3>
             <div class="main-user-info">
                 <div class="user-input-box">
@@ -169,13 +170,13 @@ include('../Model/CSRF/csrf.php');
                 <div class="user-input-box">
                     <label for="negara">Negara</label>
                     <select id="negara" name="negara" class="js-example-basic-single" required>
-                    <option disabled>Pilih Negara</option>
-                    <option value="kosong"></option>
+                        <option disabled>Pilih Negara</option>
+                        <option value="kosong"></option>
                     </select>
                 </div>
                 <div class="user-input-box">
                     <label for="provinsi">PROVINSI</label>
-                    <select id="provinsi" name="provinsi"  required>
+                    <select id="provinsi" name="provinsi" required>
                     </select>
                 </div>
                 <div class="user-input-box">
@@ -183,7 +184,7 @@ include('../Model/CSRF/csrf.php');
                     <select id="kota_kabupaten" name="kota_kabupaten" required>
                     </select>
                 </div>
-                
+
                 <div class="user-input-box">
                     <label for="kode_pos">KODE POS</label>
                     <input type="text" id="kode_pos" name="kode_pos" required />
@@ -207,11 +208,11 @@ include('../Model/CSRF/csrf.php');
     <script src="../Model/User/data.js"></script>
     <script src="../Model/User/api.js"></script>
     <script>
-// In your Javascript
-$(document).ready(function() {
-    $('.js-example-basic-single').select2();
-});
-</script>
+        // In your Javascript
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
     <!-- <script src="../Model/kota.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>

@@ -49,10 +49,13 @@ $user_id = $_SESSION['id'];
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                <div class="card" style="text-align: center;">
+                            <div class="card-body">
+                            <h1>DAFTAR ADMIN</h1>
+                            </div>
+                        </div>
                     <div class="card">
                         <div class="card-body">
-                            <h1>DAFTAR ADMIN</h1>
-                            <h4 class="card-title">Daftar ADMIN</h4>
                             <button class="btn btn-primary" onclick="Tambah()">Tambah</button>
 
                             <div class="table-responsive">

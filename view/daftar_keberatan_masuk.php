@@ -14,7 +14,12 @@ if (isset($_GET['id'])) {
 
 }
 
-
+// Pemeriksaan peran (role)
+if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
+    // Redirect non-superadmin and non-admin users to a different page
+    header("Location: ../components/ErorAkses");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +54,7 @@ if (isset($_GET['id'])) {
                         <div class="card">
                             <div class="card-body">
                                 <h1>Pengajuan Keberatan</h1>
-                                <div class="row" style="background-color: #9F0000;">
+                                <!-- <div class="row" style="background-color: #9F0000;">
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
 
@@ -74,9 +79,8 @@ if (isset($_GET['id'])) {
                                         <button type="button" class="btn btn-primary btn-block" onclick="cariData()"
                                             style="background-color: #F19C12;">Cari</button>
                                     </div>
-                                </div>
+                                </div> -->
                                 <h4 class="card-title">Data Daftar Pengajuan Keberatan</h4>
-                                <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
                                 <div class="table-responsive">
                                 <div class="filter-container">
                                         <h4 class="card-title" style="margin-top: 20px;">Filter</h4>
@@ -98,6 +102,7 @@ if (isset($_GET['id'])) {
                                                 Reset
                                             </label>
                                         </div>
+                                    <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
                                     </div>
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
@@ -141,10 +146,12 @@ if (isset($_GET['id'])) {
                                                             <td>" . $row["informasi_yang_diminta"] . "</td>
                                                             <td>" . $row["alasan_keberatan"] . "</td>
                                                             <td>
+                                                            <div class='btn-group' role='group'>
                                                                 <a href='detail-K?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
                                                                 <button type='button' data-id='" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
                                                                 <a href='detail-K?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
-                                                            </td>
+                                                                </div>
+                                                                </td>
                                                         </tr>";
                                                         $counter++;
                                                 }
@@ -172,45 +179,56 @@ if (isset($_GET['id'])) {
         Scripts
     ***********************************-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+    <script>
     $(document).ready(function() {
         // Tangani klik tombol Hapus
         $('.delete-btn').click(function() {
             var id = $(this).data('id');
 
-            // Kirim permintaan penghapusan ke server melalui Ajax
-            $.ajax({
-                url: '../controller/DeleteKeberatan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
-                type: 'POST',
-                data: { id: id },
-                success: function(response) {
-                    // Perbarui tabel atau lakukan aksi lain yang diperlukan setelah penghapusan berhasil
-                    // Contoh: reload halaman
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    // Tangani kesalahan jika diperlukan
+            // Tampilkan pesan konfirmasi dengan SweetAlert
+            Swal.fire({
+                title: 'Apakah Anda yakin ingin menghapus data ini?',
+                text: 'Data yang dihapus tidak dapat dikembalikan!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Kirim permintaan penghapusan ke server melalui Ajax
+                    $.ajax({
+                        url: '../controller/DeleteKeberatan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
+                        type: 'POST',
+                        data: { id: id },
+                        success: function(response) {
+                            // Perbarui tabel atau lakukan aksi lain yang diperlukan setelah penghapusan berhasil
+                            // Contoh: reload halaman
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            // Tampilkan pesan kesalahan dengan SweetAlert jika diperlukan
+                            Swal.fire(
+                                'Error!',
+                                'Terjadi kesalahan saat menghapus data.',
+                                'error'
+                            );
+                            console.error("AJAX Error: " + error);
+                        }
+                    });
                 }
             });
         });
     });
 </script>
+
 <script>
-    function cetakPDF() {
-        $.ajax({
-            url: '../controller/pdfK.php', // Ganti dengan path ke skrip PHP Anda
-            type: 'GET',
-            success: function(response) {
-                // Logika untuk menangani respons, jika diperlukan
-                console.log(response);
-            },
-            error: function(xhr, status, error) {
-                // Tangani kesalahan jika diperlukan
-                console.error(error);
-            }
-        });
-    }
-</script>
+        function cetakPDF() {
+            var status = $('input[name="flexRadioDefault"]:checked').val();
+            window.location.href = '../controller/admin/cetak_pdfk.php?status=' + status;
+        }
+    </script>
 <script>
     $(document).ready(function () {
         $('input[name="flexRadioDefault"]').change(function () {
@@ -234,7 +252,7 @@ if (isset($_GET['id'])) {
     <script src="../Assets/js/settings.js"></script>
     <script src="../Assets/js/gleek.js"></script>
     <script src="../Assets/js/styleSwitcher.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../Assets/plugins/tables/js/jquery.dataTables.min.js"></script>
     <script src="../Assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="../Assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>

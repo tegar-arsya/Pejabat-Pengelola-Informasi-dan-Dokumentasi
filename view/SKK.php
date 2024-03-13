@@ -4,6 +4,12 @@ if (!isset($_SESSION['id'])) {
     header("Location: ../view/login_admin.php");
     exit();
 }
+// Pemeriksaan peran (role)
+if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
+    // Redirect non-superadmin and non-admin users to a different page
+    header("Location: ../components/ErorAkses");
+    exit();
+}
 $user_id = $_SESSION['id'];
 ?>
 <!DOCTYPE html>
@@ -36,9 +42,13 @@ $user_id = $_SESSION['id'];
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
+                    <div class="card" style="text-align: center;">
                             <div class="card-body">
                                 <h1>Survey Kepuasan Masyarakat</h1>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
                                 <h4 class="card-title">Data Survey Kepuasan Masyarakat</h4>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered zero-configuration">
@@ -63,7 +73,7 @@ $user_id = $_SESSION['id'];
                                                 echo "<td>" . $row["nama_pengguna"] . "</td>";
                                                 echo "<td>" . $row["pekerjaan"] . "</td>";
                                                 echo "<td>" . $row["jenis_layanan"] . "</td>";
-                                                echo "<td><a href='../controller/HapusSKMK?id=" . $row["id"] . "'>Hapus</a></td>";
+                                                echo "<td><a href='../controller/HapusSKMK?id=" . $row["id"] . "'class='btn btn-danger btn-sm delete-btn'>Hapus</a></td>";
                                                 echo "</tr>";
                                                 }
                                             } else {

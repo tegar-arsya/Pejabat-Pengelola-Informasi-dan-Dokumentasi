@@ -14,7 +14,12 @@ if (isset($_GET['id'])) {
 
 }
 
-
+// Pemeriksaan peran (role)
+if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
+    // Redirect non-superadmin and non-admin users to a different page
+    header("Location: ../components/ErorAkses");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +33,7 @@ if (isset($_GET['id'])) {
     <link rel="icon" type="image/png" sizes="16x16" href="../Assets/images/logo_jateng.png">
     <!-- Custom Stylesheet -->
     <link href="../Assets//plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
 
 </head>
@@ -41,15 +47,20 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <div id="main-wrapper">
-    <?php include '../components/navbarAdmin.php'; ?>
+        <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card" style="text-align: center;">
                             <div class="card-body">
                                 <h1>Permohonan Informasi</h1>
-                                <div class="row" style="background-color: #9F0000;">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+
+                                <!-- <div class="row" style="background-color: #9F0000;">
                                     <div class="col-md-3 daftar-permohonan">
                                         <div class="form-group">
 
@@ -74,31 +85,36 @@ if (isset($_GET['id'])) {
                                         <button type="button" class="btn btn-primary btn-block" onclick="cariData()"
                                             style="background-color: #F19C12;">Cari</button>
                                     </div>
-                                </div>
-                                <h4 class="card-title">Data Daftar Permohonan</h4>
-                                <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
-                                <div class="table-responsive">
-                                    <div class="filter-container">
-                                        <h4 class="card-title" style="margin-top: 20px;">Filter</h4>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="verified">
-                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                Verifikasi
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="unverified">
-                                            <label class="form-check-label" for="flexRadioDefault2">
-                                                Unverifikasi
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="reset">
-                                            <label class="form-check-label" for="flexRadioDefault3">
-                                                Reset
-                                            </label>
-                                        </div>
+                                </div> -->
+                                <div class="filter-container">
+                                    <h4 class="card-title">Filter</h4>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault1" value="verified">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            Verifikasi
+                                        </label>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault2" value="unverified">
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            Unverifikasi
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                            id="flexRadioDefault3" value="reset">
+                                        <label class="form-check-label" for="flexRadioDefault3">
+                                            Reset
+                                        </label>
+                                    </div>
+                                    <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
+                                </div>
+                                <h4 class="card-title">Data Daftar Permohonan Informasi</h4>
+                                <!-- <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button> -->
+                                <div class="table-responsive">
+
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
@@ -107,7 +123,7 @@ if (isset($_GET['id'])) {
                                                 <th>Informasi yang Dibutuhkan</th>
                                                 <th>Alasan Pengguna Informasi</th>
                                                 <th>OPD yang ditujui</th>
-                                                <th>Aksi</th>
+                                                <th style="width: 80px;">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -118,14 +134,14 @@ if (isset($_GET['id'])) {
                                                     FROM permohonan_informasi pi
                                                     LEFT JOIN verifikasi_permohonan vp ON pi.nomer_registrasi = vp.nomer_registrasi
                                                     WHERE 1";
-                                                    if (isset($_GET['status']) && $_GET['status'] !== 'reset') {
-                                                        $status = $_GET['status'];
-                                                        if ($status === 'verified') {
-                                                            $sql .= " AND vp.nomer_registrasi IS NOT NULL";
-                                                        } elseif ($status === 'unverified') {
-                                                            $sql .= " AND vp.nomer_registrasi IS NULL";
-                                                        }
-                                                    }
+                                            if (isset($_GET['status']) && $_GET['status'] !== 'reset') {
+                                                $status = $_GET['status'];
+                                                if ($status === 'verified') {
+                                                    $sql .= " AND vp.nomer_registrasi IS NOT NULL";
+                                                } elseif ($status === 'unverified') {
+                                                    $sql .= " AND vp.nomer_registrasi IS NULL";
+                                                }
+                                            }
                                             $result = $conn->query($sql);
 
                                             if ($result->num_rows > 0) {
@@ -138,9 +154,9 @@ if (isset($_GET['id'])) {
                                                             <td>" . $row["alasan_pengguna_informasi"] . "</td>
                                                             <td>" . $row["opd_yang_dituju"] . "</td>
                                                             <td>
-                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
-                                                                <button type='button' data-id='" . $row["nomer_registrasi"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
-                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
+                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-info btn-sm'> <i class='fas fa-info-circle'></i></a>
+                                                                <button type='button' data-id='" . $row["nomer_registrasi"] . "' class='btn btn-danger btn-sm delete-btn'> <i class='fas fa-trash-alt'></i></button>
+                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'><i class='fas fa-check-circle'></i></a>
                                                             </td>
                                                         </tr>";
                                                 }
@@ -174,63 +190,79 @@ if (isset($_GET['id'])) {
             $('.delete-btn').click(function () {
                 var id = $(this).data('id');
 
-                // Kirim permintaan penghapusan ke server melalui Ajax
-                $.ajax({
-                    url: '../controller/hapusdata_permohonan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (response) {
-                        // Perbarui tabel atau lakukan aksi lain yang diperlukan setelah penghapusan berhasil
-                        // Contoh: reload halaman
-                        location.reload();
-                    },
-                    error: function (xhr, status, error) {
-                        // Tangani kesalahan jika diperlukan
+                // Tampilkan pesan konfirmasi dengan SweetAlert
+                Swal.fire({
+                    title: 'Apakah Anda yakin ingin menghapus data ini?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Kirim permintaan penghapusan ke server melalui Ajax
+                        $.ajax({
+                            url: '../controller/hapusdata_permohonan.php',
+                            type: 'POST',
+                            data: { id: id },
+                            success: function (response) {
+                                // Tampilkan pesan berhasil dengan SweetAlert
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Data telah dihapus.',
+                                    'success'
+                                ).then((result) => {
+                                    // Perbarui tabel atau lakukan aksi lain yang diperlukan setelah penghapusan berhasil
+                                    // Contoh: reload halaman
+                                    location.reload();
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                // Tampilkan pesan kesalahan dengan SweetAlert jika diperlukan
+                                Swal.fire(
+                                    'Error!',
+                                    'Terjadi kesalahan saat menghapus data.',
+                                    'error'
+                                );
+                            }
+                        });
                     }
                 });
             });
         });
     </script>
     <script>
-        function cetakPDF() {
-            $.ajax({
-                url: '../controller/pdfPI.php', // Ganti dengan path ke skrip PHP Anda
-                type: 'GET',
-                success: function (response) {
-                    // Logika untuk menangani respons, jika diperlukan
-                    console.log(response);
-                },
-                error: function (xhr, status, error) {
-                    // Tangani kesalahan jika diperlukan
-                    console.error(error);
-                }
+        $(document).ready(function () {
+            $('input[name="flexRadioDefault"]').change(function () {
+                var status = $(this).val();
+                filterData(status);
             });
+        });
+
+        function filterData(status) {
+            var url = window.location.href.split('?')[0];
+            if (status === 'reset') {
+                window.location.href = url;
+            } else {
+                window.location.href = url + '?status=' + status;
+            }
         }
     </script>
-<script>
-    $(document).ready(function () {
-        $('input[name="flexRadioDefault"]').change(function () {
-            var status = $(this).val();
-            filterData(status);
-        });
-    });
-
-    function filterData(status) {
-        var url = window.location.href.split('?')[0];
-        if (status === 'reset') {
-            window.location.href = url;
-        } else {
-            window.location.href = url + '?status=' + status;
+    <script>
+        function cetakPDF() {
+            var status = $('input[name="flexRadioDefault"]:checked').val();
+            window.location.href = '../controller/admin/cetak_pdf.php?status=' + status;
         }
-    }
-</script>
+    </script>
     <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
     <script src="../Assets/js/settings.js"></script>
     <script src="../Assets/js/gleek.js"></script>
     <script src="../Assets/js/styleSwitcher.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="../Assets/plugins/tables/js/jquery.dataTables.min.js"></script>
     <script src="../Assets/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
     <script src="../Assets/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>

@@ -4,6 +4,13 @@ if (!isset($_SESSION['id'])) {
     header("Location: ../view/admin");
     exit();
 }
+// Pemeriksaan peran (role)
+if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
+    // Redirect non-superadmin and non-admin users to a different page
+    header("Location: ../components/ErorAkses");
+    exit();
+}
+
 $user_id = $_SESSION['id'];
 ?>
 
@@ -40,8 +47,8 @@ $user_id = $_SESSION['id'];
                 <div class="row">
                     <?php
                     include '../controller/koneksi/config.php';
-                    $sqlSurvey = "SELECT COUNT(*) as total_survey, MONTH(tanggal_survey) as month FROM survey_kepuasan GROUP BY MONTH(tanggal_survey)";
-                    $resultSurvey = $conn->query($sqlSurvey);
+                    $sqlSurvey = "SELECT COUNT(*) as total_survey, MONTH(tanggal_survey) as month FROM (SELECT tanggal_survey FROM survey_kepuasan UNION ALL SELECT tanggal_survey FROM survey_kepuasan_keberatan) AS combined_survey GROUP BY MONTH(tanggal_survey)";
+                    $resultSurvey = $conn->query($sqlSurvey);                    
 
                     $dataSurvey = array_fill(0, 12, 0); // Inisialisasi array dengan 12 bulan, diisi dengan 0
                     while ($rowSurvey = $resultSurvey->fetch_assoc()) {
@@ -182,7 +189,7 @@ $user_id = $_SESSION['id'];
                         borderWidth: 2,
                         pointBackgroundColor: 'rgba(0, 0, 255, 1)',
                         fill: true,
-                        backgroundColor: 'rgba(255, 225, 0, 1)'
+                        backgroundColor: 'rgba(255, 0, 0, 1)'
                     }],
                 },
                 options: {

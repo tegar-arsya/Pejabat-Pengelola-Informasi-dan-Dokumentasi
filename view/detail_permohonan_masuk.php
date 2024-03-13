@@ -69,7 +69,7 @@ if (isset($_GET['id'])) {
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4>Permohonan Informasi</h4>
+                                <h2 style="text-align: center;">Permohonan Informasi</h2>
                                 <table class="table table-bordered">
                                     <tr>
                                         <td><strong>Nama Pemohon:</strong></td>
@@ -192,16 +192,12 @@ if (isset($_GET['id'])) {
                                             <tr>
                                                 <th>Informasi yang Dibutuhkan</th>
                                                 <th>OPD yang Ditujukan</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td><?php echo $row['informasi_yang_dibutuhkan']; ?></td>
                                                 <td><?php echo $row['opd_yang_dituju']; ?></td>
-                                                <td>
-                                                    <button class="btn btn-primary btn-sm" onclick="editData()">Edit</button>
-                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

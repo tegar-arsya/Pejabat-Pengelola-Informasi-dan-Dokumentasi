@@ -2,27 +2,31 @@
     <div class="brand-logo">
         <a href="../view/dashboard">
             <b class="logo-abbr"><img src="../Assets/images/logo_jateng.png" alt=""> </b>
-            <span class="logo-compact"><img src="../Assets/images/PERMOHONAN INFORMASI PROVINSI JAWA TENGAH.png" alt=""></span>
+            <span class="logo-compact"><img src="../Assets/images/PERMOHONAN INFORMASI PROVINSI JAWA TENGAH.png"
+                    alt=""></span>
             <span class="brand-title">
-                <div
-                    style="width: 100%; text-align: center; color: white; font-weight: 600; word-wrap: break-word">
+                <div style="width: 100%; text-align: center; color: white; font-weight: 600; word-wrap: break-word">
                     PERMOHONAN INFORMASI <br />PROVINSI JAWA TENGAH</div>
             </span>
         </a>
     </div>
 </div>
 <div class="header">
-<div class="user-info-container" style="color: white; margin-left: 100px; margin-top: 30px; ">
-            <div class="user-info">
-                <span class="user-icon"><i class="icon-user"></i></span>
-                <span class="user-name"><?php echo $_SESSION['nama_pengguna']; ?>&nbsp;</span>
-                <span class="user-role">(<?php echo $_SESSION['role']; ?>)</span>
-            </div>
+    <div class="user-info-container" style="color: white; margin-left: 100px; margin-top: 30px; ">
+        <div class="user-info">
+            <span class="user-icon"><i class="icon-user"></i></span>
+            <span class="user-name">
+                <?php echo $_SESSION['nama_pengguna']; ?>&nbsp;
+            </span>
+            <span class="user-role">(
+                <?php echo $_SESSION['role']; ?>)
+            </span>
         </div>
-    <div class="header-content clearfix" >
-    
+    </div>
+    <div class="header-content clearfix">
+
         <!-- Add this code snippet to the appropriate location in your HTML structure -->
-        
+
         <div class="nav-control">
             <div class="hamburger">
                 <span class="toggle-icon"><i class="icon-menu"></i></span>
@@ -100,7 +104,7 @@
 </div>
 <!-- Letakkan script ini di akhir tag body -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         var hamburgerIcon = document.querySelector('.hamburger');
         var logoTitleContainer = document.getElementById('logo-title-container');
 
@@ -117,7 +121,7 @@
             }
 
             // Atur visibilitas kontainer saat ikon hamburger diklik
-            hamburgerIcon.addEventListener('click', function() {
+            hamburgerIcon.addEventListener('click', function () {
                 if (logoTitleContainer.style.display === 'none') {
                     logoTitleContainer.style.display = 'block';
                     // Simpan status di local storage

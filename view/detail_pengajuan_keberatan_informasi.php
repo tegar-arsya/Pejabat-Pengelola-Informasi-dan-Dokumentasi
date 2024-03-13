@@ -64,7 +64,7 @@ if (isset($_GET['id'])) {
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <h1>Detail Pengajuan Keberatan Informasi</h1>
+                            <h2 style="text-align: center;">Detail Pengajuan Keberatan Informasi</h2>
                             <div class="card-body">
                                 <h4>Identitas Pemohon</h4>
                                 <table class="table table-bordered">

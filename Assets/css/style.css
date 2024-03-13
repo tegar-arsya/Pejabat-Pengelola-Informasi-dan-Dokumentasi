@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Urbanist', sans-serif;
+    font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
 
@@ -739,19 +739,24 @@ h4 {
     color: #000000;
     background-color: #ffffff;
     border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    /* Set width to match the height */
+    height: 40px;
+    /* Set height to match the width */
     margin-right: 10px;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .social-media svg {
-    width: 30px;
-    /* Atur lebar ikon */
-    height: 30px;
-    /* Atur tinggi ikon */
+    width: 100%;
+    /* Make the SVG occupy full width of its container */
+    height: 100%;
+    /* Make the SVG occupy full height of its container */
     fill: #000000;
-    /* Warna ikon */
     margin-right: 10px;
-    /* Atur jarak antar ikon */
 }
 
 .footer1 {

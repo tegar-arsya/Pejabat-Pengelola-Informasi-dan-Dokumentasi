@@ -54,11 +54,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token
         $_SESSION['id'] = $row['id'];
         $_SESSION['nama_pengguna'] = $row['nama_pengguna'];
 
-        // Set role to "super admin" if it's available; otherwise, set it to "admin"
-        $_SESSION['role'] = ($row['role'] == 'superadmin') ? 'superadmin' : 'admin';
+        // Daftar nama OPD yang valid
+        $daftar_opd = array("TESTING DEV", "BADAN KEPEGAWAIAN DAERAH", "Nama OPD 3");
 
-        // Redirect to the dashboard or appropriate page
-        header("Location: ../../view/dashboard");
+        // Periksa apakah nama pengguna adalah salah satu dari nama OPD yang valid
+        if (in_array($row['nama_pengguna'], $daftar_opd)) {
+            // Jika nama pengguna adalah salah satu nama OPD, set role mereka sebagai nama OPD tersebut
+            $_SESSION['role'] = $row['nama_pengguna'];
+            // Kemudian arahkan ke halaman khusus OPD
+            header("Location: ../../view/listPI");
+        } else {
+            // Jika bukan OPD, set role sebagai admin atau superadmin sesuai kebutuhan
+            $_SESSION['role'] = ($row['role'] == 'superadmin') ? 'superadmin' : 'admin';
+            // Kemudian arahkan ke halaman dashboard admin
+            header("Location: ../../view/dashboard");
+        }
     } else {
         // Kesalahan login, arahkan kembali ke halaman login
         $_SESSION['login_error'] = "Username atau password salah. Silakan coba lagi.";

@@ -349,7 +349,7 @@ include('../controller/koneksi/config.php');
             // Fungsi untuk menampilkan pop-up SweetAlert2
             function showSweetAlert() {
                 Swal.fire({
-                    title: 'Apakah Anda akan mengajukan keberatan?',
+                    title: 'Apakah Anda ingin meminta jawaban yang benar?',
                     showCancelButton: true,
                     confirmButtonText: 'Ya',
                     cancelButtonText: 'Tidak',

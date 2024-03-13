@@ -27247,10 +27247,63 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 
 /* Gaya untuk div container filter */
 
+
+/* Style untuk kontainer filter */
+
 .filter-container {
-    margin-top: 20px;
-    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #e5e5e5;
     border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+
+/* Style untuk label radio button */
+
+.form-check-label {
+    cursor: pointer;
+    font-weight: normal;
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+/* Style untuk radio button */
+
+.form-check-input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+
+/* Style untuk label radio button ketika dihover */
+
+.form-check-label:hover {
+    color: #007bff;
+}
+
+
+/* Style untuk radio button yang dipilih */
+
+.form-check-input[type="radio"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+
+/* Style untuk label radio button yang dipilih */
+
+.form-check-label.checked {
+    color: #fff;
+}
+
+
+/* Style untuk efek transisi */
+
+.form-check-input[type="radio"] {
+    transition: all 0.3s ease;
 }
 
 .graph-container {
@@ -27264,4 +27317,30 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     /* Optional: Add box-shadow for a subtle shadow effect */
     display: none;
     /* Initially hide all graph containers */
+}
+
+.notification-icon {
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.notification-list {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 10px;
+    top: 40px;
+    right: 0;
+    z-index: 1000;
+}
+
+.notification-list div {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification-list div:last-child {
+    border-bottom: none;
 }
