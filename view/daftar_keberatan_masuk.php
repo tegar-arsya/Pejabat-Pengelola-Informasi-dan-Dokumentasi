@@ -199,7 +199,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                 if (result.isConfirmed) {
                     // Kirim permintaan penghapusan ke server melalui Ajax
                     $.ajax({
-                        url: '../controller/DeleteKeberatan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
+                        url: '../controller/Admin/DeleteKeberatan.php', // Gantilah dengan nama file PHP yang menangani penghapusan data
                         type: 'POST',
                         data: { id: id },
                         success: function(response) {
