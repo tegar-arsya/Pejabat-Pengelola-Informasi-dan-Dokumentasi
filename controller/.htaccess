@@ -123,4 +123,5 @@ Options -Indexes
     RewriteRule ^list-keberatan-user$ listKeberatanUser.php [NC,L]
     RewriteRule ^daftar-keberatan-informasi$ daftar_keberatan_informasi.php [NC,L]
     RewriteRule ^delete-surveyK$ deleteSurveyK.php [NC,L]
+    RewriteRule ^home$ index.php [NC,L]
 </IfModule>

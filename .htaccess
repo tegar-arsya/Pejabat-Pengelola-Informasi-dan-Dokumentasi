@@ -7,7 +7,7 @@ Options -Indexes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME}.php -f
     RewriteRule ^([^\.]+)$ $1.php [NC,L]
-    RewriteRule ^admin$ loginAdmin.php [NC,L]
+    RewriteRule ^loginadmin$ loginAdmin.php [NC,L]
     RewriteRule ^home$ index.php [NC,L]
     RewriteRule ^resetPassword$ resetPW.php [NC,L]
 </IfModule>

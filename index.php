@@ -8,15 +8,10 @@ include('./Model/CSRF/csrf.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="icon" type="image/png" sizes="16x16" href="./Assets/img/logo_jateng.png">
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./fontawesome/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
@@ -31,7 +26,7 @@ include('./Model/CSRF/csrf.php');
     <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <a href="./view/admin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
+                <a href="./view/loginadmin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>
@@ -133,14 +128,14 @@ include('./Model/CSRF/csrf.php');
     </section>
     <br><br><br><br><br><br>
     <footer class="footer">
-
     <div class="left-section">
         <img src="Assets/img/logo_jateng.png" alt="Logo">
-        <h4 style="font-size: 15px; margin-left: 70px; margin-top: -40px;">LAYANAN PERMOHONAN INFORMASI</h4>
-        <h5 style="font-size: 15px; margin-left: 70px;">PROVINSI JAWA TENGAH</h5>
-        <p style="margin-left: 70px; margin-top: 30px;">Alamat : Jl. Menteri Supeno I / 2, Kode POS 50243
-Semarang, Jawa Tengah</p>
-        <p style="margin-left: 70px;">ppidutama.jateng@gmail.com</p>
+    </div>
+    <div class="center-section">
+        <h4 style="font-size: 15px;">LAYANAN PERMOHONAN INFORMASI</h4>
+        <h4 style="font-size: 15px;">PROVINSI JAWA TENGAH</h5>
+        <h5 style="font-size: 15px;">Alamat : Jl. Menteri Supeno I / 2, Kode POS 50243 Semarang, Jawa Tengah</p>
+        <h5 style="font-size: 15px;">ppidutama.jateng@gmail.com</p>
     </div>
     <div class="right-section">
         <div class="social-media">
@@ -157,6 +152,7 @@ Semarang, Jawa Tengah</p>
         <p>FAQ | Hubungi Kami</p>
     </div>
 </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

@@ -49,6 +49,7 @@ if (isset($_GET['id'])) {
     <!-- Custom Stylesheet -->
     <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
 
 </head>
@@ -62,7 +63,7 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <div id="main-wrapper">
-    <?php include '../components/navbarAdmin.php'; ?>
+        <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -80,7 +81,7 @@ if (isset($_GET['id'])) {
                                     <tr>
                                         <td><strong>Tanggal Permohonan:</strong></td>
                                         <td>
-                                        <?php echo !empty($row['tanggal_permohonan']) ? date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan'])) : ''; ?>
+                                            <?php echo !empty($row['tanggal_permohonan']) ? date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan'])) : ''; ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -133,11 +134,12 @@ if (isset($_GET['id'])) {
                                 <button class="btn btn-primary" onclick="goBack()">Back</button>
                                 <button class="btn btn-success" id="verifikasiBtn">Verifikasi</button>
                                 <button class="btn btn-danger" id="blmVld" onclick="belumValid()">Belum Valid</button>
-                                
+
 
                                 <div id="alasanPenolakanForm" class="hidden">
-                                    <form action="../controller/smtpmail/sendmail.php" method="POST" enctype="multipart/form-data">
-                                    <table class="table table-bordered">
+                                    <form action="../controller/smtpmail/sendmail.php" method="POST"
+                                        enctype="multipart/form-data">
+                                        <table class="table table-bordered">
                                             <tr>
                                                 <td>Nomer registrasi :</td>
                                                 <td>
@@ -196,8 +198,12 @@ if (isset($_GET['id'])) {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><?php echo $row['informasi_yang_dibutuhkan']; ?></td>
-                                                <td><?php echo $row['opd_yang_dituju']; ?></td>
+                                                <td>
+                                                    <?php echo $row['informasi_yang_dibutuhkan']; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo $row['opd_yang_dituju']; ?>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -220,119 +226,94 @@ if (isset($_GET['id'])) {
         Scripts
     ***********************************-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script>
-    var isButtonClicked = false;
-    document.getElementById('verifikasiBtn').addEventListener('click', function () {
-        var idPermohonan = <?php echo $id_permohonan; ?>;
-        // Kirim permintaan verifikasi ke server melalui Ajax
-        $.ajax({
-            url: '../controller/verifikasi_permohonan.php',
-            type: 'POST',
-            data: { id: idPermohonan },
-            success: function (response) {
-                var nomorRegistrasi = response;
-                document.getElementById('nomorRegistrasiCell').textContent = nomorRegistrasi;
-                alert('Verifikasi berhasil. Nomor registrasi: ' + nomorRegistrasi);
-                var table = document.getElementById('dataTable');
-                table.classList.remove('hidden');
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    });
+        var isButtonClicked = false;
+        document.getElementById('verifikasiBtn').addEventListener('click', function () {
+            var idPermohonan = <?php echo $id_permohonan; ?>;
+            // Kirim permintaan verifikasi ke server melalui Ajax
+            $.ajax({
+                url: '../controller/verifikasi_permohonan.php',
+                type: 'POST',
+                data: { id: idPermohonan },
+                success: function (response) {
+                    var nomorRegistrasi = response;
+                    document.getElementById('nomorRegistrasiCell').textContent = nomorRegistrasi;
 
-    document.getElementById('simpanVerif').addEventListener('click', function () {
-        if (isButtonClicked) {
-            return;
+                    // Mengganti pemanggilan alert dengan SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Verifikasi berhasil',
+                        text: 'Nomor registrasi: ' + nomorRegistrasi,
+                    });
+
+                    var table = document.getElementById('dataTable');
+                    table.classList.remove('hidden');
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+
+        document.getElementById('simpanVerif').addEventListener('click', function () {
+            if (isButtonClicked) {
+                return;
+            }
+
+            var idPermohonan = <?php echo $id_permohonan; ?>;
+            isButtonClicked = true;
+
+            // Kirim permintaan verifikasi ke server melalui Ajax
+            $.ajax({
+                url: '../controller/simpan_verifikasi.php',
+                type: 'POST',
+                data: { id: idPermohonan },
+                success: function (response) {
+                    var nomorRegistrasi = response;
+                    $('#nomorRegistrasiCell').text(nomorRegistrasi);
+
+                    // Mengganti pemanggilan alert dengan SweetAlert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Verifikasi berhasil',
+                        text: 'Permohonan Anda Sudah Terkirim Ke OPD',
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+
+        function belumValid() {
+            $('#alasanPenolakanForm').removeClass('hidden');
         }
 
-        var idPermohonan = <?php echo $id_permohonan; ?>;
-        isButtonClicked = true;
-
-        // Kirim permintaan verifikasi ke server melalui Ajax
-        $.ajax({
-            url: '../controller/simpan_verifikasi.php',
-            type: 'POST',
-            data: { id: idPermohonan },
-            success: function (response) {
-                var nomorRegistrasi = response;
-                $('#nomorRegistrasiCell').text(nomorRegistrasi);
-                alert('Verifikasi berhasil.');
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
+        document.getElementById('kirimBtn').addEventListener('click', function () {
+            if (isButtonClicked) {
+                return;
             }
+
+            var idPermohonan = <?php echo $id_permohonan; ?>;
+            isButtonClicked = true;
+
+            // Kirim permintaan verifikasi ke server melalui Ajax
+            $.ajax({
+                url: '../controller/save_Rejected.php',
+                type: 'POST',
+                data: { id: idPermohonan },
+                success: function (response) {
+                    var nomorRegistrasi = response;
+                    $('#nomorRegistrasiCell').text(nomorRegistrasi);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
         });
-    });
-
-    function belumValid() {
-        $('#alasanPenolakanForm').removeClass('hidden');
-    }
-
-    document.getElementById('kirimBtn').addEventListener('click', function () {
-        if (isButtonClicked) {
-            return;
-        }
-
-        var idPermohonan = <?php echo $id_permohonan; ?>;
-        isButtonClicked = true;
-
-        // Kirim permintaan verifikasi ke server melalui Ajax
-        $.ajax({
-            url: '../controller/save_Rejected.php',
-            type: 'POST',
-            data: { id: idPermohonan },
-            success: function (response) {
-                var nomorRegistrasi = response;
-                $('#nomorRegistrasiCell').text(nomorRegistrasi);
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    });
-
-    // document.getElementById('answerFormContent').addEventListener('submit', function (event) {
-    //     event.preventDefault();
-
-    //     $.ajax({
-    //         url: $(this).attr('action'),
-    //         type: 'POST',
-    //         data: new FormData(this),
-    //         contentType: false,
-    //         processData: false,
-    //         dataType: 'json',
-    //         success: function (response) {
-    //             if (response.status === 'success') {
-    //                 alert(response.message);
-    //                 closeForm();
-    //             } else {
-    //                 alert('Terjadi kesalahan: ' + response.message);
-    //             }
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-    // });
-
-    // function answer() {
-    //     var modal = document.getElementById('answerForm');
-    //     modal.style.display = 'block';
-    // }
-
-    // function closeForm() {
-    //     var modal = document.getElementById('answerForm');
-    //     modal.style.display = 'none';
-    // }
-    // window.onclick = function (event) {
-    //     var modal = document.getElementById('answerForm');
-    //     if (event.target === modal) {
-    //         modal.style.display = 'none';
-    //     }
-    // };
     </script>
     <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>

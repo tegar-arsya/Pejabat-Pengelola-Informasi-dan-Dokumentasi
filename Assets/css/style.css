@@ -331,27 +331,39 @@ h5 {
     }
 }
 
+
+/* Desktop Styles */
+
+
+/* CSS untuk Desktop */
+
 .footer {
     background-color: #9F0000;
     color: #fff;
     padding: 20px;
-    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.left-section img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+.footer .left-section img {
+    width: 80px;
+    height: 80px;
 }
 
-.right-section p {
-    margin: px;
+.left-section p {
+    margin-left: 20px;
 }
 
-.social-media a {
+.footer .center-section {
+    flex: 1;
+}
+
+.footer .right-section .social-media p {
+    margin: 0;
+}
+
+.footer .right-section .social-media a {
     color: #000000;
     background-color: #ffffff;
     border-radius: 50%;
@@ -364,17 +376,35 @@ h5 {
     color: #fff;
     padding: 5px;
     text-align: center;
-    text-align: justify center;
-    z-index: 1;
 }
 
-.bottom-section {
-    background-color: red;
-    padding: 5px;
-}
 
-.content {
-    margin-top: 10px;
+/* CSS untuk Mobile */
+
+@media only screen and (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px;
+    }
+    .footer .left-section img {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .footer .center-section h4,
+    .footer .center-section h5 {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    .footer .center-section p {
+        margin: 0;
+    }
+    .footer .right-section .social-media a {
+        margin-right: 0;
+    }
+    .footer1 {
+        padding: 10px;
+    }
 }
 
 .form-container {

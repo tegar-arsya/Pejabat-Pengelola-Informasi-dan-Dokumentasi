@@ -13,4 +13,5 @@ function logout() {
 // Event listener untuk mengatur ulang timer pada setiap aktivitas
 document.addEventListener('mousemove', resetLogoutTimer);
 document.addEventListener('keydown', resetLogoutTimer);
+
 resetLogoutTimer();

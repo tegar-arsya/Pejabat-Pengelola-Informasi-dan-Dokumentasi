@@ -44,6 +44,8 @@ if (isset($_GET['id'])) {
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../Assets/images/logo_jateng.png">
     <!-- Custom Stylesheet -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
     <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
 
@@ -226,48 +228,61 @@ if (isset($_GET['id'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         var isButtonClicked = false;
+document.getElementById('buttonVerifikasi').addEventListener('click', function () {
+    var idPermohonan = <?php echo $id_permohonan; ?>;
 
-        document.getElementById('buttonVerifikasi').addEventListener('click', function () {
-            var idPermohonan = <?php echo $id_permohonan; ?>;
-
-            // Kirim permintaan verifikasi ke server melalui Ajax
-            $.ajax({
-                url: '../controller/verifikasi_keberatan.php', // Combined URL for verification
-                type: 'POST',
-                data: { id: idPermohonan },
-                success: function (response) {
-                    var nomorRegistrasi = response;
-                    document.getElementById('nomorRegistrasiCell').textContent = nomorRegistrasi;
-                    alert('Verifikasi berhasil. Nomor registrasi: ' + nomorRegistrasi);
-                    var table = document.getElementById('dataTable');
-                    table.classList.remove('hidden');
-                },
-                error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
+    // Kirim permintaan verifikasi ke server melalui Ajax
+    $.ajax({
+        url: '../controller/verifikasi_keberatan.php', // Combined URL for verification
+        type: 'POST',
+        data: { id: idPermohonan },
+        success: function (response) {
+            var nomorRegistrasi = response;
+            document.getElementById('nomorRegistrasiCell').textContent = nomorRegistrasi;
+            
+            // Mengganti pemanggilan alert dengan SweetAlert
+            Swal.fire({
+                icon: 'success',
+                title: 'Verifikasi berhasil',
+                text: 'Nomor registrasi: ' + nomorRegistrasi,
             });
 
-            // Jika perlu tambahan logika setelah verifikasi, tambahkan di sini
-            if (!isButtonClicked) {
-                var idPermohonan = <?php echo $id_permohonan; ?>;
-                isButtonClicked = true;
+            var table = document.getElementById('dataTable');
+            table.classList.remove('hidden');
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
+        }
+    });
 
-                // Kirim permintaan verifikasi tambahan ke server melalui Ajax
-                $.ajax({
-                    url: '../controller/simpan_verifikasi_keberatan.php', // Combined URL for additional verification logic
-                    type: 'POST',
-                    data: { id: idPermohonan },
-                    success: function (response) {
-                        var nomorRegistrasi = response;
-                        $('#nomorRegistrasiCell').text(nomorRegistrasi);
-                        alert('Verifikasi tambahan berhasil.');
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
-                    }
+    // Jika perlu tambahan logika setelah verifikasi, tambahkan di sini
+    if (!isButtonClicked) {
+        var idPermohonan = <?php echo $id_permohonan; ?>;
+        isButtonClicked = true;
+
+        // Kirim permintaan verifikasi tambahan ke server melalui Ajax
+        $.ajax({
+            url: '../controller/simpan_verifikasi_keberatan.php', // Combined URL for additional verification logic
+            type: 'POST',
+            data: { id: idPermohonan },
+            success: function (response) {
+                var nomorRegistrasi = response;
+                $('#nomorRegistrasiCell').text(nomorRegistrasi);
+                
+                // Mengganti pemanggilan alert dengan SweetAlert
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Verifikasi Telah berhasil',
+                    text: 'Permohonan Keberatan Anda Sudah Diverifikasi Oleh Admin ',
                 });
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
             }
         });
+    }
+});
+
 
         function belumValid() {
             $('#alasanPenolakanForm').removeClass('hidden');

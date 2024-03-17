@@ -42,4 +42,5 @@ Options -Indexes
     RewriteRule ^Note$ formNote.php [NC,L]
     RewriteRule ^admin$ loginAdmin.php [NC,L]
     RewriteRule ^adminRegister$ admin_register.php [NC,L]
+    RewriteRule ^home$ index.php [NC,L]
 </IfModule>
