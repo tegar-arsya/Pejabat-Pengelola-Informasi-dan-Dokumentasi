@@ -13,24 +13,45 @@
 </div>
 <div class="header">
     <div class="user-info-container" style="color: white; margin-left: 100px; margin-top: 30px; ">
-        <div class="user-info">
-            <span class="user-icon"><i class="icon-user"></i></span>
-            <span class="user-name">
-                <?php echo $_SESSION['nama_pengguna']; ?>&nbsp;
-            </span>
-            <span class="user-role">(
-                <?php echo $_SESSION['role']; ?>)
-            </span>
-        </div>
     </div>
     <div class="header-content clearfix">
-
-        <!-- Add this code snippet to the appropriate location in your HTML structure -->
 
         <div class="nav-control">
             <div class="hamburger">
                 <span class="toggle-icon"><i class="icon-menu"></i></span>
             </div>
+        </div>
+        <div class="header-right">
+            <ul class="clearfix">
+                <li class="icons dropdown">
+                    <a href="javascript:void(0)" data-toggle="dropdown">
+                        <i class="mdi mdi-email-outline"></i>
+                        <span class="badge badge-pill gradient-1"></span>
+                    </a>
+                    <div class="drop-down animated fadeIn dropdown-menu">
+                        <div class="dropdown-content-heading d-flex justify-content-between">
+                            <span class="">New Messages</span>
+                            <a href="javascript:void()" class="d-inline-block">
+                                <span class="badge badge-pill gradient-1"></span>
+                            </a>
+                        </div>
+                        <div class="dropdown-content-body">
+                            <ul>
+                                <li class="notification-unread">
+                                    <a href="javascript:void()">
+                                        <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
+                                        <div class="notification-content">
+                                            <div class="notification-heading">NAMA</div>
+                                            <div class="notification-timestamp">Nomer registrasi</div>
+                                            <div class="notification-text">alasan</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

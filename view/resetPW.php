@@ -1,5 +1,5 @@
 <?php
-include('../Model/CSRF/csrf.php');
+include ('../Model/CSRF/csrf.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,17 +37,23 @@ include('../Model/CSRF/csrf.php');
 
 <body>
     <!-- navbar -->
-  
+
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Reset Password</h1>
         <form action="../controller/reset_password.php" method="POST">
-        <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
+            <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
             <div class="main-user-info">
                 <div class="user-input-box">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <button class="btn btn-danger" type="submit">Reset Password</button>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                anyone else.</small>
+                            <button class="btn btn-success" type="submit">Reset Password</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js

@@ -1,24 +1,16 @@
 <?php
 session_start();
-
-// Fungsi untuk memverifikasi token CSRF
 function verify_csrf_token($token) {
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
-
-// Fungsi untuk menghasilkan token CSRF
 function generate_csrf_token() {
     $token = bin2hex(random_bytes(32));
     $_SESSION['csrf_token'] = $token;
     return $token;
 }
-
-// Fungsi untuk menangani kesalahan eksekusi prepared statement
 function handle_statement_error($stmt) {
     die("Error executing prepared statement: " . $stmt->error);
 }
-
-// Fungsi untuk membersihkan input
 function clean_input($data) {
     // Lakukan pembersihan input sesuai kebutuhan, contoh:
     $data = trim($data);
@@ -28,19 +20,14 @@ function clean_input($data) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token'])) {
-    // Ambil data dari formulir dan bersihkan input
     $username = clean_input($_POST['username']);
     $password = clean_input($_POST['password']);
-
-    // Buat koneksi ke database (sesuaikan dengan konfigurasi Anda)
     require '../../controller/koneksi/config.php';
 
-    // Persiapkan dan eksekusi statement SQL
     $sql = $conn->prepare("SELECT id, username, password, nama_pengguna, role FROM user_admin WHERE username = ?");
     $sql->bind_param("s", $username);
     $sql->execute();
-
-    // Tangani kesalahan eksekusi prepared statement
+    
     if (!$result = $sql->get_result()) {
         handle_statement_error($sql);
     }

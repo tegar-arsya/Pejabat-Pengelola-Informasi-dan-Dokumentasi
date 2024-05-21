@@ -1,6 +1,6 @@
 <?php
 require '../controller/User/applicationHistory.php';
-include('../controller/koneksi/config.php');
+include ('../controller/koneksi/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +28,8 @@ include('../controller/koneksi/config.php');
         crossorigin="anonymous" />
     <link rel="stylesheet" href="../Assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.0/mammoth.browser.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
     <title>Riwayat Permohonan</title>
 </head>
 
@@ -43,255 +43,262 @@ include('../controller/koneksi/config.php');
             <div class="col-md-8">
                 <!-- Left Container Content -->
                 <div class="box-left">
-                <div class="up">
-                    <div class="fill">
-                        <div class="style-font">
-                            Permohonan Informasi
+                    <div class="up">
+                        <div class="fill">
+                            <div class="style-font">
+                                Permohonan Informasi
+                            </div>
                         </div>
-                    </div>
-                    <table class="table table-bordered">
-                        <?php               
-                        $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
-                        $result = $conn->query($query);
+                        <table class="table table-bordered">
+                            <?php
+                            $query = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomer_registrasi'";
+                            $result = $conn->query($query);
 
-                        // Menambahkan data dari tbl_rejected
-                        $queryRejected = "SELECT * FROM tbl_rejected WHERE nomer_registrasi = '$nomer_registrasi'";
-                        $resultRejected = $conn->query($queryRejected);
+                            // Menambahkan data dari tbl_rejected
+                            $queryRejected = "SELECT * FROM tbl_rejected WHERE nomer_registrasi = '$nomer_registrasi'";
+                            $resultRejected = $conn->query($queryRejected);
 
-                        $isRejected = $resultRejected->num_rows > 0;
+                            $isRejected = $resultRejected->num_rows > 0;
 
-                        if ($result->num_rows > 0) {
-                            // Data ditemukan, tampilkan atau proses data di sini
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td><strong>Nama :</strong></td>";
-                                echo "<td>{$row['nama_pengguna']}</td>";
-                                echo "</tr>";
+                            if ($result->num_rows > 0) {
+                                // Data ditemukan, tampilkan atau proses data di sini
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td><strong>Nama :</strong></td>";
+                                    echo "<td>{$row['nama_pengguna']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Tanggal Permohonan:</strong></td>";
-                                echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Tanggal Permohonan:</strong></td>";
+                                    echo "<td>" . (!empty ($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Nomor Register:</strong></td>";
-                                echo "<td>{$row['nomer_registrasi']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Nomor Register:</strong></td>";
+                                    echo "<td>{$row['nomer_registrasi']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Informasi yang Diminta:</strong></td>";
-                                echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Informasi yang Diminta:</strong></td>";
+                                    echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
-                                echo "<td>{$row['alasan_pengguna_informasi']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
+                                    echo "<td>{$row['alasan_pengguna_informasi']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>OPD Yang Dituju:</strong></td>";
-                                echo "<td>{$row['opd_yang_dituju']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>OPD Yang Dituju:</strong></td>";
+                                    echo "<td>{$row['opd_yang_dituju']}</td>";
+                                    echo "</tr>";
 
-                                // Tampilkan tombol tolak hanya jika permohonan ini telah ditolak
-                                // if ($isRejected) {
-                                //     echo "<tr>";
-                                //     echo "
-                                //     <td colspan='2'><a class='btn btn-danger' href='editFOrm.php?registrasi={$nomer_registrasi}'>Edit Formulir</a></td>";
-                                //     echo "</tr>";
-                                // }
-                            }
-                        } else {
-                            $query_alternatif = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp, r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
+                                    // Tampilkan tombol tolak hanya jika permohonan ini telah ditolak
+                                    // if ($isRejected) {
+                                    //     echo "<tr>";
+                                    //     echo "
+                                    //     <td colspan='2'><a class='btn btn-danger' href='editFOrm.php?registrasi={$nomer_registrasi}'>Edit Formulir</a></td>";
+                                    //     echo "</tr>";
+                                    // }
+                                }
+                            } else {
+                                $query_alternatif = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp, r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
                                                 FROM registrasi r
                                                 JOIN permohonan_informasi p ON p.id_user = r.nik
                                                 WHERE p.nomer_registrasi = '$nomer_registrasi'";
 
-                            $result_alternatif = $conn->query($query_alternatif);
-                            while ($row_alternatif = $result_alternatif->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td><strong>Nama :</strong></td>";
-                                echo "<td>{$row_alternatif['nama_pengguna']}</td>";
-                                echo "</tr>";
+                                $result_alternatif = $conn->query($query_alternatif);
+                                while ($row_alternatif = $result_alternatif->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td><strong>Nama :</strong></td>";
+                                    echo "<td>{$row_alternatif['nama_pengguna']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Tanggal Permohonan:</strong></td>";
-                                echo "<td>" . (!empty($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Tanggal Permohonan:</strong></td>";
+                                    echo "<td>" . (!empty ($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Nomor Register:</strong></td>";
-                                echo "<td>{$row_alternatif['nomer_registrasi']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Nomor Register:</strong></td>";
+                                    echo "<td>{$row_alternatif['nomer_registrasi']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Informasi yang Diminta:</strong></td>";
-                                echo "<td>{$row_alternatif['informasi_yang_dibutuhkan']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Informasi yang Diminta:</strong></td>";
+                                    echo "<td>{$row_alternatif['informasi_yang_dibutuhkan']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
-                                echo "<td>{$row_alternatif['alasan_pengguna_informasi']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
+                                    echo "<td>{$row_alternatif['alasan_pengguna_informasi']}</td>";
+                                    echo "</tr>";
 
-                                echo "<tr>";
-                                echo "<td><strong>OPD Yang Dituju:</strong></td>";
-                                echo "<td>{$row_alternatif['opd_yang_dituju']}</td>";
-                                echo "</tr>";
+                                    echo "<tr>";
+                                    echo "<td><strong>OPD Yang Dituju:</strong></td>";
+                                    echo "<td>{$row_alternatif['opd_yang_dituju']}</td>";
+                                    echo "</tr>";
 
-                                // Ambil tanggal dari kolom tanggal_permohonan
-                                $tanggal = $row_alternatif['tanggal_permohonan'];
+                                    // Ambil tanggal dari kolom tanggal_permohonan
+                                    $tanggal = $row_alternatif['tanggal_permohonan'];
 
-                                $status = "Belum Diverifikasi";
+                                    $status = "Belum Diverifikasi";
 
-                                // Tambahkan status "Belum Diverifikasi" ke dalam objek timelineData
-                                // $timelineData[] = array("date" => $tanggal, "status" => $status);
-                                $timelineData[] = array("date" => date('d-m-Y H:i:s', strtotime($tanggal)), "status" => $status);
+                                    // Tambahkan status "Belum Diverifikasi" ke dalam objek timelineData
+                                    // $timelineData[] = array("date" => $tanggal, "status" => $status);
+                                    $timelineData[] = array("date" => date('d-m-Y H:i:s', strtotime($tanggal)), "status" => $status);
+                                }
                             }
-                        }
 
-                        ?>
+                            ?>
 
-                    </table>
-                </div>
-                <div id="tableContainer">
-                <div class="fill">
-                    <div class="style-font">
-                        Jawaban Permohonan Informasi
+                        </table>
                     </div>
-                </div>
-                <table id="dataTable" class="table table-bordered">
-                    <?php
-                    
-                    $query = "SELECT * FROM answer_admin WHERE nomer_registrasi_pemohon = '$nomer_registrasi'";
-                    $result = $conn->query($query);
-                    if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td><strong>Nama PIC :</strong></td>";
-                            echo "<td>{$row['nama_pic']}</td>";
-                            echo "</tr>";
+                    <div id="tableContainer">
+                        <div class="fill">
+                            <div class="style-font">
+                                Jawaban Permohonan Informasi
+                            </div>
+                        </div>
+                        <table id="dataTable" class="table table-bordered">
+                            <?php
 
-                            echo "<tr>";
-                            echo "<td><strong>Jawaban Permohonan :</strong></td>";
-                            echo "<td>{$row['jawaban_permohonan']}</td>";
-                            echo "</tr>";
+                            $query = "SELECT * FROM answer_admin WHERE nomer_registrasi_pemohon = '$nomer_registrasi'";
+                            $result = $conn->query($query);
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td><strong>Nama PIC :</strong></td>";
+                                    echo "<td>{$row['nama_pic']}</td>";
+                                    echo "</tr>";
 
-                            echo "<tr>";
-                            echo "<td><strong>Lampiran :</strong></td>";
-                            echo "<td>";
+                                    echo "<tr>";
+                                    echo "<td><strong>Jawaban Permohonan :</strong></td>";
+                                    echo "<td>{$row['jawaban_permohonan']}</td>";
+                                    echo "</tr>";
 
-                            // Periksa apakah pengguna telah mengisi survei kepuasan
-                            $querySurvey = "SELECT * FROM survey_kepuasan WHERE nomer_registrasi = '$nomer_registrasi'";
-                            $resultSurvey = $conn->query($querySurvey);
+                                    echo "<tr>";
+                                    echo "<td><strong>Lampiran :</strong></td>";
+                                    echo "<td>";
 
-                            if ($resultSurvey->num_rows > 0) {
-                                // Pengguna telah mengisi survei kepuasan, berikan tautan unduh
-                                if (!empty($row['lampiran'])) {
-                                    $file_path = "../Assets/JawabanPI/" . $row['lampiran'];
-                                    echo "<a href=\"$file_path\" download>{$row['lampiran']}</a>";
-                                } else {
-                                    echo "Tidak ada lampiran";
+                                    // Periksa apakah pengguna telah mengisi survei kepuasan
+                                    $querySurvey = "SELECT * FROM survey_kepuasan WHERE nomer_registrasi = '$nomer_registrasi'";
+                                    $resultSurvey = $conn->query($querySurvey);
+
+                                    if ($resultSurvey->num_rows > 0) {
+                                        // Pengguna telah mengisi survei kepuasan, berikan tautan unduh
+                                        if (!empty ($row['lampiran'])) {
+                                            $file_path = "../Assets/JawabanPI/" . $row['lampiran'];
+                                            echo "<a href=\"$file_path\" download>{$row['lampiran']}</a>";
+                                        } else {
+                                            echo "Tidak ada lampiran";
+                                        }
+                                    } else {
+                                        // Pengguna belum mengisi survei kepuasan, berikan tautan pratinjau
+                                        if (!empty ($row['lampiran'])) {
+                                            $file_path = "../Assets/JawabanPI/" . $row['lampiran'];
+                                            echo "<a href=\"javascript:void(0);\" onclick=\"previewLampiran('$file_path')\">Pratinjau Lampiran</a>";
+                                        } else {
+                                            echo "Tidak ada lampiran";
+                                        }
+                                    }
+
+                                    echo "</td>";
+                                    echo "</tr>";
+
+                                    echo "<tr>";
+                                    echo "<td><strong>Tanggal :</strong></td>";
+                                    echo "<td>" . (!empty ($row['tanggal_jawaban']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_jawaban']))) : '') . "</td>";
+                                    echo "</tr>";
                                 }
                             } else {
-                                // Pengguna belum mengisi survei kepuasan, berikan tautan pratinjau
-                                if (!empty($row['lampiran'])) {
-                                    $file_path = "../Assets/JawabanPI/" . $row['lampiran'];
-                                    echo "<a href=\"javascript:void(0);\" onclick=\"previewLampiran('$file_path')\">Pratinjau Lampiran</a>";
-                                } else {
-                                    echo "Tidak ada lampiran";
-                                }
+                                echo "kosong";
                             }
-
-                            echo "</td>";
-                            echo "</tr>";
-
-                            echo "<tr>";
-                            echo "<td><strong>Tanggal :</strong></td>";
-                            echo "<td>" . (!empty($row['tanggal_jawaban']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_jawaban']))) : '') . "</td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "kosong";
-                    }
-                    ?>
-                </table>
+                            ?>
+                        </table>
 
 
-                <img src="../Assets/img/logo_jateng.png" style="width: 50px;" class="img-fluid" alt="Logo">
-                Admin PPID Dishub Prov Jateng
-                </p>
-            </div>
-            <?php
-            // Check if the user has completed the survey
-            $querySurvey = "SELECT * FROM survey_kepuasan WHERE nomer_registrasi = '$nomer_registrasi'";
-            $resultSurvey = $conn->query($querySurvey);
-
-            $surveyCompleted = ($resultSurvey->num_rows > 0);
-
-            // Determine the appropriate message based on whether the survey is completed
-            $surveyMessage = $surveyCompleted ? "Terima kasih telah mengisi survey, silahkan unduh jawaban permohonan Anda." : "Apakah permohonan informasi Anda sudah terjawab?";
-            ?>
-
-            <div class="up-survey">
-                <div class="fill">
-                    <div class="style-font">
-                        Survey
+                        <img src="../Assets/img/logo_jateng.png" style="width: 50px;" class="img-fluid" alt="Logo">
+                        Admin PPID Dishub Prov Jateng
+                        </p>
                     </div>
                 </div>
-                <?php if ($surveyCompleted): ?>
-                    <h5 class="message"><?php echo $surveyMessage; ?></h5>
-                    <div class="message">
-                        <a href="../controller/download-response.php?registrasi=<?php echo $nomer_registrasi; ?>" target="_blank">
-                            <button class="button-ya" type="button">Unduh Jawaban</button>
-                        </a>
-                    </div>
-                <?php else: ?>
-                    <h5 class="message"><?php echo $surveyMessage; ?></h5>
-                    <div class="message">
-                        <a href="../view/survey?registrasi=<?php echo $nomer_registrasi; ?>">
-                            <button class="button-ya" type="button">Ya</button>
-                        </a>
-                        <button class="button-tdk" type="button">Tidak</button>
-                    </div>
-                <?php endif; ?>
-            </div>
-            </div>
             </div>
             <div class="col-md-4">
                 <div class="box-right follow-up">
                     <div class="fill">
-                    <div class="style-font">
-                        Tindak Lanjut
+                        <div class="style-font">
+                            Tindak Lanjut
+                        </div>
+                    </div>
+                    <div class="timeline-container">
+                        <img src="../Assets/img/logo_jateng.png" alt="Logo" />
+                        <?php
+                        // Loop untuk membuat timeline dari data yang didapatkan dari database
+                        foreach ($timelineData as $index => $item) {
+                            $date = $item['date'];
+                            $status = $item['status'];
+                            ?>
+                            <div class="timeline-item">
+                                <div class="timeline-line"></div>
+                                <div class="timeline-number">
+                                    <?php echo $index + 1; ?>
+                                </div>
+                                <div class="timeline-content">
+                                    <strong>
+                                        <?php echo $date; ?>
+                                    </strong><br>
+                                    Status:
+                                    <?php echo $status; ?>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
-                <div class="timeline-container">
-                <img src="../Assets/img/logo_jateng.png" alt="Logo" />
+            </div>
+                <div class="box-left">
                     <?php
-                    // Loop untuk membuat timeline dari data yang didapatkan dari database
-                    foreach ($timelineData as $index => $item) {
-                        $date = $item['date'];
-                        $status = $item['status'];
-                        ?>
-                        <div class="timeline-item">
-                            <div class="timeline-line"></div>
-                            <div class="timeline-number">
-                                <?php echo $index + 1; ?>
-                            </div>
-                            <div class="timeline-content">
-                                <strong>
-                                    <?php echo $date; ?> 
-                                </strong><br>
-                                Status:
-                                <?php echo $status; ?>
+                    // Check if the user has completed the survey
+                    $querySurvey = "SELECT * FROM survey_kepuasan WHERE nomer_registrasi = '$nomer_registrasi'";
+                    $resultSurvey = $conn->query($querySurvey);
+
+                    $surveyCompleted = ($resultSurvey->num_rows > 0);
+
+                    // Determine the appropriate message based on whether the survey is completed
+                    $surveyMessage = $surveyCompleted ? "Terima kasih telah mengisi survey, silahkan unduh jawaban permohonan Anda." : "Apakah permohonan informasi Anda sudah terjawab?";
+                    ?>
+
+                    <div class="up-survey">
+                        <div class="fill">
+                            <div class="style-font">
+                                Survey
                             </div>
                         </div>
-                        <?php
-                    }
-                    ?>
+                        <?php if ($surveyCompleted): ?>
+                            <h5 class="message">
+                                <?php echo $surveyMessage; ?>
+                            </h5>
+                            <div class="message">
+                                <a href="../controller/download-response.php?registrasi=<?php echo $nomer_registrasi; ?>"
+                                    target="_blank">
+                                    <button class="button-ya" type="button">Unduh Jawaban</button>
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <h5 class="message">
+                                <?php echo $surveyMessage; ?>
+                            </h5>
+                            <div class="message">
+                                <a href="../view/survey?registrasi=<?php echo $nomer_registrasi; ?>">
+                                    <button class="button-ya" type="button">Ya</button>
+                                </a>
+                                <button class="button-tdk" type="button">Tidak</button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                </div>
-            </div>
         </div>
     </div>
     <?php include '../components/footer.php'; ?>
@@ -366,71 +373,71 @@ include('../controller/koneksi/config.php');
         });
     </script>
     <script>
-    // Dapatkan elemen tabel dan kontainer
-    var dataTable = document.getElementById("dataTable");
-    var tableContainer = document.getElementById("tableContainer");
+        // Dapatkan elemen tabel dan kontainer
+        var dataTable = document.getElementById("dataTable");
+        var tableContainer = document.getElementById("tableContainer");
 
-    // Periksa apakah ada baris data dalam tabel
-    if (dataTable.rows.length <= 1) { // Anggap ada selalu satu baris untuk header
-        // Sembunyikan kontainer jika tidak ada baris data
-        tableContainer.style.display = "none";
-    }
-</script>
-<!-- Tambahkan script di bagian head atau sebelum </body> -->
-<script>
-    // Add this function to your script
-function openModal(file_path) {
-    var modalBody = document.getElementById('lampiranModalBody');
-    modalBody.innerHTML = '<iframe src="' + file_path + '></iframe>';
+        // Periksa apakah ada baris data dalam tabel
+        if (dataTable.rows.length <= 1) { // Anggap ada selalu satu baris untuk header
+            // Sembunyikan kontainer jika tidak ada baris data
+            tableContainer.style.display = "none";
+        }
+    </script>
+    <!-- Tambahkan script di bagian head atau sebelum </body> -->
+    <script>
+        // Add this function to your script
+        function openModal(file_path) {
+            var modalBody = document.getElementById('lampiranModalBody');
+            modalBody.innerHTML = '<iframe src="' + file_path + '></iframe>';
 
-    $('#lampiranModal').modal('show');
-}
+            $('#lampiranModal').modal('show');
+        }
 
-// Modify your previewLampiran function
-function previewLampiran(file_path) {
-    openModal(file_path);
-}
+        // Modify your previewLampiran function
+        function previewLampiran(file_path) {
+            openModal(file_path);
+        }
 
-</script>
-<script>
-    function previewLampiran(file_path) {
-    var container = document.createElement('div');
+    </script>
+    <script>
+        function previewLampiran(file_path) {
+            var container = document.createElement('div');
 
-    // Initialize PDF.js
-    pdfjsLib.getDocument(file_path).promise.then(function(pdfDoc) {
-        for (var pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
-            pdfDoc.getPage(pageNum).then(function(page) {
-                var canvas = document.createElement('canvas');
-                var context = canvas.getContext('2d');
-                var viewport = page.getViewport({ scale: 1.5 });
+            // Initialize PDF.js
+            pdfjsLib.getDocument(file_path).promise.then(function (pdfDoc) {
+                for (var pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+                    pdfDoc.getPage(pageNum).then(function (page) {
+                        var canvas = document.createElement('canvas');
+                        var context = canvas.getContext('2d');
+                        var viewport = page.getViewport({ scale: 1.5 });
 
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
 
-                // Render PDF page into canvas context
-                var renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                page.render(renderContext).promise.then(function() {
-                    container.appendChild(canvas);
-                });
+                        // Render PDF page into canvas context
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext).promise.then(function () {
+                            container.appendChild(canvas);
+                        });
+                    });
+                }
+            });
+
+            // Show modal with PDF content
+            Swal.fire({
+                title: 'Pratinjau Lampiran',
+                html: container,
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusConfirm: false,
             });
         }
-    });
 
-    // Show modal with PDF content
-    Swal.fire({
-        title: 'Pratinjau Lampiran',
-        html: container,
-        showCloseButton: true,
-        showConfirmButton: false,
-        focusConfirm: false,
-    });
-}
-
-</script>
-<script src="../Model/Auth/TimeOutUser.js"></script>
+    </script>
+    <script src="../Model/Auth/TimeOutUser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
 </body>

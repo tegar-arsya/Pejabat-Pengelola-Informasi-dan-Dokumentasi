@@ -1,31 +1,49 @@
 <?php
+// Buatlah file .htaccess di direktori tempat skrip ini berada dengan konten:
+// Order deny,allow
+// Deny from all
+
 include('../controller/koneksi/config.php');
+
+class PermohonanHandler {
+    private $conn;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    public function getNomorRegistrasiKeberatan($idPermohonan) {
+        $stmt = $this->conn->prepare("SELECT nomer_registrasi_keberatan FROM pengajuan_keberatan WHERE id = ?");
+        $stmt->bind_param("i", $idPermohonan);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $nomorRegistrasiKeberatan = $row['nomer_registrasi_keberatan'];
+            return $nomorRegistrasiKeberatan;
+        } else {
+            return false;
+        }
+    }
+}
 
 if (isset($_POST['id'])) {
     $idPermohonan = $_POST['id'];
 
-    // Query to get registration number from the registration table based on id_user and nik
-    $query = "SELECT nama_pemohon, nomer_registrasi_keberatan, kode_permohonan_informasi,
-    tanggal_permohonan, nik_pemohon, foto_ktp, informasi_yang_diminta, alasan_keberatan, nama,
-    pekerjaan, unggah_surat_kuasa
-    FROM pengajuan_keberatan WHERE id = $idPermohonan";
-    $result = $conn->query($query);
+    // Lakukan koneksi database
+    $permohonanHandler = new PermohonanHandler($conn);
+    $nomorRegistrasiKeberatan = $permohonanHandler->getNomorRegistrasiKeberatan($idPermohonan);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $nomorRegistrasiKeberatan = $row['nomer_registrasi_keberatan'];
-
-        // Output the registration number as response
+    if ($nomorRegistrasiKeberatan !== false) {
         echo $nomorRegistrasiKeberatan;
     } else {
-        // If no registration number is found, send an error message
         echo "Error: Nomor registrasi tidak ditemukan.";
     }
 } else {
-    // If no valid ID permohonan is sent, send an error message
     echo "Error: ID permohonan tidak valid.";
 }
 
-// Close the database connection
+// Tutup koneksi database
 $conn->close();
 ?>

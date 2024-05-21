@@ -1,31 +1,43 @@
 <?php
-include('../controller/koneksi/config.php');
+require_once('../controller/koneksi/config.php');
 
-if (isset($_POST['id'])) {
-    $idPermohonan = $_POST['id'];
+class NomorRegistrasiRetriever {
+    private $conn;
 
-    // Query to get registration number from the registration table based on id_user and nik
-    $query = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp, r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
-              FROM registrasi r
-              JOIN permohonan_informasi p ON p.id_user = r.nik
-              WHERE p.id = $idPermohonan";
-    $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $nomorRegistrasi = $row['nomer_registrasi'];
-
-        // Output the registration number as response
-        echo $nomorRegistrasi;
-    } else {
-        // If no registration number is found, send an error message
-        echo "Error: Nomor registrasi tidak ditemukan.";
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
-} else {
-    // If no valid ID permohonan is sent, send an error message
-    echo "Error: ID permohonan tidak valid.";
+
+    public function getNomorRegistrasi($idPermohonan) {
+        if (isset($idPermohonan)) {
+            $query = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp, r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
+                      FROM registrasi r
+                      JOIN permohonan_informasi p ON p.id_user = r.nik
+                      WHERE p.id = $idPermohonan";
+            $result = $this->conn->query($query);
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                return $row['nomer_registrasi'];
+            } else {
+                return "Error: Nomor registrasi tidak ditemukan.";
+            }
+        } else {
+            return "Error: ID permohonan tidak valid.";
+        }
+    }
 }
 
-// Close the database connection
+// Membuat objek NomorRegistrasiRetriever
+$nomorRegistrasiRetriever = new NomorRegistrasiRetriever($conn);
+
+// Mengambil nomor registrasi berdasarkan ID permohonan
+if (isset($_POST['id'])) {
+    $idPermohonan = $_POST['id'];
+    $nomorRegistrasi = $nomorRegistrasiRetriever->getNomorRegistrasi($idPermohonan);
+    echo $nomorRegistrasi;
+}
+
+// Menutup koneksi basis data
 $conn->close();
 ?>

@@ -976,6 +976,9 @@ h4 {
     margin-top: 40px;
 }
 
+
+/* CSS untuk tombol reload */
+
 button#reload-button {
     font-size: 12px;
     height: 50px;
@@ -987,25 +990,35 @@ button#reload-button {
     color: #ffffff;
 }
 
+
+/* Media query untuk layar berukuran kecil */
+
+@media (max-width: 600px) {
+    button#reload-button {
+        font-size: 10px;
+        /* Ubah ukuran font menjadi 10px */
+        width: 100%;
+        /* Gunakan lebar penuh */
+    }
+}
+
 input[type="text1"] {
     font-family: "Roboto Mono", monospace;
     font-size: 20px;
-    width: 65%;
+    width: 100%;
     padding: 1em 0.7em;
     border: 1px solid #000000;
     border-radius: 0.4em;
 }
 
 button#kirim-button {
-    width: 22.5%;
+    font-size: 20px;
+    margin-top: 10px;
+    width: 100%;
     background-color: #9F0000;
-    color: #ffffff;
-    font-size: 12px;
     border: none;
-    margin-top: 1em;
-    padding: 0.8em 0;
     border-radius: 0.4em;
-    font-family: "Roboto Mono", monospace;
+    color: #ffffff;
 }
 
 button#cancel-button {

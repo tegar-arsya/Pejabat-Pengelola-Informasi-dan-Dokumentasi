@@ -1,26 +1,41 @@
-<<<<<<< HEAD
 <?php
-require '../controller/koneksi/config.php';
+require_once '../controller/koneksi/config.php';
 
-// Menerima data dari formulir
-$namapengguna = $_POST['name'];
-$username = $_POST['username'];
-$password = $_POST['password'];
-$role     = $_POST['role'];
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+class UserAdmin {
+    private $conn;
 
-// Menyimpan nama pengguna, email, dan password ke database
-$sql = $conn->prepare("INSERT INTO user_admin (nama_pengguna, username, password, role) VALUES (?, ?, ?,?)");
-$sql->bind_param("ssss", $namapengguna, $username, $hashed_password,$role);
+    public function __construct($conn) {
+        $this->conn = $conn;
+    }
 
-if ($sql->execute()) {
-    header("Location: ../view/admin");
-    exit();
-} else {
-    echo "Error: " . $sql->error;
+    public function registerUser($name, $username, $password, $role) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = $this->conn->prepare("INSERT INTO user_admin (nama_pengguna, username, password, role) VALUES (?, ?, ?, ?)");
+        $sql->bind_param("ssss", $name, $username, $hashed_password, $role);
+
+        if ($sql->execute()) {
+            return true;
+        } else {
+            return "Error: " . $sql->error;
+        }
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $userAdmin = new UserAdmin($conn);
+    $name = $_POST['name'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+
+    $result = $userAdmin->registerUser($name, $username, $password, $role);
+    if ($result === true) {
+        header("Location: ../view/admin");
+        exit();
+    } else {
+        echo $result;
+    }
 }
 
 $conn->close();
 ?>
-=======
-

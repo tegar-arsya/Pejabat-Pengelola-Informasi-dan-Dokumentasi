@@ -211,25 +211,25 @@ $conn->close();
                 <label for="pekerjaan">PEKERJAAN</label>
                 <input type="text" id="pekerjaan" name="pekerjaan" required>
             </div>
-            <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
-                <div style="grid-column: span 10;">
-                    <div class="user-input-box1">
+            <!-- <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
+                <div style="grid-column: span 10;"> -->
+                    <div class="user-input-box">
                         <label for="suratkuasa">Unggah Surat Kuasa</label>
                         <input type="file" id="suratkuasa" name="suratkuasa" accept=".pdf, .doc, .docx" required />
                     </div>
 
-                </div>
+                <!-- </div>
                 <div class="g-col-8">
                     <div id="captcha-container">
                         <div id="captcha"></div>
                         <button type="button" id="reload-button">Reload<br>CAPTCHA</button>
                     </div>
                 </div>
-            </div>
-            <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
-                <div style="grid-column: span 10;">
+            </div> -->
+            <!-- <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
+                <div style="grid-column: span 10;"> -->
 
-                    <div class="user-input-box1">
+                    <div class="user-input-box">
                         <label for="alasankeberatan">Alasan Keberatan</label>
                         <select id="alasankeberatan" name="alasankeberatan" required>
                             <option>Permohonan Informasi ditolak</option>
@@ -241,8 +241,15 @@ $conn->close();
                             <option>Informasi disampaikan melebihi jangka waktu yang ditentukan</option>
                         </select>
                     </div>
+                <!-- </div> -->
+                <!-- <div class="g-col-8"> -->
+                <div class="user-input-box1">
+                <div id="captcha-container">
+                        <div id="captcha"></div>
+                        <button type="button" id="reload-button"><i class="fas fa-sync-alt"></i></button>
                 </div>
-                <div class="g-col-8">
+                </div>
+                <div class="user-input-box1">
                     <input type="text1" id="user-input" name="user-input" placeholder="Enter the text in the CAPTCHA" />
                     <div><button type="submit" id="kirim-button">Kirim</button>
                     </div>

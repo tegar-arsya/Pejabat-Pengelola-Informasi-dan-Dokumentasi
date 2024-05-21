@@ -2,12 +2,29 @@
 session_start();
 require '../../controller/koneksi/config.php';
 
+class AuthMiddleware {
+    public function handle() {
+        // Memverifikasi apakah pengguna sudah masuk atau belum
+        if(isset($_SESSION['id'])) {
+            // Jika sudah masuk, arahkan pengguna ke halaman formulir
+            header("Location: ../../view/formulir");
+            exit();
+        }
+    }
+}
+
 // Fungsi untuk memverifikasi token CSRF
 function verify_csrf_token($token) {
     return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token'])) {
+    // Membuat objek middleware
+    $authMiddleware = new AuthMiddleware();
+    // Menjalankan middleware untuk memeriksa otentikasi pengguna
+    $authMiddleware->handle();
+
+    // Proses login seperti sebelumnya
     $email = $_POST['email'];
     $password = $_POST['password'];
     $sql = $conn->prepare("SELECT r.id, r.nomer_registrasi, r.email, r.password, r.nama_depan, r.nama_belakang, r.nik, p.nomer_registrasi AS nomer_registrasi_permohonan

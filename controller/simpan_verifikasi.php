@@ -1,52 +1,59 @@
 <?php
-include('../controller/koneksi/config.php');
+require_once('../controller/koneksi/config.php');
 require_once(__DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php');
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if (isset($_POST['id'])) {
-    $idPermohonan = $_POST['id'];
+class VerifikasiPermohonan {
+    private $conn;
 
-    // Query untuk mendapatkan nomor registrasi dari tabel registrasi berdasarkan id_user dan nik
-    $query = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp,r.email,  r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
-              FROM registrasi r
-              JOIN permohonan_informasi p ON p.id_user = r.nik
-              WHERE p.id = $idPermohonan";
-    $result = $conn->query($query);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $nomorRegistrasi = $row['nomer_registrasi'];
-    
-        // Cek apakah nomor registrasi sudah ada di tabel verifikasi_permohonan
-        $cekVerifikasiQuery = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomorRegistrasi'";
-        $resultCek = $conn->query($cekVerifikasiQuery);
-    
-        if ($resultCek->num_rows > 0) {
-            // Jika nomor registrasi sudah ada, tampilkan pesan bahwa data sudah terverifikasi
-            echo "Error: Data dengan nomor registrasi $nomorRegistrasi sudah terverifikasi sebelumnya.";
-        } else {
-            // Jika nomor registrasi belum ada, simpan data ke tabel verifikasi_permohon
-            $insertQuery = "INSERT INTO verifikasi_permohonan (nomer_registrasi, nama_pengguna, tanggal_permohonan, nik, foto_ktp, email, no_hp, alamat, informasi_yang_dibutuhkan, alasan_pengguna_informasi, id_permohonan, opd_yang_dituju)
-                            VALUES ('$nomorRegistrasi', '{$row['nama_pengguna']}', '{$row['tanggal_permohonan']}', '{$row['nik']}', '{$row['foto_ktp']}', '{$row['email']}','{$row['no_hp']}', '{$row['alamat']}', '{$row['informasi_yang_dibutuhkan']}', '{$row['alasan_pengguna_informasi']}', $idPermohonan, '{$row['opd_yang_dituju']}')";
-    
-            if ($conn->query($insertQuery) === TRUE) {
-                // Data berhasil disimpan ke tabel verifikasi_permohonan
-                echo $nomorRegistrasi;
-                include('../controller/pdfGenerate.php');
-            } else {
-                // Jika terjadi kesalahan saat menyimpan data, tampilkan pesan error
-                echo "Error: " . $insertQuery . "<br>" . $conn->error;
-            }
-        }
-    } else {
-        // Jika tidak ditemukan nomor registrasi, kirim pesan error
-        echo "Error: Nomor registrasi tidak ditemukan.";
+    public function __construct($conn) {
+        $this->conn = $conn;
     }
-    
-} else {
-    // Jika tidak ada ID permohonan yang dikirim, kirim pesan error
-    echo "Error: ID permohonan tidak valid.";
+
+    public function prosesVerifikasi($idPermohonan) {
+        if (isset($idPermohonan)) {
+            $query = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp,r.email,  r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
+                      FROM registrasi r
+                      JOIN permohonan_informasi p ON p.id_user = r.nik
+                      WHERE p.id = $idPermohonan";
+            $result = $this->conn->query($query);
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $nomorRegistrasi = $row['nomer_registrasi'];
+
+                $cekVerifikasiQuery = "SELECT * FROM verifikasi_permohonan WHERE nomer_registrasi = '$nomorRegistrasi'";
+                $resultCek = $this->conn->query($cekVerifikasiQuery);
+
+                if ($resultCek->num_rows > 0) {
+                    echo "Error: Data dengan nomor registrasi $nomorRegistrasi sudah terverifikasi sebelumnya.";
+                } else {
+                    $insertQuery = "INSERT INTO verifikasi_permohonan (nomer_registrasi, nama_pengguna, tanggal_permohonan, nik, foto_ktp, email, no_hp, alamat, informasi_yang_dibutuhkan, alasan_pengguna_informasi, id_permohonan, opd_yang_dituju)
+                                    VALUES ('$nomorRegistrasi', '{$row['nama_pengguna']}', '{$row['tanggal_permohonan']}', '{$row['nik']}', '{$row['foto_ktp']}', '{$row['email']}','{$row['no_hp']}', '{$row['alamat']}', '{$row['informasi_yang_dibutuhkan']}', '{$row['alasan_pengguna_informasi']}', $idPermohonan, '{$row['opd_yang_dituju']}')";
+
+                    if ($this->conn->query($insertQuery) === TRUE) {
+                        echo $nomorRegistrasi;
+                        include('../controller/pdfGenerate.php');
+                    } else {
+                        echo "Error: " . $insertQuery . "<br>" . $this->conn->error;
+                    }
+                }
+            } else {
+                echo "Error: Nomor registrasi tidak ditemukan.";
+            }
+        } else {
+            echo "Error: ID permohonan tidak valid.";
+        }
+    }
 }
 
+// Membuat objek VerifikasiPermohonan
+$verifikasi = new VerifikasiPermohonan($conn);
+
+// Memproses verifikasi
+if (isset($_POST['id'])) {
+    $idPermohonan = $_POST['id'];
+    $verifikasi->prosesVerifikasi($idPermohonan);
+}
 
 ?>
