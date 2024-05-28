@@ -38,7 +38,7 @@ $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
 
 <body onload="generate()">
     <!-- navbar -->
-    <?php include '../components/navbar.php'; ?>
+    <?php include '../components/navbar.php';?>
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Kuesioner Indeks Kepuasan Masyarakat</h1>
@@ -433,7 +433,18 @@ $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
                     <textarea id="SaranPetugasPermohonanInformasi" name="SaranPetugasPermohonanInformasi"></textarea>
                 </div>
             </div>
-            <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
+            <div class="user-input-box1">
+            <div id="captcha-container">
+                        <div id="captcha"></div>
+                        <button type="button" id="reload-button">Reload<br>CAPTCHA</button>
+                    </div>
+            </div>
+            <div class="user-input-box1">
+            <input type="text1" id="user-input" name="user-input" placeholder="Enter the text in the CAPTCHA" />
+                    <div><button type="submit" id="kirim-button">Kirim</button>
+                    </div>
+            </div>
+            <!-- <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
                 <div style="grid-column: span 10;">
             </div>
                 <div class="g-col-8">
@@ -446,7 +457,7 @@ $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
             <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
                 <div style="grid-column: span 10;">
                     <div class="user-input-box1">
-                        
+
                     </div>
                 </div>
                 <div class="g-col-8">
@@ -454,10 +465,10 @@ $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
                     <div><button type="submit" id="kirim-button">Kirim</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </form>
     </div>
-    <?php include '../components/footer.php'; ?>
+    <?php include '../components/footer.php';?>
     <script src="../model/User/survey.js"></script>
     <script src="../Model/Auth/TimeOutUser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js

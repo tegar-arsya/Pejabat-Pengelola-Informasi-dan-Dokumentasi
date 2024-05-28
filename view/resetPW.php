@@ -46,12 +46,15 @@ include ('../Model/CSRF/csrf.php');
             <div class="main-user-info">
                 <div class="user-input-box">
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="masukkan email anda" required>
                             <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                                 anyone else.</small>
-                            <button class="btn btn-success" type="submit">Reset Password</button>
+                                <div class="form-group">
+                                <button class="btn btn-danger" type="submit">Reset Password</button>
+                                </div>
+                            
                         </div>
                     </div>
                 </div>

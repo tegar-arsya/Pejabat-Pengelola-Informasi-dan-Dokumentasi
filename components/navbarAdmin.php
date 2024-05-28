@@ -23,34 +23,6 @@
         </div>
         <div class="header-right">
             <ul class="clearfix">
-                <li class="icons dropdown">
-                    <a href="javascript:void(0)" data-toggle="dropdown">
-                        <i class="mdi mdi-email-outline"></i>
-                        <span class="badge badge-pill gradient-1"></span>
-                    </a>
-                    <div class="drop-down animated fadeIn dropdown-menu">
-                        <div class="dropdown-content-heading d-flex justify-content-between">
-                            <span class="">New Messages</span>
-                            <a href="javascript:void()" class="d-inline-block">
-                                <span class="badge badge-pill gradient-1"></span>
-                            </a>
-                        </div>
-                        <div class="dropdown-content-body">
-                            <ul>
-                                <li class="notification-unread">
-                                    <a href="javascript:void()">
-                                        <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
-                                        <div class="notification-content">
-                                            <div class="notification-heading">NAMA</div>
-                                            <div class="notification-timestamp">Nomer registrasi</div>
-                                            <div class="notification-text">alasan</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>

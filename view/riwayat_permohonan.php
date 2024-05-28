@@ -65,41 +65,32 @@ include ('../controller/koneksi/config.php');
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td><strong>Nama :</strong></td>";
-                                    echo "<td>{$row['nama_pengguna']}</td>";
+                                    echo "<td>" . htmlspecialchars($row['nama_pengguna'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal Permohonan:</strong></td>";
-                                    echo "<td>" . (!empty ($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";
-                                    echo "</tr>";
+                                    echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";                                    echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Nomor Register:</strong></td>";
-                                    echo "<td>{$row['nomer_registrasi']}</td>";
+                                    echo "<td>" . htmlspecialchars($row['nomer_registrasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Informasi yang Diminta:</strong></td>";
-                                    echo "<td>{$row['informasi_yang_dibutuhkan']}</td>";
+                                    echo "<td>" . htmlspecialchars($row['informasi_yang_dibutuhkan'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
-                                    echo "<td>{$row['alasan_pengguna_informasi']}</td>";
+                                    echo "<td>" . htmlspecialchars($row['alasan_pengguna_informasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>OPD Yang Dituju:</strong></td>";
-                                    echo "<td>{$row['opd_yang_dituju']}</td>";
+                                    echo "<td>" . htmlspecialchars($row['opd_yang_dituju'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
-
-                                    // Tampilkan tombol tolak hanya jika permohonan ini telah ditolak
-                                    // if ($isRejected) {
-                                    //     echo "<tr>";
-                                    //     echo "
-                                    //     <td colspan='2'><a class='btn btn-danger' href='editFOrm.php?registrasi={$nomer_registrasi}'>Edit Formulir</a></td>";
-                                    //     echo "</tr>";
-                                    // }
                                 }
                             } else {
                                 $query_alternatif = "SELECT p.nomer_registrasi, p.nama_pengguna, p.opd_yang_dituju, p.tanggal_permohonan, r.nik, r.foto_ktp, r.no_hp, r.alamat, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi
@@ -111,32 +102,31 @@ include ('../controller/koneksi/config.php');
                                 while ($row_alternatif = $result_alternatif->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td><strong>Nama :</strong></td>";
-                                    echo "<td>{$row_alternatif['nama_pengguna']}</td>";
+                                    echo "<td>" . htmlspecialchars($row_alternatif['nama_pengguna'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal Permohonan:</strong></td>";
-                                    echo "<td>" . (!empty ($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";
-                                    echo "</tr>";
+                                    echo "<td>" . (!empty($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";                                    echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Nomor Register:</strong></td>";
-                                    echo "<td>{$row_alternatif['nomer_registrasi']}</td>";
+                                    echo "<td>" . htmlspecialchars($row_alternatif['nomer_registrasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Informasi yang Diminta:</strong></td>";
-                                    echo "<td>{$row_alternatif['informasi_yang_dibutuhkan']}</td>";
+                                    echo "<td>" . htmlspecialchars($row_alternatif['informasi_yang_dibutuhkan'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
-                                    echo "<td>{$row_alternatif['alasan_pengguna_informasi']}</td>";
+                                    echo "<td>" . htmlspecialchars($row_alternatif['alasan_pengguna_informasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>OPD Yang Dituju:</strong></td>";
-                                    echo "<td>{$row_alternatif['opd_yang_dituju']}</td>";
+                                    echo "<td>" . htmlspecialchars($row_alternatif['opd_yang_dituju'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     // Ambil tanggal dari kolom tanggal_permohonan
