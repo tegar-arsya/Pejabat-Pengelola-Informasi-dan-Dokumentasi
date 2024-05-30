@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -7,6 +13,19 @@ require './smtpmail/library/SMTP.php';
 require './smtpmail/library/Exception.php';
 require './koneksi/config.php';
 include('../controller/koneksi/config.php');
+require_once __DIR__ . '/../vendor/autoload.php';
+// Fungsi logActivity
+function logActivity($adminUsername, $action, $description) {
+    $logger = getLogger();
+    $logger->info($action, ['admin' => $adminUsername, 'description' => $description]);
+}
+
+// Fungsi getLogger
+function getLogger() {
+    $log = new Logger('activity_log');
+    $log->pushHandler(new StreamHandler(__DIR__ . '/../../Model/Logs/activity.log', Logger::INFO));
+    return $log;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $namaPIC = $_POST['namaPIC'];
@@ -51,7 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($mail->send()) {
                 echo json_encode(['status' => 'success', 'message' => 'Jawaban Permohonan Sukses. Email berhasil terkirim.']);
                 header("Location: ../view/listPI");
-                exit();
+                $adminUsername = $_SESSION['nama_pengguna'];
+                logActivity($adminUsername,'Jawaban', "telah menjawab permohonan informasi dengan $lampiranName nomer registrasi $norek");
+                
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Gagal mengirim email.']);
             }

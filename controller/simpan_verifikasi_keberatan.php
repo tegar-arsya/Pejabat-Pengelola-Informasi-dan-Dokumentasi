@@ -1,7 +1,12 @@
 <?php
+
+session_start();
 include('../controller/koneksi/config.php');
 require_once(__DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php');
 require_once __DIR__ . '/../vendor/autoload.php';
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class PermohonanVerifikasi {
     private $conn;
@@ -43,6 +48,10 @@ class PermohonanVerifikasi {
                 if ($stmtInsert->execute()) {
                     echo $nomorRegistrasiKeberatan;
                     include('../controller/GeneratePDFkeberatan.php');
+
+                    //log aktivitas verifikasi
+                $adminUsername = $_SESSION['nama_pengguna'];
+                logActivity($adminUsername,'verifikasi', "SUdah Memverifikasi Keberatan Permohonan Informasi dengan nomer registrasi keberatan $nomorRegistrasiKeberatan");
                 } else {
                     echo "Error: " . $stmtInsert->error;
                 }
@@ -62,5 +71,16 @@ if (isset($_POST['id'])) {
     echo "Error: ID permohonan tidak valid.";
 }
 
-$conn->close();
+// Fungsi logActivity
+function logActivity($adminUsername, $action, $description) {
+    $logger = getLogger();
+    $logger->info($action, ['admin' => $adminUsername, 'description' => $description]);
+}
+
+// Fungsi getLogger
+function getLogger() {
+    $log = new Logger('activity_log');
+    $log->pushHandler(new StreamHandler(__DIR__ . '/../../Model/Logs/activity.log', Logger::INFO));
+    return $log;
+}
 ?>

@@ -60,32 +60,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                         <div class="card">
                             <div class="card-body">
 
-                                <!-- <div class="row" style="background-color: #9F0000;">
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" id="nik" name="nik"
-                                                placeholder="Nomor NIK">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="nama" name="nama"
-                                                placeholder="Nama Pemohon">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" id="registrasi" name="registrasi"
-                                                placeholder="Nomor Registrasi">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 daftar-permohonan">
-                                        <button type="button" class="btn btn-primary btn-block" onclick="cariData()"
-                                            style="background-color: #F19C12;">Cari</button>
-                                    </div>
-                                </div> -->
+                               
                                 <div class="filter-container">
                                     <h4 class="card-title">Filter</h4>
                                     <div class="form-check">

@@ -88,6 +88,17 @@
                 </a>
             </li>
             <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Aktivitas</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="../view/Service">Log</a></li>
+                    <li><a href="../view/RiwayatJawaban">Riwayat Permohonan</a>
+                    <li><a href="../view/RiwayatJawabanKeberatan">Riwayat Keberatan</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="../controller/Admin/logoutAdmin.php" aria-expanded="false">
                     <i class="icon-settings menu-icon"></i><span class="nav-text">Logout</span>
                 </a>

@@ -1,4 +1,10 @@
 <?php
+
+session_start();
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -7,6 +13,21 @@ require '../smtpmail/library/PHPMailer.php';
 require '../smtpmail/library/SMTP.php';
 require '../smtpmail/library/Exception.php';
 require '../koneksi/config.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
+// Fungsi logActivity
+function logActivity($adminUsername, $action, $description) {
+    $logger = getLogger();
+    $logger->info($action, ['admin' => $adminUsername, 'description' => $description]);
+}
+
+// Fungsi getLogger
+function getLogger() {
+    $log = new Logger('activity_log');
+    $log->pushHandler(new StreamHandler(__DIR__ . '/../../../Model/Logs/activity.log', Logger::INFO));
+    return $log;
+}
 
 $mail = new PHPMailer;
 
@@ -48,7 +69,9 @@ $mail = new PHPMailer;
 if ($query->execute()) {
     // Jika berhasil dimasukkan ke dalam database tbl_rejected
     echo "<script>alert('Sukses.');</script>";
-	
+	$adminUsername = $_SESSION['nama_pengguna'];
+                logActivity($adminUsername,'verifikasi', "Verifikasi Penolakan Permohonan Informasi dengan alasan ($alasan) dengan nomer registrasi pemohon $nomerRegistrasi");
+
 } else {
     // Jika gagal dimasukkan ke dalam database tbl_rejected
     echo "<script>alert('Gagal memasukkan nomor registrasi ke dalam database tbl_rejected: " . $query->error . "');</script>";

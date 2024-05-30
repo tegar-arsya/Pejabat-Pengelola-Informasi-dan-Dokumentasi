@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token
     }
 
     //proses login
-    $sql = $conn->prepare("SELECT r.id, r.nomer_registrasi, r.email, r.password, r.nama_depan, r.nama_belakang, r.nik, p.nomer_registrasi AS nomer_registrasi_permohonan
+    $sql = $conn->prepare("SELECT r.id,  r.email, r.password, r.nama_depan, r.nama_belakang, r.nik
     FROM registrasi r
     LEFT JOIN permohonan_informasi p ON r.nik = p.id_user
     WHERE r.email = ?
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token
 
     if ($result->num_rows > 0 && password_verify($password, $row['password'])) {
         $_SESSION['id'] = $row['id'];
-        $_SESSION['nomer_registrasi'] = $row['nomer_registrasi_permohonan'] ?? $row['nomer_registrasi'];
+        
         $_SESSION['nama_depan'] = $row['nama_depan'];
         $_SESSION['nama_belakang'] = $row['nama_belakang'];
         $_SESSION['nik'] = $row['nik'];
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token
 } else {
     // Token CSRF tidak valid, tanggapi sesuai kebijakan keamanan Anda
     $_SESSION['login_error'] = "Token CSRF tidak valid.";
-    echo "<script>window.location.href='../../home'; alert('" . htmlspecialchars($_SESSION['login_error']) . "');</script>";
+    echo "<script>window.location.href='../../'; alert('" . htmlspecialchars($_SESSION['login_error']) . "');</script>";
     exit();
 }
 ?>

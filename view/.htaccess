@@ -43,4 +43,8 @@ Options -Indexes
     RewriteRule ^admin$ loginAdmin.php [NC,L]
     RewriteRule ^adminRegister$ admin_register.php [NC,L]
     RewriteRule ^home$ index.php [NC,L]
+    RewriteRule ^service$ service.php [NC,L]
+    
+    RewriteRule ^RiwayatJawaban$ activity.php [NC,L]
+    RewriteRule ^RiwayatJawabanKeberatan$ activityKeberatan.php [NC,L]
 </IfModule>

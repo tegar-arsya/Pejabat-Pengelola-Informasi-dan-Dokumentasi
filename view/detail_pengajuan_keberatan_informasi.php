@@ -147,6 +147,13 @@ if (isset($_GET['id'])) {
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td><strong>Foto KTP</strong></td>
+                                        <td><a href="../Assets/uploads/keberatan/gambar/<?php echo $row['foto_ktp']; ?>"
+                                                target="_blank">
+                                                <?php echo $row['foto_ktp']; ?>
+                                            </a></td>
+                                    </tr>
+                                    <tr>
                                         <td><strong>Pekerjaan:</strong></td>
                                         <td>
                                             <?php echo $row['pekerjaan']; ?>
