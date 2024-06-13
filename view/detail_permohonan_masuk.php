@@ -49,7 +49,6 @@ if (isset($_GET['id'])) {
     <!-- Custom Stylesheet -->
     <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
 
 </head>
@@ -188,7 +187,7 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card" id="dataTableCard">
                             <div class="card-body">
                                 <div class="table-responsive hidden" id="dataTable">
                                     <table class="table table-bordered">
@@ -316,6 +315,14 @@ if (isset($_GET['id'])) {
                 }
             });
         });
+    </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        function batal() {
+            document.getElementById('dataTableCard').style.display = 'none';
+        }
     </script>
     <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>

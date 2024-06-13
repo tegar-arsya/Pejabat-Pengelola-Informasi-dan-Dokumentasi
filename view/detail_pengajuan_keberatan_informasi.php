@@ -360,6 +360,11 @@ document.getElementById('buttonVerifikasi').addEventListener('click', function (
         }
     };
     </script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
     <script src="../Model/Auth/TimeOut.js"></script>
     <script src="../Assets/plugins/common/common.min.js"></script>
     <script src="../Assets/js/custom.min.js"></script>
