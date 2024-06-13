@@ -131,7 +131,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                             <td>
                                                                 <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-info btn-sm'> <i class='fas fa-info-circle'></i></a>
                                                                 <button type='button' data-id='" . $row["nomer_registrasi"] . "' class='btn btn-danger btn-sm delete-btn'> <i class='fas fa-trash-alt'></i></button>
-                                                                <a href='detail-PM?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'><i class='fas fa-check-circle'></i></a>
+                                                                
                                                             </td>
                                                         </tr>";
                                                 }

@@ -33,6 +33,41 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
     <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
+    <style>
+        .highlight-green {
+            background-color: #06ff06;
+            /* Hijau */
+        }
+        .highlight-blue {
+            background-color: #0000ff;
+            /* Hijau */
+        }
+
+        .highlight-orange {
+            background-color: #FFA500;
+            /* Oranye */
+        }
+
+        .highlight-yellow {
+            background-color: #FFFF00;
+            /* Kuning */
+        }
+
+        .highlight-circle {
+            text-align: center;
+        }
+
+        .highlight-circle div {
+            display: inline-block;
+            width: 20px;
+            /* Sesuaikan ukuran bulatan sesuai kebutuhan */
+            height: 20px;
+            /* Sesuaikan ukuran bulatan sesuai kebutuhan */
+            border-radius: 50%;
+            /* Membuat bentuk bulat */
+        }
+    </style>
 </head>
 
 <body>
@@ -82,6 +117,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                 <th>Tanggal Selesai</th>
                                                 <th>Aksi</th>
                                                 <th>Status</th>
+                                                <th>Highlight</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -113,10 +149,10 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                     echo "<td>" . (!empty($row['tanggal_survey']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_survey']))) : '') . "</td>";
                                                     echo "<td>";
                                                     echo "<div class='btn-group' role='group'>";
-                                                    echo "<a href='detailNote?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-success btn-sm'>Detail</a>";
-                                                    echo "<button class='btn btn-danger btn-sm' onclick='HapusVerifikasi(\"{$row['nomer_registrasi_keberatan']}\")'>Hapus</button>";
-                                                    echo "<a href='formAnswerKeberatan?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-success btn-sm'>Jawab</a>";
-                                                    echo "<a href='Note?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-primary btn-sm'><i class='fas fa-sticky-note'></i> Note</a>";
+                                                    echo "<a href='detailNote?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-info btn-sm fas fa-info-circle'></a>";
+                                                    echo "<button class='btn btn-danger btn-sm fas fa-trash-alt onclick='HapusVerifikasi(\"{$row['nomer_registrasi_keberatan']}\")'></button>";
+                                                    echo "<a href='formAnswerKeberatan?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-success btn-sm fas fa-reply'></a>";
+                                                    echo "<a href='Note?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-primary btn-sm'><i class='fas fa-sticky-note'></i></a>";
                                                     echo "</div>";
                                                     echo "</td>";
                                                     $status = '';
@@ -152,7 +188,30 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                         WHERE nomer_registrasi_keberatan='{$row['nomer_registrasi_keberatan']}'";
                                                     $conn->query($updateStatusQuery);
 
+                                                    $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+                                                    $tanggalVerifikasi = new DateTime($row['tanggal_verifikasi'], new DateTimeZone('Asia/Jakarta'));
+                                                    $selisihHari = $sekarang->diff($tanggalVerifikasi)->days;
+
+                                                    // Cek apakah sudah ada jawaban di tabel answer_admin untuk id_permohonan ini
+                                                    $queryAnswer = "SELECT * FROM keberatananswer_admin WHERE id_permohonan = ?";
+                                                    $stmtAnswer = $conn->prepare($queryAnswer);
+                                                    $stmtAnswer->bind_param("i", $row['id_permohonan']);
+                                                    $stmtAnswer->execute();
+                                                    $resultAnswer = $stmtAnswer->get_result();
+
+                                                    // Tentukan kelas highlight berdasarkan selisih hari
+                                                    if ($resultAnswer->num_rows > 0) {
+                                                        $highlightClass = 'highlight-blue'; // Jika sudah ada jawaban
+                                                    } elseif ($selisihHari <= 5) {
+                                                        $highlightClass = 'highlight-green';
+                                                    } elseif ($selisihHari == 6 || $selisihHari == 7) {
+                                                        $highlightClass = 'highlight-orange';
+                                                    } elseif ($selisihHari >= 8 && $selisihHari <= 10) {
+                                                        $highlightClass = 'highlight-yellow';
+                                                    }
+
                                                     echo "<td>" . htmlspecialchars($statusDisplay) . "</td>";
+                                                    echo "<td class='highlight-circle'><div class='$highlightClass'></div></td>";
                                                     echo "</tr>";
                                                 }
                                             } else {

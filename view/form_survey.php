@@ -1,12 +1,36 @@
 <?php
 session_start();
+require_once('../controller/koneksi/config.php');
+
+// Check if the user is logged in
 if (!isset($_SESSION['id'])) {
     header("Location: ../index.php");
     exit();
 }
+
 $user_id = $_SESSION['id'];
 $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
+
+// Initialize $idPermohonan
+$id_permohonan = '';
+
+// Prepare and execute the query using the existing database connection
+$sql = "SELECT id_permohonan FROM verifikasi_permohonan WHERE nomer_registrasi = ?";
+$stmt = $conn->prepare($sql);
+if ($stmt) {
+    $stmt->bind_param("s", $nomer_registrasi);
+    $stmt->execute();
+    $stmt->bind_result($id_permohonan);
+    $stmt->fetch();
+    $stmt->close();
+} else {
+    echo "Error preparing statement: " . $conn->error;
+}
+
+// Now $idPermohonan contains the required value
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,6 +85,7 @@ $nomer_registrasi = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
         </div>
         <form id="mySurvey" action="../controller/data_survey.php" method="post">
             <input type="hidden" name="nomer_registrasi" value="<?php echo htmlspecialchars($nomer_registrasi); ?>" />
+            <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan); ?>" />
             <div class="user-input-box">
                 <label for="nama">Nama Anda</label>
                 <input type="text" id="nama" name="nama" required />

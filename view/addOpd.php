@@ -19,7 +19,7 @@ $user_id = $_SESSION['id'];
     <!-- Custom Stylesheet -->
     <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
 </head>
 
 <body>

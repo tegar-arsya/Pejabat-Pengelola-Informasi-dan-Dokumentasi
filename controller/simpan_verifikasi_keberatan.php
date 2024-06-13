@@ -45,6 +45,7 @@ class PermohonanVerifikasi {
                 $stmtInsert = $this->conn->prepare($insertQuery);
                 $stmtInsert->bind_param("sssssssssssssss", $nomorRegistrasiKeberatan, $row['nama_pemohon'], $row['tanggal_permohonan'], $row['nik_pemohon'], $row['foto_ktp'], $row['opd_yang_dituju'], $row['informasi_yang_diminta'], $row['alasan_keberatan'], $row['nama'], $row['pekerjaan'], $row['unggah_surat_kuasa'], $idPermohonan, $row['email_pemohon'], $row['foto_ktp_pemohon'], $row['kode_permohonan_informasi']);
 
+
                 if ($stmtInsert->execute()) {
                     echo $nomorRegistrasiKeberatan;
                     include('../controller/GeneratePDFkeberatan.php');

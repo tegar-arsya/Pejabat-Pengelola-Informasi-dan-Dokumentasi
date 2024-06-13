@@ -343,8 +343,8 @@ if (isset($_POST['id'])) {
                         if ($mailOPD->send()) {
                             // Email kepada OPD berhasil dikirim
                             
-                            $insertNotifikasi = "INSERT INTO notifikasi_pengiriman (nomer_registrasi, nama_pengguna, opd_yang_dituju, status)
-                            VALUES ('{$row['nomer_registrasi']}', '{$row['nama_depan']} {$row['nama_belakang']}', '{$row['opd_yang_dituju']}', 'Permohonan diposisikan ke {$row['opd_yang_dituju']}')";
+                            $insertNotifikasi = "INSERT INTO notifikasi_pengiriman (id_permohonan, nomer_registrasi, nama_pengguna, opd_yang_dituju, status)
+                            VALUES ($idPermohonan, '{$row['nomer_registrasi']}', '{$row['nama_depan']} {$row['nama_belakang']}', '{$row['opd_yang_dituju']}', 'Permohonan diposisikan ke {$row['opd_yang_dituju']}')";
 
 
 

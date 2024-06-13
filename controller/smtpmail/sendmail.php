@@ -60,10 +60,11 @@ $mail = new PHPMailer;
 
 	// setelah pengaturan email
 	$nomerRegistrasi = $_POST['nomer_registrasi'];
+	$id_permohonan = $_POST['id_permohonan'];
 	$name = $_POST['nama'];
 	$alasan = $_POST['alasan'];
-	$query = $conn->prepare("INSERT INTO tbl_rejected (nomer_registrasi, nama_pengguna, note) VALUES (?, ?,?)");
-	$query->bind_param("sss", $nomerRegistrasi, $name, $alasan);
+	$query = $conn->prepare("INSERT INTO tbl_rejected (id_permohonan, nomer_registrasi, nama_pengguna, note) VALUES (?, ?, ?,?)");
+	$query->bind_param("ssss", $id_permohonan, $nomerRegistrasi, $name, $alasan);
 	
 // Eksekusi query
 if ($query->execute()) {

@@ -1,17 +1,16 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
 
 // Include the necessary files
-require_once(__DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php');
+require_once __DIR__ . '/../vendor/tecnickcom/tcpdf/tcpdf.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 require './smtpmail/library/PHPMailer.php';
 require './smtpmail/library/SMTP.php';
 require './smtpmail/library/Exception.php';
 require './koneksi/config.php';
 // Include the database configuration file
-include('../controller/koneksi/config.php');
+include '../controller/koneksi/config.php';
 
 // Retrieve the ID parameter from the POST request
 if (isset($_POST['id'])) {
@@ -74,7 +73,6 @@ if (isset($_POST['id'])) {
             $text = 'Isi Form berikut merupakan Hak anda memperoleh Informasi Publik sesuai UU No 14 Tahun 2008 Tentang Keterbukaan Informasi Publik';
             $pdf->MultiCell(0, 10, $text, 0, 'L');
 
-
             $pdf->SetFont('times', 'B', 12);
             $pdf->Cell(0, 10, 'Nomer Registrasi Keberatan', 0, 1, 'L');
             $pdf->SetFont('times', '', 12);
@@ -114,7 +112,7 @@ if (isset($_POST['id'])) {
             $xinformasi = 10;
             $pdf->SetXY($xinformasi, $pdf->GetY());
             $pdf->Cell(0, 10, $informasi, 1, 'L');
-            $xkuasa = 105; 
+            $xkuasa = 105;
             $pdf->SetXY($xkuasa, $pdf->GetY() - 10);
             $pdf->Cell(0, 10, $kuasapermohon, 1, 'R');
             $pdf->SetFont('times', 'B', 1);
@@ -209,7 +207,6 @@ if (isset($_POST['id'])) {
             $pdf->SetXY($xprovinsii, $pdf->GetY() - 10); // Mengatur posisi Y sedikit ke atas agar sejajar dengan nama depan
             $pdf->Cell(0, 10, $negara, 1, 'R');
 
-
             $pdf->SetFont('times', 'B', 1);
             $pdf->Cell(0, 0, '', 0, 0, 'L');
             $pdf->SetFont('times', '', 1);
@@ -242,12 +239,10 @@ if (isset($_POST['id'])) {
             // Isi Informasi yang Dibutuhkan dengan border di sekelilingnya
             $pdf->MultiCell($lebarSel, 10, $alasan, 1, 'L');
 
-           
             // Save the PDF to a file
-            $pdfFileName = 'formulir Keberatan-' . $namapemohon .'_' . date('YmdHis') . '.pdf';
+            $pdfFileName = 'formulir Keberatan-' . $namapemohon . '_' . date('YmdHis') . '.pdf';
             $pdfFilePath = __DIR__ . '/../Assets/files/keberatan/' . $pdfFileName;
             $pdf->Output($pdfFilePath, 'F');
-
 
             // Sending email
             $mail = new PHPMailer;
@@ -280,71 +275,55 @@ if (isset($_POST['id'])) {
 
             // After sending the email successfully
             if ($mail->send()) {
-                
+
             } else {
                 echo "<script>alert('Gagal mengirim email. Silakan coba lagi.');</script>";
             }
-            // if (!empty($row['opd_yang_dituju'])) {
-            //     // Query untuk mendapatkan alamat email OPD dari tabel daftar_opd
-            //     $opdQuery = "SELECT email_opd FROM tbl_daftar_opd WHERE nama = '" . $row['opd_yang_dituju'] . "'";
-            //     $opdResult = $conn->query($opdQuery);
-            
-            //     if ($opdResult !== false && $opdResult->num_rows > 0) {
-            //         while ($opdRow = $opdResult->fetch_assoc()) {
-            //             $opdEmail = $opdRow['email_opd'];
-            
-            //             // Sending email to OPD
-            //             $mailOPD = new PHPMailer;
-            
-            //             // Enable SMTP debugging.
-            //             $mailOPD->SMTPDebug = 0;
-            //             // Set PHPMailer to use SMTP.
-            //             $mailOPD->isSMTP();
-            //             $mailOPD->Host = "tls://smtp.gmail.com"; // Host mail server.
-            //             $mailOPD->SMTPAuth = true;
-            //             $mailOPD->Username = "ppid.diskominfo.jtg3@gmail.com";
-            //             $mailOPD->Password = "ymgj whgy zdps duic";
-            //             $mailOPD->SMTPSecure = "tls";
-            //             // Set TCP port to connect to.
-            //             $mailOPD->Port = 587;
-            
-            //             $mailOPD->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
-            //             $mailOPD->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
-            
-            //             // Menambahkan alamat email OPD sebagai penerima
-            //             $mailOPD->addAddress($opdEmail, $row['opd_yang_dituju']);
-            
-            //             $mailOPD->isHTML(true);
-            
-            //             $mailOPD->Subject = "Permohonan Keberatan Informasi"; // Subject notifikasi.
-            //             $mailOPD->Body = "Ada permohonan Keberatan Informasi dari " . $row['nama_pemohon'] . ' ' . ". Nomor Registrasi Keberatan: " . $row['nomer_registrasi_keberatan']. ' ' . ". Yang Dikuasakan Oleh: " . $row['nama']; // Isi notifikasi.
-            //             $mailOPD->AltBody = "Ada permohonan Keberatan Informasi dari " . $row['nama_pemohon'] . ' ' . ". Nomor Registrasi Keberatan: " . $row['nomer_registrasi_keberatan']. ' ' . ". Yang Dikuasakan Oleh: " . $row['nama'];
-            
-            //             // Attach PDF file
-            //             $mailOPD->addAttachment($pdfFilePath, $pdfFileName);
-            
-            //             // After sending the email successfully
-            //             if ($mailOPD->send()) {
-            //                 // Email kepada OPD berhasil dikirim
-                            
-            //                 $insertNotifikasi = "INSERT INTO notifikasi_pengiriman_keberatan (nomer_registrasi_keberatan, nik_pemohon, nama_pemohon, opd_yang_dituju, status)
-            //                 VALUES ('{$row['nomer_registrasi_keberatan']}', '{$row['nik_pemohon']}', '{$row['nama_pemohon']}','{$row['opd_yang_dituju']}', 'Permohonan Keberatan Informasi telah dikirim ke {$row['opd_yang_dituju']}')";
+                    // Sending email to OPD
+                    $mailOPD = new PHPMailer;
 
+                    // Enable SMTP debugging.
+                    $mailOPD->SMTPDebug = 0;
+                    // Set PHPMailer to use SMTP.
+                    $mailOPD->isSMTP();
+                    $mailOPD->Host = "tls://smtp.gmail.com"; // Host mail server.
+                    $mailOPD->SMTPAuth = true;
+                    $mailOPD->Username = "ppid.diskominfo.jtg3@gmail.com";
+                    $mailOPD->Password = "ymgj whgy zdps duic";
+                    $mailOPD->SMTPSecure = "tls";
+                    // Set TCP port to connect to.
+                    $mailOPD->Port = 587;
 
+                    $mailOPD->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
+                    $mailOPD->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
 
-            //              if ($conn->query($insertNotifikasi) === TRUE) {
-            //                 // Notifikasi berhasil disimpan ke database
-            //             } else {
-            //                 echo "<script>alert('Gagal menyimpan notifikasi ke database.');</script>";
-            //             }
-            //             } else {
-            //                 echo "<script>alert('Gagal mengirim email kepada OPD. Silakan coba lagi.');</script>";
-            //             }
-            //         }
-            //     } else {
-            //         echo "<script>alert('Gagal mendapatkan alamat email OPD. Silakan coba lagi.');</script>";
-            //     }
-            // }
+                    // Menambahkan alamat email OPD sebagai penerima
+
+                    $mailOPD->addAddress("ppid.diskominfo.jtg3@gmail.com", "Admin PPID DISKOMINFO Jawa Tengah");
+                    $mailOPD->isHTML(true);
+
+                    $mailOPD->Subject = "Permohonan Keberatan Informasi"; // Subject notifikasi.
+                    $mailOPD->Body = "Ada permohonan Keberatan Informasi dari " . $row['nama_pemohon'] . ' ' . ". Nomor Registrasi Keberatan: " . $row['nomer_registrasi_keberatan'] . ' ' . ". Yang Dikuasakan Oleh: " . $row['nama']; // Isi notifikasi.
+                    $mailOPD->AltBody = "Ada permohonan Keberatan Informasi dari " . $row['nama_pemohon'] . ' ' . ". Nomor Registrasi Keberatan: " . $row['nomer_registrasi_keberatan'] . ' ' . ". Yang Dikuasakan Oleh: " . $row['nama'];
+
+                    // Attach PDF file
+                    $mailOPD->addAttachment($pdfFilePath, $pdfFileName);
+
+                    // After sending the email successfully
+                    if ($mailOPD->send()) {
+                        // Email kepada OPD berhasil dikirim
+
+                        $insertNotifikasi = "INSERT INTO notifikasi_pengiriman_keberatan (id_permohonan, nomer_registrasi_keberatan, nik_pemohon, nama_pemohon, opd_yang_dituju, status)
+                            VALUES ($idPermohonan,'{$row['nomer_registrasi_keberatan']}', '{$row['nik_pemohon']}', '{$row['nama_pemohon']}','{$row['opd_yang_dituju']}', 'Permohonan Keberatan Informasi telah dikirim ke {$row['opd_yang_dituju']}')";
+
+                        if ($conn->query($insertNotifikasi) === true) {
+                            // Notifikasi berhasil disimpan ke database
+                        } else {
+                            echo "<script>alert('Gagal menyimpan notifikasi ke database.');</script>";
+                        }
+                    } else {
+                        echo "<script>alert('Gagal mengirim email kepada OPD. Silakan coba lagi.');</script>";
+                    }
         }
     } else {
         $response = array("success" => false, "error" => "Data tidak ditemukan");
@@ -357,4 +336,3 @@ if (isset($_POST['id'])) {
 
 // Close the database connection
 $conn->close();
-?>

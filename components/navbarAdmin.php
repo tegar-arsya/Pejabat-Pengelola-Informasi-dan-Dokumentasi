@@ -42,7 +42,7 @@
             </li>
             <li>
                 <a href="../view/dashboard" aria-expanded="false">
-                    <i class="icon-user menu-icon"></i><span class="nav-text">dashboard</span>
+                <i class="fas fa-tachometer-alt menu-icon"></i><span class="nav-text">dashboard</span>
                 </a>
             </li>
             <li>
@@ -50,13 +50,13 @@
                     <i class="icon-envelope menu-icon"></i> <span class="nav-text">Permohonan Informasi</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="../view/listPM">Daftar Permohonan Masuk</a></li>
+                    <li><a href="../view/listPM" >Daftar Permohonan Masuk</a></li>
                     <li><a href="../view/listPI">Daftar Permohonan Informasi</a></li>
                 </ul>
             </li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Keberatan</span>
+                    <i class="icon-envelope menu-icon"></i><span class="nav-text">Keberatan</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="../view/listkeberatan">Daftar Keberatan Masuk</a></li>
@@ -66,7 +66,7 @@
             </li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-graph menu-icon"></i> <span class="nav-text">Referensi</span>
+                    <i class="fas fa-book menu-icon"></i> <span class="nav-text">Referensi</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="../view/listopd">Daftar OPD</a></li>
@@ -74,7 +74,7 @@
             </li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Survey Kepuasan Masyarakat</span>
+                    <i class="fas fa-poll menu-icon"></i><span class="nav-text">Survey Kepuasan Masyarakat</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="../view/SKM">Survey Kepuasan Masyarakat Permohonan Informasi</a></li>
@@ -89,7 +89,7 @@
             </li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-screen-tablet menu-icon"></i><span class="nav-text">Aktivitas</span>
+                    <i class="fas fa-bolt menu-icon"></i><span class="nav-text">Aktivitas</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="../view/Service">Log</a></li>
@@ -99,8 +99,8 @@
                 </ul>
             </li>
             <li>
-                <a href="../controller/Admin/logoutAdmin.php" aria-expanded="false">
-                    <i class="icon-settings menu-icon"></i><span class="nav-text">Logout</span>
+                <a href="../controller/Admin/logoutAdmin" aria-expanded="false">
+                    <i class="fas fa-sign-out-alt menu-icon"></i><span class="nav-text">Logout</span>
                 </a>
             </li>
         </ul>

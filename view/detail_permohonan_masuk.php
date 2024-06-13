@@ -147,6 +147,8 @@ if (isset($_GET['id'])) {
                                                 </td>
                                                 <td><input type="hidden" name="nomer_registrasi"
                                                         value="<?php echo $row['nomer_registrasi']; ?>"></td>
+                                                        <input type="hidden" name="id_permohonan"
+                                                        value="<?php echo $id_permohonan; ?>"></td>
                                             </tr>
                                             <tr>
                                                 <td>Nama :</td>

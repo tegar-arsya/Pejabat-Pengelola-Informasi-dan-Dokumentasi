@@ -34,6 +34,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
     <!-- Custom Stylesheet -->
     <link href="../Assets//plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
 
 </head>
 
@@ -54,32 +55,6 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                         <div class="card">
                             <div class="card-body">
                                 <h1>Pengajuan Keberatan</h1>
-                                <!-- <div class="row" style="background-color: #9F0000;">
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" id="nik" name="nik"
-                                                placeholder="Nomor NIK">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="nama" name="nama"
-                                                placeholder="Nama Pemohon">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 daftar-permohonan">
-                                        <div class="form-group">
-
-                                            <input type="text" class="form-control" id="registrasi" name="registrasi"
-                                                placeholder="Nomor Registrasi">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 daftar-permohonan">
-                                        <button type="button" class="btn btn-primary btn-block" onclick="cariData()"
-                                            style="background-color: #F19C12;">Cari</button>
-                                    </div>
-                                </div> -->
                                 <h4 class="card-title">Data Daftar Pengajuan Keberatan</h4>
                                 <div class="table-responsive">
                                 <div class="filter-container">
@@ -146,11 +121,10 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                             <td>" . $row["informasi_yang_diminta"] . "</td>
                                                             <td>" . $row["alasan_keberatan"] . "</td>
                                                             <td>
-                                                            <div class='btn-group' role='group'>
-                                                                <a href='detail-K?id=" . $row["id"] . "' class='btn btn-info btn-sm'>Detail</a>
-                                                                <button type='button' data-id='" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</button>
-                                                                <a href='detail-K?id=" . $row["id"] . "' class='btn btn-success btn-sm verify-btn'>Verifikasi</a>
-                                                                </div>
+                                                                <a href='detail-K?id=" . $row["id"] . "' class='btn btn-info btn-sm'><i class='fas fa-info-circle'></i></a>
+                                                                <button type='button' data-id='" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'><i class='fas fa-trash-alt'></i></button>
+                                                                
+                                                                
                                                                 </td>
                                                         </tr>";
                                                         $counter++;

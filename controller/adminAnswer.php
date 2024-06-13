@@ -30,7 +30,7 @@ function getLogger() {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $namaPIC = $_POST['namaPIC'];
     $jawabanPermohonan = $_POST['jawabanPermohonan'];
-    
+    $id_permohonan = $_POST['id_permohonan'];
     $nikPemohon = $_POST['nikPemohon'];
     $nama = $_POST['nama'];
     $email = $_POST['email'];
@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $targetFilePath)) {
-        $insertQuery = "INSERT INTO answer_admin (nama_pic, jawaban_permohonan, lampiran, nik_pemohon, nomer_registrasi_pemohon, status_balasan) 
-                        VALUES ('$namaPIC', '$jawabanPermohonan', '$lampiranName','$nikPemohon','$norek','Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.')";
+        $insertQuery = "INSERT INTO answer_admin (id_permohonan, nama_pic, jawaban_permohonan, lampiran, nik_pemohon, nomer_registrasi_pemohon, status_balasan) 
+                        VALUES ('$id_permohonan','$namaPIC', '$jawabanPermohonan', '$lampiranName','$nikPemohon','$norek','Jawaban permohonan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat permohonan sesuai dengan nomer registrasi permohonan anda untuk mengunduh jawaban permohonan.')";
         $insertResult = $conn->query($insertQuery);
 
         if ($insertResult) {

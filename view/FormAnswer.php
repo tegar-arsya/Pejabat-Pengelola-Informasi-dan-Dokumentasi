@@ -21,6 +21,7 @@ if ($result -> num_rows > 0) {
         $namapemohon = $row['nama_pengguna'];
         $email = $row ['email'];
         $nomer_registrasi = $row['nomer_registrasi'];
+        $id_permohonan = $row['id_permohonan'];
     }
 }
 else {
@@ -77,7 +78,8 @@ else {
                                     <input type="hidden" name="nikPemohon" value="<?php echo $nik; ?>">
                                             <input type="hidden" name="nama" value="<?php echo $namapemohon; ?>">
                                             <input type="hidden" name="email" value="<?php echo $email; ?>">
-                                            <input type="hidden" name="norek" value="<?php echo $nomer_registrasi; ?>">
+                                            <input type="hidden" name="norek" value="<?php echo $nomer_registrasi; ?>"> 
+                                            <input type="hidden" name="id_permohonan" value="<?php echo $id_permohonan; ?>">
                                     <button type="submit" class="btn btn-primary">submit</button>
                                 </form>
                             </div>

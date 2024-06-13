@@ -18,6 +18,7 @@ class FormHandler {
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id_permohonan_informasi = $_POST['id_permohonan_informasi'];
             $code = $_POST['nomer_registrasi'];
             $informasiyangdiminta = $_POST['informasiyangdiminta'];
             $kuasapermohon = $_POST['kuasapermohonan'];
@@ -55,11 +56,11 @@ class FormHandler {
                 exit();
             }
 
-            $sql = "INSERT INTO pengajuan_keberatan (kode_permohonan_informasi, informasi_yang_diminta, kuasa_permohonan, nama_pemohon, nama, email, nik, no_hp, foto_ktp, alamat, kota_kabupaten, negara, kode_pos, provinsi, opd_yang_dituju, pekerjaan, unggah_surat_kuasa, alasan_keberatan, tanggal_permohonan, nik_pemohon, email_pemohon, foto_ktp_pemohon) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO pengajuan_keberatan (id_permohonan_informasi, kode_permohonan_informasi, informasi_yang_diminta, kuasa_permohonan, nama_pemohon, nama, email, nik, no_hp, foto_ktp, alamat, kota_kabupaten, negara, kode_pos, provinsi, opd_yang_dituju, pekerjaan, unggah_surat_kuasa, alasan_keberatan, tanggal_permohonan, nik_pemohon, email_pemohon, foto_ktp_pemohon) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ssssssssssssssssssssss", $code, $informasiyangdiminta, $kuasapermohon, $namapemohon, $nama, $email, $nik, $nohp, $fotoktp, $alamat, $namaKotaKabupaten, $negara, $kodepos, $namaProvinsi, $opd, $pekerjaan, $suratkuaasa, $alasanK, $tanggal_permohonan, $nik_pemohon, $emailpemohon, $foto_ktp_pemohon);
+            $stmt->bind_param("sssssssssssssssssssssss", $id_permohonan_informasi,$code, $informasiyangdiminta, $kuasapermohon, $namapemohon, $nama, $email, $nik, $nohp, $fotoktp, $alamat, $namaKotaKabupaten, $negara, $kodepos, $namaProvinsi, $opd, $pekerjaan, $suratkuaasa, $alasanK, $tanggal_permohonan, $nik_pemohon, $emailpemohon, $foto_ktp_pemohon);
 
             if ($stmt->execute()) {
                 $response = array("success" => true);

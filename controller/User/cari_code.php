@@ -1,29 +1,56 @@
 <?php
 session_start();
 include('../../controller/koneksi/config.php');
-if(isset($_SESSION['nik'])) {
-    $nik_session = $_SESSION['nik'];
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $nomer_registrasi_input = $_POST['nomer_registrasi'];
-        $sql = "SELECT id FROM permohonan_informasi WHERE nomer_registrasi = ? AND id_user = ?";
-        $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ss", $nomer_registrasi_input, $nik_session);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        if ($result) {
-            if (mysqli_num_rows($result) > 0) {
-                header("Location: ../../view/form-keberatan?registrasi=$nomer_registrasi_input");
-                exit();
-            } else {
-                echo "<script>alert('Nomer registrasi tidak ditemukan dalam database atau tidak sesuai dengan pengguna.'); window.location.href = document.referrer;</script>";
-                exit();
+
+class RegistrasiHandler {
+    private $conn;
+    private $id;
+
+    public function __construct($conn) {
+        $this->conn = $conn;
+        $this->id = $_SESSION['id'] ?? null;
+    }
+
+    public function handleRequest() {
+        if ($this->id) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $this->processPostRequest();
             }
         } else {
-            echo "Error: " . mysqli_error($conn);
+            $this->redirect('../home');
         }
     }
-} else {
-    header("Location: ../home");
-    exit();
+
+    private function processPostRequest() {
+        $nomer_registrasi_input = $_POST['nomer_registrasi'] ?? '';
+        if ($this->isValidRegistration($nomer_registrasi_input)) {
+            $this->redirect("../../view/form-keberatan?registrasi=$nomer_registrasi_input");
+        } else {
+            $this->alertAndRedirect('Nomer registrasi tidak ditemukan dalam database atau tidak sesuai dengan pengguna.');
+        }
+    }
+
+    private function isValidRegistration($nomer_registrasi_input) {
+        $sql = "SELECT id FROM permohonan_informasi WHERE nomer_registrasi = ? AND id_registrasi = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("ss", $nomer_registrasi_input, $this->id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result && $result->num_rows > 0;
+    }
+
+    private function alertAndRedirect($message) {
+        echo "<script>alert('$message'); window.location.href = document.referrer;</script>";
+        exit();
+    }
+
+    private function redirect($url) {
+        header("Location: $url");
+        exit();
+    }
 }
+
+$registrasiHandler = new RegistrasiHandler($conn);
+$registrasiHandler->handleRequest();
 ?>

@@ -63,7 +63,7 @@ if (isset($_GET['id'])) {
                     include('../controller/koneksi/config.php');
 
                     // $sql = "SELECT * FROM permohonan_informasi WHERE id_user = $nik";
-                    $sql = "SELECT * FROM permohonan_informasi where id_user = $nik ";
+                    $sql = "SELECT * FROM permohonan_informasi where id_registrasi = $user_id ";
                     $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {

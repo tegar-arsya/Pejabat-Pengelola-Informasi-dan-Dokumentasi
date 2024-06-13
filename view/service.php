@@ -70,6 +70,7 @@ $logs = readLogFile($logFilePath);
     <link rel="icon" type="image/png" sizes="16x16" href="../Assets/images/logo_jateng.png">
     <!-- Custom Stylesheet -->
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
     <style>
         /* CSS untuk gaya berbeda pada setiap kalimat log */
         .log-1 {
@@ -87,7 +88,7 @@ $logs = readLogFile($logFilePath);
             color: #880e4f; /* Warna font */
         }
         .scrollable-card {
-            max-height: 400px; /* Atur tinggi maksimum card */
+            max-height: 600px; /* Atur tinggi maksimum card */
             overflow-y: auto; /* Aktifkan overflow vertikal */
             border: 1px solid #ccc; /* Tambahkan border untuk membedakan card dari background */
             border-radius: 5px; /* Bulatkan sudut card */

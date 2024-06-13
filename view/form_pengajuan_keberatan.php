@@ -30,17 +30,18 @@ if (!isset($_GET['registrasi'])) {
 }
 $nomer_registrasi = $_GET['registrasi'];
 $nik = $_SESSION['nik'];
-$sql = "SELECT pi.nomer_registrasi, pi.nama_pengguna, pi.informasi_yang_dibutuhkan, pi.tanggal_permohonan, pi.id_user, r.email, r.foto_ktp
+$sql = "SELECT pi.nomer_registrasi, pi.nama_pengguna, pi.informasi_yang_dibutuhkan, pi.tanggal_permohonan, pi.id_registrasi, pi.id, r.nik, r.email, r.foto_ktp
 FROM permohonan_informasi pi
-JOIN registrasi r ON pi.id_user = r.nik
+JOIN registrasi r ON pi.id_registrasi = r.id
 WHERE pi.nomer_registrasi = '$nomer_registrasi'";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+        $id_permohonan_informasi = $row['id'];
         $emailpemohon = $row['email'];
-        $nik_pemohon = $row['id_user'];
+        $nik_pemohon = $row['nik'];
         $informasi_yang_diminta = $row['informasi_yang_dibutuhkan'];
         $nama_pemohon = $row['nama_pengguna'];
         $tanggal_permohonan = $row['tanggal_permohonan'];
@@ -101,13 +102,14 @@ $conn->close();
                     <label for="code">Kode Permohonan Informasi*</label>
                     <div class="card" style="background-color: white;">
                         <div class="card-body">
-                            <?php echo $nomer_registrasi; ?>
+                        <?php echo htmlspecialchars($nomer_registrasi, ENT_QUOTES, 'UTF-8'); ?> <?php echo $nomer_registrasi; ?>
                         </div>
-                        <input type="hidden" name="emailpemohon" value="<?php echo $emailpemohon; ?>" />
-                        <input type="hidden" name="nomer_registrasi" value="<?php echo $nomer_registrasi; ?>" />
-                        <input type="hidden" name="tanggal_permohonan" value="<?php echo $tanggal_permohonan; ?>" />
-                        <input type="hidden" name="nik_pemohon" value="<?php echo $nik_pemohon; ?>" />
-                        <input type="hidden" name="foto_ktp_pemohon" value="<?php echo $foto_ktp_pemohon; ?>" />
+                        <input type="hidden" name="id_permohonan_informasi" value="<?php echo htmlspecialchars($id_permohonan_informasi, ENT_QUOTES, 'UTF-8'); ?>" />
+                        <input type="hidden" name="emailpemohon" value="<?php echo htmlspecialchars($emailpemohon, ENT_QUOTES, 'UTF-8'); ?>" />
+                        <input type="hidden" name="nomer_registrasi" value="<?php echo htmlspecialchars($nomer_registrasi, ENT_QUOTES, 'UTF-8'); ?>" />
+                        <input type="hidden" name="tanggal_permohonan" value="<?php echo htmlspecialchars($tanggal_permohonan, ENT_QUOTES, 'UTF-8'); ?>" />
+                        <input type="hidden" name="nik_pemohon" value="<?php echo htmlspecialchars($nik_pemohon, ENT_QUOTES, 'UTF-8'); ?>" />
+                        <input type="hidden" name="foto_ktp_pemohon" value="<?php echo htmlspecialchars($foto_ktp_pemohon, ENT_QUOTES, 'UTF-8'); ?>" />
                     </div>
                 </div>
                 <div class="user-input-box">

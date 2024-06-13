@@ -9,6 +9,7 @@ if ($_POST['user-input'] !== $_SESSION['captcha']) {
 }
 include('../controller/koneksi/config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_permohonan = $_POST['id_permohonan'];
     $nomer_registrasi_keberatan = $_POST['nomer_registrasi_keberatan'];
     $nama = $_POST['nama'];
     $usia = $_POST['usia'];
@@ -35,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $petugas = implode(", ", $_POST['petugas']);
     $saranpetugas = $_POST['SaranPetugasPermohonanInformasi'];
 
-$sql = "INSERT INTO survey_kepuasan_keberatan (nomer_registrasi_keberatan, nama_pengguna, usia, pendidikan, pekerjaan, jenis_layanan, persyaratan, 
+$sql = "INSERT INTO survey_kepuasan_keberatan (id_permohonan, nomer_registrasi_keberatan, nama_pengguna, usia, pendidikan, pekerjaan, jenis_layanan, persyaratan, 
     SaranPersyaratanPermohonanInformasi, prosedur, waktu, saran_waktu, biaya, saran_biaya, hasil, saran_hasil, kompetensi, saran_kompetensi, perilaku, saran_perilaku,
     sarana, saran_sarana, pelayanan, saran_pelayanan, petugas, saran_petugas)
-    VALUES ('$nomer_registrasi_keberatan', '$nama', '$usia', '$pendidikan', '$pekerjaan', '$jenis_layanan', '$persyaratan', '$SaranPersyaratanPermohonanInformasi', '$prosedur', '$waktu',
+    VALUES ('$id_permohonan','$nomer_registrasi_keberatan', '$nama', '$usia', '$pendidikan', '$pekerjaan', '$jenis_layanan', '$persyaratan', '$SaranPersyaratanPermohonanInformasi', '$prosedur', '$waktu',
     '$saranwaktu', '$biaya', '$saranbiaya', '$hasil',  '$saranhasil', '$kompetensi', '$sarankompetensi', '$perilaku', '$saranperilaku', '$sarana', '$saransarana', '$pelayanan', '$saranpelayanan', '$petugas', '$saranpetugas')";
     if ($conn->query($sql) === TRUE) {
         $response = array("success" => true);

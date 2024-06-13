@@ -30,7 +30,7 @@ function getLogger() {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $namaPIC = $_POST['namaPIC'];
     $jawabankeberatan = $_POST['jawabanPermohonan'];
-    
+    $id_permohonan = $_POST['id_permohonan'];
     $nikPemohon = $_POST['nikPemohon'];
     $nama = $_POST['nama'];
     $email = $_POST['email'];
@@ -57,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mengunggah file ke server
     if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $targetFilePath)) {
         // Simpan data ke dalam tabel answer_admin
-        $insertQuery = "INSERT INTO keberatananswer_admin (nama_pic, jawaban_keberatan, lampiran, nik_pemohon, nomer_registrasi_keberatan, status_balasan) 
-                        VALUES ('$namaPIC', '$jawabankeberatan', '$lampiranName','$nikPemohon','$norek','Jawaban keberatan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat keberatan sesuai dengan nomer registrasi keberatan anda untuk mengunduh jawaban keberatan anda. ')";
+        $insertQuery = "INSERT INTO keberatananswer_admin (id_permohonan, nama_pic, jawaban_keberatan, lampiran, nik_pemohon, nomer_registrasi_keberatan, status_balasan) 
+                        VALUES ('$id_permohonan', '$namaPIC', '$jawabankeberatan', '$lampiranName','$nikPemohon','$norek','Jawaban keberatan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat keberatan sesuai dengan nomer registrasi keberatan anda untuk mengunduh jawaban keberatan anda. ')";
         
         $insertResult = $conn->query($insertQuery);
 

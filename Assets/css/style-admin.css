@@ -27344,3 +27344,93 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .notification-list div:last-child {
     border-bottom: none;
 }
+
+.status-keberatan {
+    background-color: orange;
+    color: white;
+}
+
+.status-selesai {
+    background-color: green;
+    color: white;
+}
+
+.status-diverifikasi {
+    background-color: blue;
+    color: white;
+}
+
+.status-pending {
+    background-color: red;
+    color: white;
+}
+
+.status-gugur {
+    background-color: gray;
+    color: white;
+}
+
+.status-belum-verifikasi {
+    background-color: yellow;
+    color: black;
+}
+
+#downloadOptions {
+    position: absolute;
+    top: 30px;
+    /* Adjust this value to control the vertical position */
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    z-index: 1000;
+    /* Ensure it appears above other content */
+}
+
+#downloadOptions button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    margin-bottom: 5px;
+    text-align: left;
+    border: none;
+    background-color: transparent;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#downloadOptions button:hover {
+    background-color: #f0f0f0;
+}
+
+.highlight-green {
+    background-color: #06ff06;
+    /* Hijau */
+}
+
+.highlight-orange {
+    background-color: #FFA500;
+    /* Oranye */
+}
+
+.highlight-yellow {
+    background-color: #FFFF00;
+    /* Kuning */
+}
+
+.highlight-circle {
+    text-align: center;
+}
+
+.highlight-circle div {
+    display: inline-block;
+    width: 20px;
+    /* Sesuaikan ukuran bulatan sesuai kebutuhan */
+    height: 20px;
+    /* Sesuaikan ukuran bulatan sesuai kebutuhan */
+    border-radius: 50%;
+    /* Membuat bentuk bulat */
+}

@@ -1,11 +1,25 @@
 <?php
 session_start();
+require_once('../controller/koneksi/config.php');
 if (!isset($_SESSION['id'])) {
     header("Location: ../index.php");
     exit();
 }
 $user_id = $_SESSION['id'];
 $nomer_registrasi_keberatan = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
+
+$id_permohonan = '';
+
+// Prepare and execute the query using the existing database connection
+
+$sql = "SELECT id_permohonan FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan =?";
+$stmt = $conn->prepare($sql);
+if ($stmt) {
+    $stmt->bind_param("s", $nomer_registrasi_keberatan);
+    $stmt->execute();
+    $stmt->bind_result($id_permohonan);
+    $stmt->fetch();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,6 +72,7 @@ $nomer_registrasi_keberatan = isset($_GET['registrasi']) ? $_GET['registrasi'] :
             </div>
         <form id="mySurvey" action="../controller/data_survey.php" method="post">
         <input type="hidden" name="nomer_registrasi_keberatan" value="<?php echo htmlspecialchars($nomer_registrasi_keberatan); ?>" />
+        <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan); ?>" />
         <div class="user-input-box">
                 <label for="nama">Nama Anda</label>
                 <input type="text" id="nama" name="nama" required />

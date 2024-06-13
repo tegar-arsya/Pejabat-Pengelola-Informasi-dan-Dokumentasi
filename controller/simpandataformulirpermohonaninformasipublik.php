@@ -21,6 +21,7 @@ class FormSubmissionHandler {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nik = $_SESSION['nik'];
+            $id_registrasi = $_SESSION['id'];
             $nama_depan = $_SESSION['nama_depan'];
             $nama_belakang = $_SESSION['nama_belakang'];
             $opd = $_POST['opd'];
@@ -29,8 +30,8 @@ class FormSubmissionHandler {
             $caraMendapatkaninformasi = $_POST['caramendapatkaninformasi'];
             $caraMendapatkanSalinan = $_POST['caramendapatkansalinan'];
 
-            $sql = "INSERT INTO permohonan_informasi (id_user, nama_pengguna, opd_yang_dituju, informasi_yang_dibutuhkan, alasan_pengguna_informasi, cara_mendapatkan_informasi, cara_mendapatkan_salinan) 
-                    VALUES ('$nik', '$nama_depan $nama_belakang', '$opd', '$informasi', '$alasan', '$caraMendapatkaninformasi', '$caraMendapatkanSalinan')";
+            $sql = "INSERT INTO permohonan_informasi (id_registrasi, id_user, nama_pengguna, opd_yang_dituju, informasi_yang_dibutuhkan, alasan_pengguna_informasi, cara_mendapatkan_informasi, cara_mendapatkan_salinan) 
+                    VALUES ('$id_registrasi','$nik', '$nama_depan $nama_belakang', '$opd', '$informasi', '$alasan', '$caraMendapatkaninformasi', '$caraMendapatkanSalinan')";
             if ($this->conn->query($sql) === TRUE) {
                 $response = array("success" => true);
                 echo json_encode($response);

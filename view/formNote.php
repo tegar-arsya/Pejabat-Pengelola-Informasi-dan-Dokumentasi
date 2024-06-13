@@ -17,6 +17,7 @@ $result = $conn->query($query);
 
 if ($result -> num_rows > 0) {
     while ($row = $result -> fetch_assoc()) {
+        $idPermohonan = $row['id_permohonan'];
         $nik = $row['nik_pemohon'];
         $namapemohon = $row['nama_pemohon'];
         $email = $row ['email_pemohon'];
@@ -70,6 +71,7 @@ else {
                                     </div>
                                     <input type="hidden" name="nama" value="<?php echo $namapemohon; ?>">
                                     <input type="hidden" name="norek" value="<?php echo $nomer_registrasi_keberatan; ?>">
+                                    <input type="hidden" name="id_permohonan" value="<?php echo $idPermohonan; ?>">
                                     <button type="submit" class="btn btn-primary">submit</button>
                                 </form>
                             </div>

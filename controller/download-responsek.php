@@ -5,12 +5,12 @@ if (isset($_GET['registrasi'])) {
     $nomer_registrasi = $_GET['registrasi'];
 
     // Retrieve the file path based on the registration number
-    $query = "SELECT lampiran FROM answer_admin WHERE nomer_registrasi_pemohon = '$nomer_registrasi'";
+    $query = "SELECT lampiran FROM keberatananswer_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $file_path = "../Assets/JawabanPI/" . $row['lampiran'];
+        $file_path = "../Assets/uploads/keberatan/jawabanKeberatan/" . $row['lampiran'];
 
         // Check if the file exists
         if (file_exists($file_path)) {

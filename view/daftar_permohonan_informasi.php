@@ -10,7 +10,7 @@ if (!isset($_SESSION['id'])) {
 }
 $user_id = $_SESSION['id'];
 $session_nama = $_SESSION['nama_pengguna'];
-include('../controller/koneksi/config.php');
+include ('../controller/koneksi/config.php');
 
 if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];
@@ -29,6 +29,40 @@ if (isset($_GET['id'])) {
     <link href="../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../Assets/css/style-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
+    <style>
+        .highlight-green {
+            background-color: #06ff06;
+            /* Hijau */
+        }
+        .highlight-blue {
+            background-color: #0000ff;
+            /* Hijau */
+        }
+
+        .highlight-orange {
+            background-color: #FFA500;
+            /* Oranye */
+        }
+
+        .highlight-yellow {
+            background-color: #FFFF00;
+            /* Kuning */
+        }
+
+        .highlight-circle {
+            text-align: center;
+        }
+
+        .highlight-circle div {
+            display: inline-block;
+            width: 20px;
+            /* Sesuaikan ukuran bulatan sesuai kebutuhan */
+            height: 20px;
+            /* Sesuaikan ukuran bulatan sesuai kebutuhan */
+            border-radius: 50%;
+            /* Membuat bentuk bulat */
+        }
+    </style>
 </head>
 
 <body>
@@ -79,17 +113,18 @@ if (isset($_GET['id'])) {
                                                 <th>Tanggal Selesai</th>
                                                 <th>Aksi</th>
                                                 <th>Status</th>
+                                                <th>Highlight</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $query = "SELECT DISTINCT vp.nomer_registrasi, vp.*, sk.tanggal_survey, pi.nama_pengguna, tr.note, tr.tanggal_penolakan, pk.kode_permohonan_informasi
+                                            $query = "SELECT DISTINCT vp.nomer_registrasi, vp.id_permohonan, vp.*, sk.tanggal_survey, pi.nama_pengguna, tr.note, tr.tanggal_penolakan, pk.kode_permohonan_informasi
                                             FROM verifikasi_permohonan vp
                                             LEFT JOIN survey_kepuasan sk ON vp.nomer_registrasi = sk.nomer_registrasi
                                             LEFT JOIN permohonan_informasi pi ON vp.nama_pengguna = pi.nama_pengguna
                                             LEFT JOIN tbl_rejected tr ON vp.nomer_registrasi = tr.nomer_registrasi
                                             LEFT JOIN pengajuan_keberatan pk ON vp.nomer_registrasi = pk.kode_permohonan_informasi";
-                                            // Tambahkan filter berdasarkan role pengguna
+
                                             if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                 $query .= " WHERE vp.opd_yang_dituju = ?";
                                                 $stmt = $conn->prepare($query);
@@ -114,7 +149,7 @@ if (isset($_GET['id'])) {
                                                     echo "<td>" . (!empty($row['tanggal_survey']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_survey']))) : '') . "</td>";
                                                     echo "<td>";
                                                     echo "<div class='btn-group' role='group'>";
-                                                    echo "<button class='btn btn-info btn-sm fas fa-info-circle' onclick='showDetail()'></button>";
+                                                    // echo "<button class='btn btn-info btn-sm fas fa-info-circle' onclick='showDetail()'></button>";
                                                     echo "<button class='btn btn-danger btn-sm fas fa-trash-alt' onclick='HapusVerifikasi(\"{$row['nomer_registrasi']}\")'></button>";
                                                     echo "<a href='formAnswer?registrasi=" . $row["nomer_registrasi"] . "' class='btn btn-success btn-sm fas fa-reply'></a>";
                                                     echo "</div>";
@@ -124,7 +159,6 @@ if (isset($_GET['id'])) {
                                                     $status = '';
                                                     $note = '';
                                                     if (!empty($row['kode_permohonan_informasi'])) {
-                                                        // Jika ada pengajuan keberatan, atur status ke 'Pengajuan Keberatan'
                                                         $status = 'Pengajuan Keberatan';
                                                     } else {
                                                         $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
@@ -159,7 +193,31 @@ if (isset($_GET['id'])) {
                                                     WHERE nomer_registrasi='{$row['nomer_registrasi']}'";
                                                     $conn->query($updateStatusQuery);
 
+                                                    // Hitung selisih hari dari tanggal verifikasi
+                                                    $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+                                                    $tanggalVerifikasi = new DateTime($row['tanggal_verifikasi'], new DateTimeZone('Asia/Jakarta'));
+                                                    $selisihHari = $sekarang->diff($tanggalVerifikasi)->days;
+
+                                                    // Cek apakah sudah ada jawaban di tabel answer_admin untuk id_permohonan ini
+                                                    $queryAnswer = "SELECT * FROM answer_admin WHERE id_permohonan = ?";
+                                                    $stmtAnswer = $conn->prepare($queryAnswer);
+                                                    $stmtAnswer->bind_param("i", $row['id_permohonan']);
+                                                    $stmtAnswer->execute();
+                                                    $resultAnswer = $stmtAnswer->get_result();
+
+                                                    // Tentukan kelas highlight berdasarkan selisih hari
+                                                    if ($resultAnswer->num_rows > 0) {
+                                                        $highlightClass = 'highlight-blue'; // Jika sudah ada jawaban
+                                                    } elseif ($selisihHari <= 5) {
+                                                        $highlightClass = 'highlight-green';
+                                                    } elseif ($selisihHari == 6 || $selisihHari == 7) {
+                                                        $highlightClass = 'highlight-orange';
+                                                    } elseif ($selisihHari >= 8 && $selisihHari <= 10) {
+                                                        $highlightClass = 'highlight-yellow';
+                                                    }
+
                                                     echo "<td>" . htmlspecialchars($statusDisplay) . "</td>";
+                                                    echo "<td class='highlight-circle'><div class='$highlightClass'></div></td>";
                                                     echo "</tr>";
                                                 }
                                             } else {

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include '../Model/Admin/DashboardModel.php';
 if (!isset($_SESSION['id'])) {
     header("Location: ../view/admin");
     exit();
@@ -30,6 +31,7 @@ $user_id = $_SESSION['id'];
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://unpkg.com/topojson-client@3"></script>
+    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css">
 </head>
 
 <body>
@@ -41,38 +43,12 @@ $user_id = $_SESSION['id'];
         </div>
     </div>
     <div id="main-wrapper">
-    <?php include '../components/navbarAdmin.php'; ?>
+        <?php include '../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid mt-3">
                 <div class="row">
-                    <?php
-                    include '../controller/koneksi/config.php';
-                    $sqlSurvey = "SELECT COUNT(*) as total_survey, MONTH(tanggal_survey) as month FROM (SELECT tanggal_survey FROM survey_kepuasan UNION ALL SELECT tanggal_survey FROM survey_kepuasan_keberatan) AS combined_survey GROUP BY MONTH(tanggal_survey)";
-                    $resultSurvey = $conn->query($sqlSurvey);                    
-
-                    $dataSurvey = array_fill(0, 12, 0); // Inisialisasi array dengan 12 bulan, diisi dengan 0
-                    while ($rowSurvey = $resultSurvey->fetch_assoc()) {
-                        $dataSurvey[$rowSurvey['month'] - 1] = $rowSurvey['total_survey'];
-                    }
-                    $sqlPermohonan = "SELECT COUNT(*) as total_permohonan, MONTH(tanggal_permohonan) as month FROM permohonan_informasi GROUP BY MONTH(tanggal_permohonan)";
-                    $resultPermohonan = $conn->query($sqlPermohonan);
-
-                    $dataPermohonan = array_fill(0, 12, 0); // Inisialisasi array dengan 12 bulan, diisi dengan 0
-                    
-                    while ($rowPermohonan = $resultPermohonan->fetch_assoc()) {
-                        $dataPermohonan[$rowPermohonan['month'] - 1] = $rowPermohonan['total_permohonan'];
-                    }
-                    $sqlKeberatan = "SELECT COUNT(*) as total_keberatan, MONTH(tanggal_pengajuan) as month FROM pengajuan_keberatan GROUP BY MONTH(tanggal_pengajuan)";
-                    $resultKeberatan = $conn->query($sqlKeberatan);
-
-                    $dataKeberatan = array_fill(0, 12, 0); // Inisialisasi array dengan 12 bulan, diisi dengan 0
-                    while ($rowKeberatan = $resultKeberatan->fetch_assoc()) {
-                        $dataKeberatan[$rowKeberatan['month'] - 1] = $rowKeberatan['total_keberatan'];
-                    }
-                    $conn->close();
-                    ?>
                     <div class="col-lg-4 col-sm-12">
-                        <div class="card gradient-2" onclick="toggleGraph('graphSurvey')">
+                        <div class="card gradient-1" onclick="toggleGraph('graphSurvey')">
                             <div class="card-body">
                                 <h3 class="card-title text-white">Survey Kepuasan</h3>
                                 <div class="d-inline-block">
@@ -84,9 +60,10 @@ $user_id = $_SESSION['id'];
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-info-circle"></i></span>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-lg-4 col-sm-12">
-                        <div class="card gradient-3" onclick="toggleGraph('graphPermohonan')">
+                        <div class="card gradient-7" onclick="toggleGraph('graphPermohonan')">
                             <div class="card-body">
                                 <h3 class="card-title text-white">Permohonan Informasi</h3>
                                 <div class="d-inline-block">
@@ -98,6 +75,7 @@ $user_id = $_SESSION['id'];
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-info-circle"></i></span>
                             </div>
                         </div>
+
                     </div>
                     <div class="col-lg-4 col-sm-12">
                         <div class="card gradient-4" onclick="toggleGraph('graphKeberatan')">
@@ -112,17 +90,120 @@ $user_id = $_SESSION['id'];
                                 <span class="float-right display-5 opacity-5"><i class="fa fa-info-circle"></i></span>
                             </div>
                         </div>
+
                     </div>
+                    <div class="col-lg-4 col-sm-12" onclick="toggleGraph('graphVerifikasiPermohonan')">
+                        <div class="card gradient-9">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Permohonan Informasi Yang Sudah Diverifikasi</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white">
+                                        <?php echo array_sum($dataVerifikasiPermohonan); ?>
+                                    </h2>
+                                    <p class="text-white mb-0">Total permohonan yang diverifikasi</p>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-info-circle"></i></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="card gradient-8" onclick="toggleGraph('graphVerifikasiPermohonanKeberatan')">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Permohonan Keberatan Informasi Yang Sudah Diverifikasi
+                                </h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white">
+                                        <?php echo array_sum($dataVerifikasiPermohonanKeberatan); ?>
+                                    </h2>
+                                    <p class="text-white mb-0">Total permohonan yang diverifikasi</p>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fa fa-info-circle"></i></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="card gradient-8">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">Download</h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white">
+                                        Download laporan
+                                    </h2>
+                                    <p class="text-white mb-0">klik icon download</p>
+                                </div>
+                                <span class="float-right display-5 opacity-5">
+                                    <i class="fa fa-download" id="exportExcel" data-toggle="modal"
+                                        data-target="#downloadModal"></i>
+                                </span>
+                                <!-- Dropdown menu for download options -->
+                                <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="downloadModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="downloadModalLabel">Pilih Opsi Download</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <button onclick="window.open('../controller/Admin/Laporan/survey.php')"
+                                                    class="btn btn-primary">Download Laporan Survey</button>
+                                                <button
+                                                    onclick="window.open('../controller/Admin/Laporan/PermohonanInformasi.php')"
+                                                    class="btn btn-primary">Download Laporan Permohonan
+                                                    Informasi</button>
+                                                <button
+                                                    onclick="window.open('../controller/Admin/Laporan/KeberatanInformasi.php')"
+                                                    class="btn btn-primary">Download Laporan Keberatan
+                                                    Informasi</button>
+                                                <button
+                                                    onclick="window.open('../controller/Admin/Laporan/verifikasiPermohonan.php')"
+                                                    class="btn btn-primary">Download Laporan Verifikasi
+                                                    Permohonan</button>
+                                                <button
+                                                    onclick="window.open('../controller/Admin/Laporan/VerifikasiKeberatan.php')"
+                                                    class="btn btn-primary">Download Laporan Verifikasi
+                                                    Keberatan</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-2 col-sm-12">
+                        <div class="card gradient-2">
+                            <div class="card-body">
+                                <h3 class="card-title text-white">
+                                </h3>
+                                <div class="d-inline-block">
+                                    <h2 class="text-white">
+                                    </h2>
+                                </div>
+                                <span class="float-right display-5 opacity-5"><i class="fas fa-chart-line"></i></span>
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="col-lg-12">
                         <div class="card-body">
-                            <div id="graphSurvey" class="graph-container" >
+                            <div id="graphSurvey" class="graph-container">
                                 <canvas id="lineChartSurvey"></canvas>
                             </div>
-                            <div id="graphPermohonan" class="graph-container" >
-                                <canvas id="lineChartPermohonan" ></canvas>
+                            <div id="graphPermohonan" class="graph-container">
+                                <canvas id="lineChartPermohonan"></canvas>
                             </div>
-                            <div id="graphKeberatan" class="graph-container" >
-                                <canvas id="lineChartKeberatan" ></canvas>
+                            <div id="graphKeberatan" class="graph-container">
+                                <canvas id="lineChartKeberatan"></canvas>
+                            </div>
+                            <div id="graphVerifikasiPermohonan" class="graph-container">
+                                <canvas id="lineChartVerifikasiPermohonan"></canvas>
+                            </div>
+                            <div id="graphVerifikasiPermohonanKeberatan" class="graph-container">
+                                <canvas id="lineChartVerifikasiPermohonanKeberatan"></canvas>
                             </div>
                         </div>
                     </div>
@@ -136,8 +217,6 @@ $user_id = $_SESSION['id'];
     <script>
         function toggleGraph(graphId) {
             var graphContainer = document.getElementById(graphId);
-
-            // Jika grafik sedang tersembunyi, tampilkan
             if (graphContainer.style.display === 'none') {
                 // Sembunyikan semua grafik lainnya
                 document.querySelectorAll('.graph-container').forEach(graph => {
@@ -145,22 +224,13 @@ $user_id = $_SESSION['id'];
                         graph.style.display = 'none';
                     }
                 });
-
                 graphContainer.style.display = 'block';
-
-                // Inisialisasi atau update grafik jika diperlukan
                 initOrUpdateChart(graphId);
             } else {
-                // Jika grafik sedang terbuka, tutup
                 graphContainer.style.display = 'none';
             }
         }
-
         function initOrUpdateChart(graphId) {
-            // Lakukan inisialisasi atau pengambilan data dari server jika diperlukan
-            // ...
-
-            // Ambil data berdasarkan ID grafik
             var data;
             switch (graphId) {
                 case 'graphSurvey':
@@ -172,11 +242,15 @@ $user_id = $_SESSION['id'];
                 case 'graphKeberatan':
                     data = <?php echo json_encode(array_values($dataKeberatan)); ?>;
                     break;
+                case 'graphVerifikasiPermohonan':
+                    data = <?php echo json_encode(array_values($dataVerifikasiPermohonan)); ?>;
+                    break;
+                case 'graphVerifikasiPermohonanKeberatan':
+                    data = <?php echo json_encode(array_values($dataVerifikasiPermohonanKeberatan)); ?>;
+                    break;
                 default:
                     data = [];
             }
-
-            // Contoh inisialisasi grafik dengan Chart.js
             var ctxLine = document.getElementById(graphId).getElementsByTagName('canvas')[0].getContext('2d');
             var lineChart = new Chart(ctxLine, {
                 type: 'line',
@@ -185,11 +259,11 @@ $user_id = $_SESSION['id'];
                     datasets: [{
                         label: 'Jumlah',
                         data: data,
-                        borderColor: 'rgba(0, 255, 0, 1)',
+                        borderColor: 'rgb(238, 238, 238)',
                         borderWidth: 2,
                         pointBackgroundColor: 'rgba(0, 0, 255, 1)',
                         fill: true,
-                        backgroundColor: 'rgba(255, 0, 0, 1)'
+                        backgroundColor: 'rgb(128, 128, 128)'
                     }],
                 },
                 options: {
@@ -215,19 +289,14 @@ $user_id = $_SESSION['id'];
     <script>
         function toggleTable(tableId) {
             var table = document.getElementById(tableId);
-
-            // Jika tabel sedang terbuka, tutup
             if (table.style.display === 'block') {
                 table.style.display = 'none';
             } else {
-                // Jika tabel sedang tertutup, buka
-                // Sembunyikan semua tabel lainnya
                 document.querySelectorAll('[id^="table"]').forEach(t => {
                     if (t.id !== tableId) {
                         t.style.display = 'none';
                     }
                 });
-
                 table.style.display = 'block';
             }
         }
