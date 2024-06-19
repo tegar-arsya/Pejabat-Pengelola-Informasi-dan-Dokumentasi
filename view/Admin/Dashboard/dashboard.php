@@ -150,22 +150,22 @@ $user_id = $_SESSION['id'];
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <button onclick="window.open('../controller/Admin/Laporan/survey.php')"
+                                                <button onclick="window.open('../../../controller/Admin/Laporan/survey.php')"
                                                     class="btn btn-primary">Download Laporan Survey</button>
                                                 <button
-                                                    onclick="window.open('../controller/Admin/Laporan/PermohonanInformasi.php')"
+                                                    onclick="window.open('../../../controller/Admin/Laporan/PermohonanInformasi.php')"
                                                     class="btn btn-primary">Download Laporan Permohonan
                                                     Informasi</button>
                                                 <button
-                                                    onclick="window.open('../controller/Admin/Laporan/KeberatanInformasi.php')"
+                                                    onclick="window.open('../../../controller/Admin/Laporan/KeberatanInformasi.php')"
                                                     class="btn btn-primary">Download Laporan Keberatan
                                                     Informasi</button>
                                                 <button
-                                                    onclick="window.open('../controller/Admin/Laporan/verifikasiPermohonan.php')"
+                                                    onclick="window.open('../../../controller/Admin/Laporan/verifikasiPermohonan.php')"
                                                     class="btn btn-primary">Download Laporan Verifikasi
                                                     Permohonan</button>
                                                 <button
-                                                    onclick="window.open('../controller/Admin/Laporan/VerifikasiKeberatan.php')"
+                                                    onclick="window.open('../../../controller/Admin/Laporan/VerifikasiKeberatan.php')"
                                                     class="btn btn-primary">Download Laporan Verifikasi
                                                     Keberatan</button>
                                             </div>
