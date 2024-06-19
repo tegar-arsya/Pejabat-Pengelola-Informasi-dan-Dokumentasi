@@ -1,8 +1,8 @@
 <div class="nav-header">
     <div class="brand-logo">
-        <a href="../view/dashboard">
-            <b class="logo-abbr"><img src="../Assets/images/logo_jateng.png" alt=""> </b>
-            <span class="logo-compact"><img src="../Assets/images/PERMOHONAN INFORMASI PROVINSI JAWA TENGAH.png"
+        <a href="../../../view/Admin/Dashboard/dashboard">
+            <b class="logo-abbr"><img src="../../../Assets/images/logo_jateng.png" alt=""> </b>
+            <span class="logo-compact"><img src="../../../Assets/images/PERMOHONAN INFORMASI PROVINSI JAWA TENGAH.png"
                     alt=""></span>
             <span class="brand-title">
                 <div style="width: 100%; text-align: center; color: white; font-weight: 600; word-wrap: break-word">
@@ -32,7 +32,7 @@
         <ul class="metismenu" id="menu">
             <li id="logo-title-container">
                 <div class="logo-container">
-                    <img src="../Assets/images/logo_jateng.png" alt="Logo" class="logo">
+                    <img src="../../../Assets/images/logo_jateng.png" alt="Logo" class="logo">
                     <span class="logo-text">PERMOHONAN INFORMASI
                         PROVINSI JAWA TENGAH</span>
                 </div>
@@ -41,7 +41,7 @@
                 </div>
             </li>
             <li>
-                <a href="../view/dashboard" aria-expanded="false">
+                <a href="../../../view/Admin/Dashboard/dashboard" aria-expanded="false">
                 <i class="fas fa-tachometer-alt menu-icon"></i><span class="nav-text">dashboard</span>
                 </a>
             </li>
@@ -50,8 +50,8 @@
                     <i class="icon-envelope menu-icon"></i> <span class="nav-text">Permohonan Informasi</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="../view/listPM" >Daftar Permohonan Masuk</a></li>
-                    <li><a href="../view/listPI">Daftar Permohonan Informasi</a></li>
+                    <li><a href="../../../view/Admin/DaftarPermohonan/listPM" >Daftar Permohonan Masuk</a></li>
+                    <li><a href="../../../view/Admin/DaftarPermohonan/listPI">Daftar Permohonan Informasi</a></li>
                 </ul>
             </li>
             <li>
@@ -59,8 +59,8 @@
                     <i class="icon-envelope menu-icon"></i><span class="nav-text">Keberatan</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="../view/listkeberatan">Daftar Keberatan Masuk</a></li>
-                    <li><a href="../view/daftarK">Verifikasi Pengajuan Keberatan</a>
+                    <li><a href="../../../view/Admin/DaftarPermohonan/listkeberatan">Daftar Keberatan Masuk</a></li>
+                    <li><a href="../../../view/Admin/DaftarPermohonan/daftarK">Verifikasi Pengajuan Keberatan</a>
                     </li>
                 </ul>
             </li>
@@ -69,7 +69,7 @@
                     <i class="fas fa-book menu-icon"></i> <span class="nav-text">Referensi</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="../view/listopd">Daftar OPD</a></li>
+                    <li><a href="../../../view/Admin/OPD/listopd">Daftar OPD</a></li>
                 </ul>
             </li>
             <li>
@@ -77,13 +77,13 @@
                     <i class="fas fa-poll menu-icon"></i><span class="nav-text">Survey Kepuasan Masyarakat</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="../view/SKM">Survey Kepuasan Masyarakat Permohonan Informasi</a></li>
-                    <li><a href="../view/SKMKeberatan">Survey Kepuasan Masyarakat Keberatan Informasi</a>
+                    <li><a href="../../../view/Admin/SurveyKepuasan/SKM">Survey Kepuasan Masyarakat Permohonan Informasi</a></li>
+                    <li><a href="../../../view/Admin/SurveyKepuasan/SKMKeberatan">Survey Kepuasan Masyarakat Keberatan Informasi</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="../view/User" aria-expanded="false">
+                <a href="../../../view/Admin/UserAdmin/User" aria-expanded="false">
                     <i class="icon-user menu-icon"></i><span class="nav-text">User</span>
                 </a>
             </li>
@@ -92,14 +92,14 @@
                     <i class="fas fa-bolt menu-icon"></i><span class="nav-text">Aktivitas</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="../view/Service">Log</a></li>
-                    <li><a href="../view/RiwayatJawaban">Riwayat Permohonan</a>
-                    <li><a href="../view/RiwayatJawabanKeberatan">Riwayat Keberatan</a>
+                    <li><a href="../../../view/Admin/Activity/Service">Log</a></li>
+                    <li><a href="../../../view/Admin/Activity/RiwayatJawaban">Riwayat Permohonan</a>
+                    <li><a href="../../../view/Admin/Activity/RiwayatJawabanKeberatan">Riwayat Keberatan</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="../controller/Admin/logoutAdmin" aria-expanded="false">
+                <a href="../../../controller/Admin/auth/logoutAdmin" aria-expanded="false">
                     <i class="fas fa-sign-out-alt menu-icon"></i><span class="nav-text">Logout</span>
                 </a>
             </li>

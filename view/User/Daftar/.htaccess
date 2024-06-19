@@ -1,0 +1,50 @@
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Menghapus ekstensi .php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+    RewriteRule ^aduan$ pengajuan_keberatan.php [NC,L]
+    RewriteRule ^formulir$ formulir_permohonan.php [NC,L]
+    RewriteRule ^survey$ form_survey.php [NC,L]
+    RewriteRule ^surveyKeberatan$ formSurveyKeberatan.php [NC,L]
+    RewriteRule ^listkeberatan$ daftar_keberatan_masuk.php [NC,L]
+    RewriteRule ^listopd$ daftar_opd.php [NC,L]
+    RewriteRule ^listPI$ daftar_permohonan_informasi.php [NC,L]
+    RewriteRule ^listPM$ daftar_permohonan_masuk.php [NC,L]
+    RewriteRule ^dashboard$ dashboard.php [NC,L]
+    RewriteRule ^detail-K$ detail_pengajuan_keberatan_informasi.php [NC,L]
+    RewriteRule ^detail-PM$ detail_permohonan_masuk.php [NC,L]
+    RewriteRule ^form-keberatan$ form_pengajuan_keberatan.php [NC,L]
+    RewriteRule ^admin$ loginAdmin.php [NC,L]
+    RewriteRule ^registrasi$ register.php [NC,L]
+    RewriteRule ^riwayat$ riwayat_permohonan.php [NC,L]
+    RewriteRule ^riwayatKeberatan$ riwayat_keberatan.php [NC,L]
+    RewriteRule ^SKM$ survey_kepuasan_masyarakat.php [NC,L]
+    RewriteRule ^panduan-pengguna$ panduan.php [NC,L]
+    RewriteRule ^resetPassword$ resetPW.php [NC,L]
+    RewriteRule ^gantiPassword$ gantipw.php [NC,L]
+    RewriteRule ^daftarK$ daftar_keberatan_informasi.php [NC,L]
+    RewriteRule ^daftarRiwayat$ daftarRiwayatPermohonan.php [NC,L]
+    RewriteRule ^daftarkeberatanUser$ daftarKeberatanUser.php [NC,L]
+    RewriteRule ^daftarkeberatanPengguna$ listKeberatanUser.php [NC,L]
+    RewriteRule ^tambahOPD$ addOpd.php [NC,L]
+    RewriteRule ^tambahAdmin$ addAdmin.php [NC,L]
+    RewriteRule ^formAnswer$ FormAnswer.php [NC,L]
+    RewriteRule ^formAnswerKeberatan$ formAnswerKeberatan.php [NC,L]
+    RewriteRule ^SKMKeberatan$ SKK.php [NC,L]
+    RewriteRule ^User$ AdminUser.php [NC,L]
+    RewriteRule ^EditAdmin$ editAdmin.php [NC,L]
+    RewriteRule ^Note$ formNote.php [NC,L]
+    RewriteRule ^admin$ loginAdmin.php [NC,L]
+    RewriteRule ^adminRegister$ admin_register.php [NC,L]
+    RewriteRule ^home$ index.php [NC,L]
+    RewriteRule ^service$ service.php [NC,L]
+    RewriteRule ^Logoutadmin$ logoutAdmin.php [NC,L]
+    RewriteRule ^RiwayatJawaban$ activity.php [NC,L]
+    RewriteRule ^RiwayatJawabanKeberatan$ activityKeberatan.php [NC,L]
+</IfModule>

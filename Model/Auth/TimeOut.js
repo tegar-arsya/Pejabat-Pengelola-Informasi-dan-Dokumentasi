@@ -8,7 +8,7 @@ function resetLogoutTimer() {
 
 function logout() {
     // Redirect ke halaman logout atau lakukan aksi logout lainnya
-    window.location.href = '../controller/Admin/logoutAdmin.php';
+    window.location.href = '../../../controller/Admin/auth/logoutAdmin.php';
 }
 // Event listener untuk mengatur ulang timer pada setiap aktivitas
 document.addEventListener('mousemove', resetLogoutTimer);

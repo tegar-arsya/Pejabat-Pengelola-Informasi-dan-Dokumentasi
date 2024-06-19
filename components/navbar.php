@@ -1,7 +1,7 @@
 <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <img src="../Assets/img/logo_jateng.png" alt="Logo" />
+                <img src="../../../Assets/img/logo_jateng.png" alt="Logo" />
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>
@@ -9,27 +9,27 @@
             </div>
             <div class="navb-items d-none d-xl-flex">
                 <div class="item">
-                    <a href="../view/formulir">Permohonan Informasi</a>
+                    <a href="../../../view/User/Form/formulir">Permohonan Informasi</a>
                 </div>
 
                 <div class="item">
-                    <a href="../view/aduan">Pengajuan Keberatan</a>
+                    <a href="../../../view/User/Form/aduan">Pengajuan Keberatan</a>
                 </div>
                 <div class="item dropdown">
                     <a class="dropdown-toggle" href="#" id="riwayatDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Riwayat
                     </a>
                     <div class="dropdown-menu" aria-labelledby="riwayatDropdown">
-                        <a class="dropdown-item" href="../view/daftarRiwayat">Riwayat Permohonan</a>
-                        <a class="dropdown-item" href="../view/daftarkeberatanPengguna">Riwayat Keberatan</a>
+                        <a class="dropdown-item" href="../../../view/User/Daftar/daftarRiwayat">Riwayat Permohonan</a>
+                        <a class="dropdown-item" href="../../../view/User/Daftar/daftarkeberatanPengguna">Riwayat Keberatan</a>
                     </div>
                 </div>
                 <div class="item">
-                    <a href="../components/panduan">Paduan</a>
+                    <a href="../../../components/panduan">Paduan</a>
                 </div>
 
                 <div class="item">
-                    <a href="../controller/User/logout.php">Logout</a>
+                    <a href="../../../controller/User/Auth/logout.php">Logout</a>
                 </div>
             </div>
             <div class="mobile-toggler d-lg-none">
@@ -49,11 +49,11 @@
 
                         <div class="modal-body">
                             <div class="modal-line">
-                                <i class="fa-solid fa-circle-info"></i><a href="../view/formulir">Permohonan Informasi</a>
+                                <i class="fa-solid fa-circle-info"></i><a href="../../../view/User/Form/formulir">Permohonan Informasi</a>
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-file-invoice"></i><a href="../view/aduan">Pengajuan Keberatan</a>
+                                <i class="fa-solid fa-file-invoice"></i><a href=".../../../view/User/Form/aduan">Pengajuan Keberatan</a>
                             </div>
 
                             <div class="modal-line dropdown">
@@ -62,18 +62,18 @@
                                     Riwayat
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="riwayatDropdownMobile">
-                                  <a class="dropdown-item" href="../view/daftarRiwayat">Riwayat Permohonan</a>
-                                    <a class="dropdown-item" href="../view/daftarkeberatanPengguna">Riwayat Keberatan</a>
+                                  <a class="dropdown-item" href="../../../view/User/Daftar/daftarRiwayat">Riwayat Permohonan</a>
+                                    <a class="dropdown-item" href="../../../view/User/Daftar/daftarkeberatanPengguna">Riwayat Keberatan</a>
                                 </div>
                             </div>
 
                             <div class="modal-line">
                                 <i class="fa-solid fa-chalkboard-user"></i>
-                                <a href="../components/panduan.html">Panduan</a>
+                                <a href="../../../components/panduan.html">Panduan</a>
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../controller/User/logout.php">Logout</a>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i><a href="../../../controller/User/Auth/logout.php">Logout</a>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,13 @@
 {
     "require": {
         "tecnickcom/tcpdf": "^6.6",
-        "monolog/monolog": "^3.6"
+        "monolog/monolog": "^3.6",
+        "symfony/http-foundation": "^7.1",
+        "symfony/psr-http-message-bridge": "^7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
     }
 }

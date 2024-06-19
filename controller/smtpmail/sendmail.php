@@ -60,16 +60,18 @@ $mail = new PHPMailer;
 
 	// setelah pengaturan email
 	$nomerRegistrasi = $_POST['nomer_registrasi'];
+	$id_registrasi = $_POST['id_registrasi'];
 	$id_permohonan = $_POST['id_permohonan'];
 	$name = $_POST['nama'];
 	$alasan = $_POST['alasan'];
-	$query = $conn->prepare("INSERT INTO tbl_rejected (id_permohonan, nomer_registrasi, nama_pengguna, note) VALUES (?, ?, ?,?)");
-	$query->bind_param("ssss", $id_permohonan, $nomerRegistrasi, $name, $alasan);
+	$query = $conn->prepare("INSERT INTO tbl_rejected (id_permohonan, nomer_registrasi, note) VALUES ( ?, ?,?)");
+	$query->bind_param("sss",$id_permohonan, $nomerRegistrasi, $alasan);
 	
 // Eksekusi query
 if ($query->execute()) {
     // Jika berhasil dimasukkan ke dalam database tbl_rejected
     echo "<script>alert('Sukses.');</script>";
+	include ('../../../controller/FormPenolakan/save_Rejected.php');
 	$adminUsername = $_SESSION['nama_pengguna'];
                 logActivity($adminUsername,'verifikasi', "Verifikasi Penolakan Permohonan Informasi dengan alasan ($alasan) dengan nomer registrasi pemohon $nomerRegistrasi");
 

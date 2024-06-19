@@ -27375,7 +27375,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     color: black;
 }
 
-#downloadOptions {
+. #downloadOptions {
     position: absolute;
     top: 30px;
     /* Adjust this value to control the vertical position */
@@ -27434,3 +27434,5 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     border-radius: 50%;
     /* Membuat bentuk bulat */
 }
+
+.status-verifikasi {}

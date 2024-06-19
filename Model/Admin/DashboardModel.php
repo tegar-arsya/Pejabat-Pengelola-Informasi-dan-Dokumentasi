@@ -1,5 +1,5 @@
 <?php
-include '../controller/koneksi/config.php';
+include '../../../controller/koneksi/config.php';
 $sqlSurvey = "SELECT COUNT(*) as total_survey, MONTH(tanggal_survey) as month FROM (SELECT tanggal_survey FROM survey_kepuasan UNION ALL SELECT tanggal_survey FROM survey_kepuasan_keberatan) AS combined_survey GROUP BY MONTH(tanggal_survey)";
 $resultSurvey = $conn->query($sqlSurvey);
 

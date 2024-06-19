@@ -26,7 +26,7 @@ include('./Model/CSRF/csrf.php');
     <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <a href="./view/loginadmin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
+                <a href="./view/Admin/Form/loginadmin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>
@@ -95,7 +95,7 @@ include('./Model/CSRF/csrf.php');
                     </div>
                     <div class="col-lg-6 col-12">
                         <div class="card-body p-md-5 mx-md-4">
-                            <form action="./controller/User/login.php" method="POST">
+                            <form action="./controller/User/Auth/login.php" method="POST">
                             <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
                                 <p style="font-weight: bold;text-align: center;">Sign In</p>
 
@@ -116,7 +116,7 @@ include('./Model/CSRF/csrf.php');
                                 </div>
                                 <div class="d-flex float-end">
                                     <p class="mb-0 me-2">Belum Terdaftar ?</p>
-                                    <a class="text-" href="./view/registrasi">Register</a>
+                                    <a class="text-" href="./view/User/Register/registrasi">Register</a>
                                 </div>
                             </form>
                         </div>

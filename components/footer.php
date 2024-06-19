@@ -1,6 +1,6 @@
 <footer class="footer">
     <div class="left-section">
-        <img src="../Assets/img/logo_jateng.png" alt="Logo">
+        <img src="../../../Assets/img/logo_jateng.png" alt="Logo">
     </div>
     <div class="center-section">
         <h4 style="font-size: 15px;">LAYANAN PERMOHONAN INFORMASI</h4>

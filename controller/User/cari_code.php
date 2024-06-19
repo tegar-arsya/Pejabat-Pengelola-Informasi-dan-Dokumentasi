@@ -24,7 +24,7 @@ class RegistrasiHandler {
     private function processPostRequest() {
         $nomer_registrasi_input = $_POST['nomer_registrasi'] ?? '';
         if ($this->isValidRegistration($nomer_registrasi_input)) {
-            $this->redirect("../../view/form-keberatan?registrasi=$nomer_registrasi_input");
+            $this->redirect("../../view/User/Form/form-keberatan?registrasi=$nomer_registrasi_input");
         } else {
             $this->alertAndRedirect('Nomer registrasi tidak ditemukan dalam database atau tidak sesuai dengan pengguna.');
         }
