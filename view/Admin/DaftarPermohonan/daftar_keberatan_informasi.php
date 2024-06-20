@@ -71,13 +71,13 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
 </head>
 
 <body>
-    <!-- <div id="preloader">
+    <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
             </svg>
         </div>
-    </div> -->
+    </div>
     <div id="main-wrapper">
         <?php include '../../../components/navbarAdmin.php'; ?>
         <div class="content-body">
@@ -147,7 +147,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                     echo "<div class='btn-group' role='group'>";
                                                     echo "<a href='../DetailPermohonan/detailNote?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-info btn-sm fas fa-info-circle'></a>";
                                                     echo "<button class='btn btn-danger btn-sm fas fa-trash-alt onclick='HapusVerifikasi(\"{$row['nomer_registrasi_keberatan']}\")'></button>";
-                                                    echo "<a href='../FormAnswer/formAnswerKeberatan?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-success btn-sm fas fa-reply'></a>";
+                                                    echo "<a href='../FormAnswer/formAnswerKeberatan?registrasi=" . $row["id_permohonan_keberatan"] . "' class='btn btn-success btn-sm fas fa-reply'></a>";
                                                     echo "<a href='../Form/Note?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-primary btn-sm'><i class='fas fa-sticky-note'></i></a>";
                                                     echo "</div>";
                                                     echo "</td>";
@@ -177,6 +177,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                         $status = 'Belum Verifikasi';
                                                     }
                                                     $statusDisplay = $status;
+                                                    $highlightClass = '';
                                                     if ($status === 'Pending') {
                                                         $statusDisplay .= " ($note)";
                                                     }
@@ -191,7 +192,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                     // Cek apakah sudah ada jawaban di tabel answer_admin untuk id_permohonan ini
                                                     $queryAnswer = "SELECT * FROM keberatananswer_admin WHERE id_permohonan_keberatan = ?";
                                                     $stmtAnswer = $conn->prepare($queryAnswer);
-                                                    $stmtAnswer->bind_param("i", $row['id_permohonan']);
+                                                    $stmtAnswer->bind_param("i", $row['id_permohonan_keberatan']);
                                                     $stmtAnswer->execute();
                                                     $resultAnswer = $stmtAnswer->get_result();
 

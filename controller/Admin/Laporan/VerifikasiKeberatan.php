@@ -26,7 +26,7 @@ header("Content-Disposition: attachment; filename=rekap data verifikasi Keberata
         </thead>
         <tbody>
             <?php
-$query = "SELECT pk.* FROM verifikasi_keberatan vk
+$query = "SELECT pk.*, vk.* FROM verifikasi_keberatan vk
 JOIN pengajuan_keberatan pk ON pk.id = vk.id_permohonan_keberatan;";
   $stmt = $conn->prepare($query);
             $stmt->execute();

@@ -29,13 +29,11 @@ function getLogger() {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $namaPIC = $_POST['namaPIC'];
     $jawabankeberatan = $_POST['jawabanPermohonan'];
-    $id_permohonan = $_POST['id_permohonan'];
-    $nikPemohon = $_POST['nikPemohon'];
-    $nama = $_POST['nama'];
+    $id_permohonan_keberatan = $_POST['id_permohonan_keberatan'];
     $email = $_POST['email'];
     $norek = $_POST['norek'];
     // Mengelola pengunggahan file
-    $targetDir = "../Assets/uploads/keberatan/jawabanKeberatan/";
+    $targetDir = "../../Assets/uploads/keberatan/jawabanKeberatan/";
     $lampiranName = basename($_FILES["lampiran"]["name"]);
     $targetFilePath = $targetDir . $lampiranName;
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
@@ -56,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mengunggah file ke server
     if (move_uploaded_file($_FILES["lampiran"]["tmp_name"], $targetFilePath)) {
         // Simpan data ke dalam tabel answer_admin
-        $insertQuery = "INSERT INTO keberatananswer_admin (id_permohonan, nama_pic, jawaban_keberatan, lampiran, nomer_registrasi_keberatan, status_balasan) 
-                        VALUES ('$id_permohonan', '$namaPIC', '$jawabankeberatan', '$lampiranName','$norek','Jawaban keberatan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat keberatan sesuai dengan nomer registrasi keberatan anda untuk mengunduh jawaban keberatan anda. ')";
+        $insertQuery = "INSERT INTO keberatananswer_admin (id_permohonan_keberatan, nama_pic, jawaban_keberatan, lampiran, nomer_registrasi_keberatan, status_balasan) 
+                        VALUES ('$id_permohonan_keberatan', '$namaPIC', '$jawabankeberatan', '$lampiranName','$norek','Jawaban keberatan informasi sudah kami kirimkan, silahkan masuk ke halaman riwayat keberatan sesuai dengan nomer registrasi keberatan anda untuk mengunduh jawaban keberatan anda. ')";
         
         $insertResult = $conn->query($insertQuery);
 
@@ -84,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($mail->send()) {
                 // Jika email berhasil terkirim
                 echo json_encode(['status' => 'success', 'message' => 'Jawaban Permohonan Sukses. Email berhasil terkirim.']);
-                header("Location: ../../view/Admin/DaftarPermohonan/listkeberatan");
+                header("Location: ../../view/Admin/DaftarPermohonan/daftarK");
                 $adminUsername = $_SESSION['nama_pengguna'];
                 logActivity($adminUsername,'Jawaban', "telah menjawab keberatan permohonan informasi dengan $lampiranName nomer registrasi $norek");
             } else {

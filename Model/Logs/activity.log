@@ -19,3 +19,6 @@
 [2024-06-19T16:44:50.770505+02:00] activity_log.INFO: Jawaban {"admin":"Master Admin PPID","description":"telah menjawab permohonan informasi dengan Struktur Data 1.pdf nomer registrasi 0392/PPID-Jateng/VI/2024"} []
 [2024-06-19T16:44:57.796858+02:00] activity_log.INFO: Jawaban {"admin":"Master Admin PPID","description":"telah menjawab permohonan informasi dengan Struktur Data 1.pdf nomer registrasi 0392/PPID-Jateng/VI/2024"} []
 [2024-06-19T16:56:06.909000+02:00] activity_log.INFO: verifikasi {"admin":"Master Admin PPID","description":"SUdah Memverifikasi Keberatan Permohonan Informasi dengan nomer registrasi keberatan 0040/KEBERATAN/VI/2024"} []
+[2024-06-20T05:20:18.087412+02:00] activity_log.INFO: Jawaban {"admin":"Master Admin PPID","description":"telah menjawab keberatan permohonan informasi dengan bukti PTTA-2000018243 (1).pdf nomer registrasi 0040/KEBERATAN/VI/2024"} []
+[2024-06-20T05:26:59.043348+02:00] activity_log.INFO: Jawaban {"admin":"Master Admin PPID","description":"telah menjawab keberatan permohonan informasi dengan Kartu Bimbingan Skripsi Tegar Arsyadani.pdf nomer registrasi 0040/KEBERATAN/VI/2024"} []
+[2024-06-20T05:29:06.115029+02:00] activity_log.INFO: Jawaban {"admin":"Master Admin PPID","description":"telah menjawab keberatan permohonan informasi dengan bukti PTTA-2000018243 (1).pdf nomer registrasi 0040/KEBERATAN/VI/2024"} []

@@ -12,16 +12,18 @@ if (!isset($_GET['registrasi'])) {
 }
 $nomer_registrasi_keberatan = $_GET['registrasi'];
 
-$query = "SELECT * FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+$query = "SELECT p.id, p.nomer_registrasi_keberatan, p.email_pemohon, v.id_permohonan_keberatan, p.nama_pemohon
+          FROM pengajuan_keberatan p
+          JOIN verifikasi_keberatan v ON v.id_permohonan_keberatan = p.id
+          WHERE p.nomer_registrasi_keberatan = $nomer_registrasi_keberatan";
 $result = $conn->query($query);
 
 if ($result -> num_rows > 0) {
     while ($row = $result -> fetch_assoc()) {
-        $nik = $row['nik_pemohon'];
         $namapemohon = $row['nama_pemohon'];
         $email = $row ['email_pemohon'];
-        $nomer_registrasi = $row['nomer_registrasi_keberatan'];
-        $id_permohonan = $row['id_permohonan'];
+        $nomer_registrasi_keberatan = $row['nomer_registrasi_keberatan'];
+        $id_permohonan_keberatan = $row['id_permohonan_keberatan'];
     }
 }
 else {
@@ -62,7 +64,7 @@ else {
                             <div class="card-body">
                                 
                                                            
-                                <form method="post" action="../../../controller/AdminAnswer/adminAnswerKeberatan.php" enctype="multipart/form-data">
+                                <form method="post" action="../../../controller/AnswerController/adminAnswerKeberatan.php" enctype="multipart/form-data">
                                     <div class="mb-3">
                                         <label for="namaPIC" class="form-label">Nama PIC</label>
                                         <input type="text" class="form-control" id="namaPIC" name="namaPIC" value="<?php echo htmlspecialchars($_SESSION['nama_pengguna']);?> " required readonly>
@@ -75,11 +77,9 @@ else {
                                         <label for="lampiran" class="form-label">Lampiran</label>
                                         <input type="file" class="form-control" id="lampiran" name="lampiran" required />
                                     </div>
-                                    <input type="hidden" name="nikPemohon" value="<?php echo $nik; ?>">
-                                            <input type="hidden" name="nama" value="<?php echo $namapemohon; ?>">
                                             <input type="hidden" name="email" value="<?php echo $email; ?>">
                                             <input type="hidden" name="norek" value="<?php echo $nomer_registrasi_keberatan; ?>">
-                                            <input type="hidden" name="id_permohonan" value="<?php echo $id_permohonan; ?>">
+                                            <input type="hidden" name="id_permohonan_keberatan" value="<?php echo $id_permohonan_keberatan; ?>">
                                     <button type="submit" class="btn btn-primary">submit</button>
                                 </form>
                             </div>

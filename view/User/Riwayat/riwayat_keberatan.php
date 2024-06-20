@@ -196,7 +196,6 @@ include ('../../../controller/koneksi/config.php');
     </div>
     <table id="datatabel" class="table table-bordered">
         <?php
-        $nik = $_SESSION['nik'];
         $query = "SELECT * FROM keberatananswer_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan' ORDER BY tanggal DESC LIMIT 1";
         $result = $conn->query($query);
         if ($result->num_rows > 0) {
