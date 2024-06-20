@@ -4,24 +4,22 @@ require_once ('../../../controller/koneksi/config.php');
 
 // Check if the user is logged in
 if (!isset($_SESSION['id'])) {
-    header("Location: ../index.php");
+    header("Location: ../../../");
     exit();
 }
 
 $user_id = $_SESSION['id'];
-$nik = $_SESSION['nik'];
 $id_permohonan = isset($_GET['Permohonan']) ? $_GET['Permohonan'] : '';
 
 
 $nomer_registrasi = '';
-$id_registrasi = '';
 // Prepare and execute the query using the existing database connection
-$sql = "SELECT id_registrasi, nomer_registrasi FROM verifikasi_permohonan WHERE id_permohonan = ?";
+$sql = "SELECT nomer_registrasi FROM verifikasi_permohonan WHERE id_permohonan = ?";
 $stmt = $conn->prepare($sql);
 if ($stmt) {
     $stmt->bind_param("i", $id_permohonan);
     $stmt->execute();
-    $stmt->bind_result($id_registrasi, $nomer_registrasi);
+    $stmt->bind_result( $nomer_registrasi);
     $stmt->fetch();
     $stmt->close();
 } else {
@@ -82,8 +80,7 @@ if ($stmt) {
                     partisipasinya, disampaikan. Terima kasih.</p>
             </div>
         </div>
-        <form id="mySurvey" action="../controller/data_survey.php" method="post">
-        <input type="hidden" name="id_registrasi" value="<?php echo htmlspecialchars($id_registrasi); ?>" />
+        <form id="mySurvey" action="../../../controller/SurveyController/data_survey.php" method="post">
             <input type="hidden" name="nomer_registrasi" value="<?php echo htmlspecialchars($nomer_registrasi); ?>" />
             <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan); ?>" />
             <div class="user-input-box">

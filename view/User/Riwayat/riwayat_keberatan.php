@@ -83,8 +83,8 @@ include ('../../../controller/koneksi/config.php');
                                     echo "<td><strong>Informasi yang diminta</strong></td>";
                                     echo "<td>{$row['informasi_yang_diminta']}</td>";
                                     echo "</tr>";
-                                    
-                                    
+
+
                                 }
                             } else {
                                 $query_alternatif = "SELECT * FROM pengajuan_keberatan where nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
@@ -189,66 +189,66 @@ include ('../../../controller/koneksi/config.php');
                     </p>
                 </div>
                 <div id="tabelcontainer" class="up">
-    <div class="fill">
-        <div class="style-font">
-            Jawaban Pengajuan Keberatan
-        </div>
-    </div>
-    <table id="datatabel" class="table table-bordered">
-        <?php
-        $query = "SELECT * FROM keberatananswer_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan' ORDER BY tanggal DESC LIMIT 1";
-        $result = $conn->query($query);
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            echo "<tr>";
-            echo "<td><strong>Jawaban Permohonan Informasi</strong></td>";
-            echo "<td>{$row['nama_pic']}</td>";
-            echo "</tr>";
+                    <div class="fill">
+                        <div class="style-font">
+                            Jawaban Pengajuan Keberatan
+                        </div>
+                    </div>
+                    <table id="datatabel" class="table table-bordered">
+                        <?php
+                        $query = "SELECT * FROM keberatananswer_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan' ORDER BY tanggal DESC LIMIT 1";
+                        $result = $conn->query($query);
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            echo "<tr>";
+                            echo "<td><strong>Jawaban Permohonan Informasi</strong></td>";
+                            echo "<td>{$row['nama_pic']}</td>";
+                            echo "</tr>";
 
-            echo "<tr>";
-            echo "<td><strong>Dokumen</strong></td>";
-            echo "<td>";
+                            echo "<tr>";
+                            echo "<td><strong>Dokumen</strong></td>";
+                            echo "<td>";
 
-            $querySurvey = "SELECT * FROM survey_kepuasan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
-            $resultSurvey = $conn->query($querySurvey);
+                            $querySurvey = "SELECT * FROM survey_kepuasan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+                            $resultSurvey = $conn->query($querySurvey);
 
-            if ($resultSurvey->num_rows > 0) {
-                // Pengguna telah mengisi survei kepuasan, berikan tautan unduh
-                if (!empty($row['lampiran'])) {
-                    $file_path = "../../../Assets/uploads/keberatan/jawabanKeberatan/" . $row['lampiran'];
-                    echo "<a href=\"$file_path\" download>{$row['lampiran']}</a>";
-                } else {
-                    echo "Tidak ada lampiran";
-                }
-            } else {
-                // Pengguna belum mengisi survei kepuasan, berikan tautan pratinjau
-                if (!empty($row['lampiran'])) {
-                    $file_path = "../../../Assets/uploads/keberatan/jawabanKeberatan/" . $row['lampiran'];
-                    echo "<a href=\"javascript:void(0);\" onclick=\"previewLampiran('$file_path')\">Pratinjau Lampiran</a>";
-                } else {
-                    echo "Tidak ada lampiran";
-                }
-            }
-            echo "</td>";
-            echo "</tr>";
+                            if ($resultSurvey->num_rows > 0) {
+                                // Pengguna telah mengisi survei kepuasan, berikan tautan unduh
+                                if (!empty($row['lampiran'])) {
+                                    $file_path = "../../../Assets/uploads/keberatan/jawabanKeberatan/" . $row['lampiran'];
+                                    echo "<a href=\"$file_path\" download>{$row['lampiran']}</a>";
+                                } else {
+                                    echo "Tidak ada lampiran";
+                                }
+                            } else {
+                                // Pengguna belum mengisi survei kepuasan, berikan tautan pratinjau
+                                if (!empty($row['lampiran'])) {
+                                    $file_path = "../../../Assets/uploads/keberatan/jawabanKeberatan/" . $row['lampiran'];
+                                    echo "<a href=\"javascript:void(0);\" onclick=\"previewLampiran('$file_path')\">Pratinjau Lampiran</a>";
+                                } else {
+                                    echo "Tidak ada lampiran";
+                                }
+                            }
+                            echo "</td>";
+                            echo "</tr>";
 
-            echo "<tr>";
-            echo "<td><strong>Tanggal</strong></td>";
-            echo "<td>" . (!empty($row['tanggal']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal']))) : '') . "</td>";
-            echo "</tr>";
-        } else {
-            echo "kosong";
-        }
-        ?>
-    </table>
+                            echo "<tr>";
+                            echo "<td><strong>Tanggal</strong></td>";
+                            echo "<td>" . (!empty($row['tanggal']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal']))) : '') . "</td>";
+                            echo "</tr>";
+                        } else {
+                            echo "kosong";
+                        }
+                        ?>
+                    </table>
 
 
-    <img src="../../../Assets/img/logo_jateng.png" style="width: 50px;" alt="">
-    Admin PPID Dishub Prov Jateng
-    </p>
-</div>
+                    <img src="../../../Assets/img/logo_jateng.png" style="width: 50px;" alt="">
+                    Admin PPID Dishub Prov Jateng
+                    </p>
+                </div>
 
-                
+
             </div>
             <div class="col-md-4">
                 <div class="follow-up">
@@ -284,13 +284,13 @@ include ('../../../controller/koneksi/config.php');
                 </div>
             </div>
             <?php
-                $querySurveyk = "SELECT * FROM survey_kepuasan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
-                $resultSurveyk = $conn->query($querySurveyk);
+            $querySurveyk = "SELECT * FROM survey_kepuasan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+            $resultSurveyk = $conn->query($querySurveyk);
 
-                $surveyKomplit = ($resultSurveyk->num_rows > 0);
-                $surveyPesan = $surveyKomplit ? "Terima kasih telah mengisi survey, silahkan unduh jawaban Keberatan Anda." : "Apakah keberatan informasi Anda sudah terjawab?";
-                ?>
-                <div class="box-left">
+            $surveyKomplit = ($resultSurveyk->num_rows > 0);
+            $surveyPesan = $surveyKomplit ? "Terima kasih telah mengisi survey, silahkan unduh jawaban Keberatan Anda." : "Apakah keberatan informasi Anda sudah terjawab?";
+            ?>
+            <div class="box-left">
                 <div class="up-survey">
                     <div class="fill">
                         <div class="style-font">
@@ -302,7 +302,7 @@ include ('../../../controller/koneksi/config.php');
                             <?php echo $surveyPesan; ?>
                         </h5>
                         <div class="message">
-                            <a href="../controller/download-responsek.php?registrasi=<?php echo $nomer_registrasi_keberatan; ?>"
+                            <a href="../../../controller/User/Download/download-responsek.php?registrasi=<?php echo $nomer_registrasi_keberatan; ?>"
                                 target="_blank">
                                 <button class="button-ya" type="button">Unduh Jawaban</button>
                             </a>
@@ -312,13 +312,14 @@ include ('../../../controller/koneksi/config.php');
                             <?php echo $surveyPesan; ?>
                         </h5>
                         <div class="message">
-                            <a href="../view/surveyKeberatan?registrasi=<?php echo $nomer_registrasi_keberatan; ?>"> <button
-                                    class="button-ya" type="button">Ya</button> </a>
+                            <a
+                                href="../../../view/User/Form/surveyKeberatan?registrasi=<?php echo $nomer_registrasi_keberatan; ?>">
+                                <button class="button-ya" type="button">Ya</button> </a>
                             <button class="button-tdk" type="button">Tidak</button>
                         </div>
                     <?php endif; ?>
                 </div>
-                </div>
+            </div>
         </div>
     </div>
     <?php include '../../../components/footer.php'; ?>
@@ -363,49 +364,49 @@ include ('../../../controller/koneksi/config.php');
         // Inisialisasi timeline saat halaman dimuat
         createTimeline();
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    function showSweetAlert() {
-        var nama_pemohon = document.getElementById('namaPemohon').getAttribute('data-nama-pemohon');
-        var nomer_registrasi_keberatan = "<?php echo $nomer_registrasi_keberatan; ?>"; // Dapatkan nomor registrasi dari PHP
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function showSweetAlert() {
+                var nama_pemohon = document.getElementById('namaPemohon').getAttribute('data-nama-pemohon');
+                var nomer_registrasi_keberatan = "<?php echo $nomer_registrasi_keberatan; ?>"; // Dapatkan nomor registrasi dari PHP
 
-        Swal.fire({
-            title: 'Apakah Anda ingin meminta jawaban yang benar?',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-            icon: 'question'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                sendRejectionNotification(nama_pemohon, nomer_registrasi_keberatan);
-            }
-        });
-    }
-
-    function sendRejectionNotification(nama_pemohon, nomer_registrasi_keberatan) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../controller/smtpmail/tidakpuas.php", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
                 Swal.fire({
-                    title: response.status === 'success' ? 'Sukses' : 'Gagal',
-                    text: response.message,
-                    icon: response.status === 'success' ? 'success' : 'error'
+                    title: 'Apakah Anda ingin meminta jawaban yang benar?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Tidak',
+                    icon: 'question'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        sendRejectionNotification(nama_pemohon, nomer_registrasi_keberatan);
+                    }
                 });
             }
-        };
 
-        xhr.send("nama_pemohon=" + encodeURIComponent(nama_pemohon) +
-                 "&nomer_registrasi_keberatan=" + encodeURIComponent(nomer_registrasi_keberatan));
-    }
+            function sendRejectionNotification(nama_pemohon, nomer_registrasi_keberatan) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "../../../controller/smtpmail/tidakpuas.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    var buttonTidak = document.querySelector('.button-tdk');
-    buttonTidak.addEventListener('click', showSweetAlert);
-});
-</script>
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        Swal.fire({
+                            title: response.status === 'success' ? 'Sukses' : 'Gagal',
+                            text: response.message,
+                            icon: response.status === 'success' ? 'success' : 'error'
+                        });
+                    }
+                };
+
+                xhr.send("nama_pemohon=" + encodeURIComponent(nama_pemohon) +
+                    "&nomer_registrasi_keberatan=" + encodeURIComponent(nomer_registrasi_keberatan));
+            }
+
+            var buttonTidak = document.querySelector('.button-tdk');
+            buttonTidak.addEventListener('click', showSweetAlert);
+        });
+    </script>
 
 
     <script>

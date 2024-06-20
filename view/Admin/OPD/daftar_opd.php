@@ -98,7 +98,22 @@ $user_id = $_SESSION['id'];
     </div>
     <script>
         function Edit(id) {
-            window.location.href = "../../../view/Admin/OPD/editOpd.php?id=" + id;
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan mengedit OPD ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, edit!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the edit page with the selected ID
+                    window.location.href = "../../../view/Admin/OPD/editOpd.php?id=" + id;
+                }
+            })
+            
         }
 
         function hapusOPD(id) {

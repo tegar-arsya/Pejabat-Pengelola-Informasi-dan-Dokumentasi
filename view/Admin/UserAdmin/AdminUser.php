@@ -32,6 +32,9 @@ $user_id = $_SESSION['id'];
     <link href="../../../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../../../Assets/css/style-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../Assets/fontawesome/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -97,20 +100,41 @@ $user_id = $_SESSION['id'];
     </div>
     <script>
         function Edit(id) {
-            // Implement the edit functionality here
-            // You may redirect to the edit_opd.php page with the selected ID
-            window.location.href = "../USerAdmin/EditAdmin?id=" + id;
+            // Use SweetAlert for a confirmation dialog before redirecting to edit
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan mengedit admin ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, edit!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the edit page with the selected ID
+                    window.location.href = "../UserAdmin/EditAdmin?id=" + id;
+                }
+            })
         }
 
         function hapusAdmin(id) {
-            // Implement the delete functionality here
-            // You may want to show a confirmation dialog before deleting
-            // Use AJAX or redirect to handle the delete operation
-            var confirmation = confirm("Apakah Anda yakin ingin menghapus ADMIN ini?");
-            if (confirmation) {
-                // Call a function or make an AJAX request to delete the record
-                window.location.href = "../../../controller/Admin/Delete/deleteAdmin.php?id=" + id;
-            }
+            // Use SweetAlert for a confirmation dialog before deleting
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirect to the delete script with the selected ID
+                    window.location.href = "../../../controller/Admin/Delete/deleteAdmin.php?id=" + id;
+                }
+            })
         }
     </script>
     <script>

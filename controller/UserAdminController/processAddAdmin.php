@@ -1,7 +1,7 @@
 <?php
 session_start();
-include('../../../controller/koneksi/config.php');
-include('../../../controller/functionAdmin.php');
+include('../../controller/koneksi/config.php');
+include('../../controller/UserAdminController/functionAdmin.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['id'])) {
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (editAdmin($id, $nama, $username, $hashedPassword)) {
             // Redirect to daftar_opd.php or show a success message
-            header("Location: ../../../view/Admin/User");
+            header("Location: ../../view/Admin/UserAdmin/User");
             exit();
         } else {
             // Handle the case where editing fails
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (tambahAdmin($nama, $username, $hashedPassword)) {
             // Redirect to daftar_opd.php or show a success message
-            header("Location: ../../../view/Admin/User");
+            header("Location: ../../view/Admin/UserAdmin/User");
             exit();
         } else {
             // Handle the case where adding fails

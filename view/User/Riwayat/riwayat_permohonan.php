@@ -67,31 +67,31 @@ include ('../../../controller/koneksi/config.php');
                                 // Data ditemukan, tampilkan atau proses data di sini
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
-                                    echo "<td><strong>Nama :</strong></td>";
+                                    echo "<td><strong>Nama</strong></td>";
                                     echo "<td>" . htmlspecialchars($row['nama_pengguna'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Tanggal Permohonan:</strong></td>";
+                                    echo "<td><strong>Tanggal Permohonan</strong></td>";
                                     echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";                                    echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Nomor Register:</strong></td>";
+                                    echo "<td><strong>Nomor Register</strong></td>";
                                     echo "<td>" . htmlspecialchars($row['nomer_registrasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Informasi yang Diminta:</strong></td>";
+                                    echo "<td><strong>Informasi yang Diminta</strong></td>";
                                     echo "<td>" . htmlspecialchars($row['informasi_yang_dibutuhkan'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
+                                    echo "<td><strong>Alasan Pengguna Informasi</strong></td>";
                                     echo "<td>" . htmlspecialchars($row['alasan_pengguna_informasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>OPD Yang Dituju:</strong></td>";
+                                    echo "<td><strong>OPD Yang Dituju</strong></td>";
                                     echo "<td>" . htmlspecialchars($row['opd_yang_dituju'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
                                 }
@@ -104,12 +104,12 @@ include ('../../../controller/koneksi/config.php');
                                 $result_alternatif = $conn->query($query_alternatif);
                                 while ($row_alternatif = $result_alternatif->fetch_assoc()) {
                                     echo "<tr>";
-                                    echo "<td><strong>Nama :</strong></td>";
+                                    echo "<td><strong>Nama</strong></td>";
                                     echo "<td>" . htmlspecialchars($row_alternatif['nama_pengguna'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Tanggal Permohonan:</strong></td>";
+                                    echo "<td><strong>Tanggal Permohonan</strong></td>";
                                     echo "<td>" . (!empty($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";                                    echo "</tr>";
 
                                     // echo "<tr>";
@@ -118,22 +118,22 @@ include ('../../../controller/koneksi/config.php');
                                     // echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Nomor Register:</strong></td>";
+                                    echo "<td><strong>Nomor Register</strong></td>";
                                     echo "<td>" . htmlspecialchars($row_alternatif['nomer_registrasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Informasi yang Diminta:</strong></td>";
+                                    echo "<td><strong>Informasi yang Diminta</strong></td>";
                                     echo "<td>" . htmlspecialchars($row_alternatif['informasi_yang_dibutuhkan'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Alasan Pengguna Informasi:</strong></td>";
+                                    echo "<td><strong>Alasan Pengguna Informasi</strong></td>";
                                     echo "<td>" . htmlspecialchars($row_alternatif['alasan_pengguna_informasi'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>OPD Yang Dituju:</strong></td>";
+                                    echo "<td><strong>OPD Yang Dituju</strong></td>";
                                     echo "<td>" . htmlspecialchars($row_alternatif['opd_yang_dituju'], ENT_QUOTES, 'UTF-8') . "</td>";
                                     echo "</tr>";
 
@@ -166,17 +166,17 @@ include ('../../../controller/koneksi/config.php');
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
-                                    echo "<td><strong>Nama PIC :</strong></td>";
+                                    echo "<td><strong>Nama PIC</strong></td>";
                                     echo "<td>{$row['nama_pic']}</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Jawaban Permohonan :</strong></td>";
+                                    echo "<td><strong>Jawaban Permohonan</strong></td>";
                                     echo "<td>{$row['jawaban_permohonan']}</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Lampiran :</strong></td>";
+                                    echo "<td><strong>Lampiran</strong></td>";
                                     echo "<td>";
 
                                     // Periksa apakah pengguna telah mengisi survei kepuasan
@@ -205,7 +205,7 @@ include ('../../../controller/koneksi/config.php');
                                     echo "</tr>";
 
                                     echo "<tr>";
-                                    echo "<td><strong>Tanggal :</strong></td>";
+                                    echo "<td><strong>Tanggal</strong></td>";
                                     echo "<td>" . (!empty ($row['tanggal_jawaban']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_jawaban']))) : '') . "</td>";
                                     echo "</tr>";
                                 }

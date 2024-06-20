@@ -1233,6 +1233,7 @@ button#cancel-button {
 
 .up {
     width: 100%;
+    margin-top: 20px;
     border-radius: 10px;
     border: 1px black solid;
 }
@@ -1250,10 +1251,10 @@ button#cancel-button {
     width: 100%;
     color: white;
     font-size: 25px;
-    font-family: Inter;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 700;
     word-wrap: break-word;
-    margin-top: 20px;
+    padding: 10px;
 }
 
 #tableContainer {
@@ -1273,7 +1274,7 @@ button#cancel-button {
 .up-survey {
     width: 100%;
     margin-top: 20px;
-    background: white;
+    margin-bottom: 20px;
     border-radius: 10px;
     border: 1px black solid;
 }

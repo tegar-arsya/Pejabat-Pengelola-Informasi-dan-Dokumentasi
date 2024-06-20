@@ -18,7 +18,6 @@ $result = $conn->query($query);
 if ($result -> num_rows > 0) {
     while ($row = $result -> fetch_assoc()) {
         $keterangan = $row['keterangan'];
-        $namapemohon = $row['nama_pemohon'];
         $status = $row ['status'];
         $nomer_registrasi = $row['nomer_registrasi_keberatan'];
     }

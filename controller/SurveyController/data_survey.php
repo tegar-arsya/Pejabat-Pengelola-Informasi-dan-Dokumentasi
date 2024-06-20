@@ -6,9 +6,8 @@ if ($_POST['user-input'] !== $_SESSION['captcha']) {
     echo json_encode($response);
     exit();
 }
-include ('../../../controller/koneksi/config.php');
+include ('../../controller/koneksi/config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_registrasi = $_POST['id_registrasi'];
     $id_permohonan = $_POST['id_permohonan'];
     $nomer_registrasi = $_POST['nomer_registrasi'];
     $nama = $_POST['nama'];

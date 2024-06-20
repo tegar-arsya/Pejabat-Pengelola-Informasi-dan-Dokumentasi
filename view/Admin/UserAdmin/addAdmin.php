@@ -52,7 +52,7 @@ $user_id = $_SESSION['id'];
                             <div class="card-body">
                                 <h1>Tambah ADMIN</h1>
                                 <h4 class="card-title">ADMIN</h4>                                
-                                <form method="post" action="../../../controller/OPDController/processAddAdmin.php">
+                                <form method="post" action="../../../controller/UserAdminController/processAddAdmin.php">
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama</label>
                                     <input type="text" class="form-control" id="nama" name="nama">

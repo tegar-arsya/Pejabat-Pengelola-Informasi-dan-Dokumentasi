@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once('../controller/koneksi/config.php');
+require_once ('../../../controller/koneksi/config.php');
 if (!isset($_SESSION['id'])) {
-    header("Location: ../index.php");
+    header("Location: ../../../");
     exit();
 }
 $user_id = $_SESSION['id'];
@@ -12,7 +12,7 @@ $id_permohonan = '';
 
 // Prepare and execute the query using the existing database connection
 
-$sql = "SELECT id_permohonan FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan =?";
+$sql = "SELECT id_permohonan_keberatan FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan =?";
 $stmt = $conn->prepare($sql);
 if ($stmt) {
     $stmt->bind_param("s", $nomer_registrasi_keberatan);
@@ -36,44 +36,48 @@ if ($stmt) {
         </script>
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <!-- Jarallax CSS -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../Assets/img/logo_jateng.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../Assets/img/logo_jateng.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../Assets/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="../../../Assets/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="../Assets/css/style.css" />
+    <link rel="stylesheet" href="../../../Assets/css/style.css" />
     <title>Survey Kepuasan</title>
 </head>
 
 <body onload="generate()">
     <!-- navbar -->
-    <?php include '../components/navbar.php';?>
+    <?php include '../../../components/navbar.php'; ?>
     <div class="custom-line"></div>
     <div class="container">
-    <h1 class="form-title">Kuesioner Indeks Kepuasan Masyarakat</h1>
+        <h1 class="form-title">Kuesioner Indeks Kepuasan Masyarakat</h1>
         <div class="container-riwayat">
-        <div class="left-container-survey">
-        <div class="box-left">
-        <img src="../Assets/img/logo_jateng.png" alt=""style="width: 70%; margin-top: 60px;">
-        </div>
-        </div>
-        <div class="right-container-survey">
-        <h3 class="h3-title-survey">Bapak/Ibu yang Terhormat,</h3>
-        <p class="p-survey">Kami mohon Anda berkenan mengisi kuesioner berikut ini sebagai upaya kami terus-menerus
-            memperbaiki dan memberikan pelayanan yang terbaik kepada masyarakat. Partisipasi Anda akan sangat berguna
-            untuk menyusun indeks kepuasan masyarakat atas layanan Pemerintah Provinsi Jawa Tengah. Atas perhatian dan
-            partisipasinya, disampaikan. Terima kasih.</p>
+            <div class="left-container-survey">
+                <div class="box-left">
+                    <img src="../../../Assets/img/logo_jateng.png" alt="" style="width: 70%; margin-top: 60px;">
+                </div>
             </div>
+            <div class="right-container-survey">
+                <h3 class="h3-title-survey">Bapak/Ibu yang Terhormat,</h3>
+                <p class="p-survey">Kami mohon Anda berkenan mengisi kuesioner berikut ini sebagai upaya kami
+                    terus-menerus
+                    memperbaiki dan memberikan pelayanan yang terbaik kepada masyarakat. Partisipasi Anda akan sangat
+                    berguna
+                    untuk menyusun indeks kepuasan masyarakat atas layanan Pemerintah Provinsi Jawa Tengah. Atas
+                    perhatian dan
+                    partisipasinya, disampaikan. Terima kasih.</p>
             </div>
-        <form id="mySurvey" action="../controller/data_survey.php" method="post">
-        <input type="hidden" name="nomer_registrasi_keberatan" value="<?php echo htmlspecialchars($nomer_registrasi_keberatan); ?>" />
-        <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan); ?>" />
-        <div class="user-input-box">
+        </div>
+        <form id="mySurvey" action="../../../controller/Suv=rveyController/data_survey.php" method="post">
+            <input type="hidden" name="nomer_registrasi_keberatan"
+                value="<?php echo htmlspecialchars($nomer_registrasi_keberatan); ?>" />
+            <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan); ?>" />
+            <div class="user-input-box">
                 <label for="nama">Nama Anda</label>
                 <input type="text" id="nama" name="nama" required />
             </div>
@@ -111,19 +115,23 @@ if ($stmt) {
             <h6 style="font-weight: bold;">Pekerjaan</h6>
             <div class="form-check">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="PNS / TNI / POLRI" id="pnstnipolri"name="pekerjaan[]">
+                    <input class="form-check-input" type="radio" value="PNS / TNI / POLRI" id="pnstnipolri"
+                        name="pekerjaan[]">
                     <label class="form-check-label" for="pnstnipolri">PNS / TNI / POLRI</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="Pegawai Swasta" id="pegawaiswasta"name="pekerjaan[]">
+                    <input class="form-check-input" type="radio" value="Pegawai Swasta" id="pegawaiswasta"
+                        name="pekerjaan[]">
                     <label class="form-check-label" for="pegawaiswasta">Pegawai Swasta</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="Wiraswasta / Usahawan" id="WiraswastaUsahawan"name="pekerjaan[]">
+                    <input class="form-check-input" type="radio" value="Wiraswasta / Usahawan" id="WiraswastaUsahawan"
+                        name="pekerjaan[]">
                     <label class="form-check-label" for="WiraswastaUsahawan">Wiraswasta / Usahawan</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="Pelajar / Mahasiswa" id="PelajarMahasiswa" name="pekerjaan[]">
+                    <input class="form-check-input" type="radio" value="Pelajar / Mahasiswa" id="PelajarMahasiswa"
+                        name="pekerjaan[]">
                     <label class="form-check-label" for="PelajarMahasiswa">Pelajar / Mahasiswa</label>
                 </div>
                 <div class="form-check">
@@ -183,7 +191,8 @@ if ($stmt) {
             <div class="main-user-info">
                 <div class="user-input-box1">
                     <label for="SaranPersyaratanPermohonanInformasi">Saran Persyaratan Permohonan Informasi</label>
-                    <textarea id="SaranPersyaratanPermohonanInformasi" name="SaranPersyaratanPermohonanInformasi"></textarea>
+                    <textarea id="SaranPersyaratanPermohonanInformasi"
+                        name="SaranPersyaratanPermohonanInformasi"></textarea>
                 </div>
             </div>
             <h6 style="font-weight: bold;">2. Prosedur</h6>
@@ -446,15 +455,15 @@ if ($stmt) {
                 </div>
             </div>
             <div class="user-input-box1">
-            <div id="captcha-container">
-                        <div id="captcha"></div>
-                        <button type="button" id="reload-button">Reload<br>CAPTCHA</button>
-                    </div>
+                <div id="captcha-container">
+                    <div id="captcha"></div>
+                    <button type="button" id="reload-button">Reload<br>CAPTCHA</button>
+                </div>
             </div>
             <div class="user-input-box1">
-            <input type="text1" id="user-input" name="user-input" placeholder="masukkan kode disini" />
-                    <div><button type="submit" id="kirim-button">Kirim</button>
-                    </div>
+                <input type="text1" id="user-input" name="user-input" placeholder="masukkan kode disini" />
+                <div><button type="submit" id="kirim-button">Kirim</button>
+                </div>
             </div>
             <!-- <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
             <div style="grid-column: span 10;">
@@ -477,11 +486,62 @@ if ($stmt) {
             </div> -->
         </form>
     </div>
-    <?php include '../components/footer.php';?>
-    <script src="../model/User/surveyKeberatan.js"></script>
+    <?php include '../../../components/footer.php'; ?>
+    <script>
+        function generateCaptcha() {
+            fetch('../../../Model/Captcha/generate_captcha.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('captcha').textContent = data;
+                });
+        }
+        document.getElementById('reload-button').addEventListener('click', generateCaptcha);
+        document.getElementById('mySurvey').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var userInput = document.getElementById('user-input').value;
+            var captchaValue = document.getElementById('captcha').textContent.trim();
+            if (userInput === captchaValue) {
+                fetch('../../../controller/SurveyController/dataSurveyKeberatan.php', {
+                    method: 'POST',
+                    body: new URLSearchParams(new FormData(document.getElementById('mySurvey')))
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: 'Berhasil Terkirim',
+                                html: 'Terima kasih telah mengisi Kuesioner Indeks Kepuasan Masyarakat. Mohon masuk ke halaman riwayat keberatan untuk mengunduh jawaban keberatan informasi atau klik link berikut ini <a href="../../../view/User/Daftar/daftarkeberatanPengguna" style="color: red; text-decoration: underline;">riwayat Keberatan</a>',
+                                icon: 'success',
+                            });
+                            document.getElementById('user-input').value = '';
+                            generateCaptcha();
+                        } else {
+                            Swal.fire(
+                                'Error',
+                                'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.',
+                                'error'
+                            );
+                            generateCaptcha();
+                        }
+                    });
+            } else {
+                Swal.fire(
+                    'Error',
+                    'CAPTCHA tidak sesuai. Silakan coba lagi.',
+                    'error'
+                );
+                generateCaptcha();
+            }
+        });
+
+
+        // Generate CAPTCHA saat halaman dimuat
+        window.addEventListener('load', generateCaptcha);
+
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js
     "></script>
-    <script src="../Model/Auth/TimeOutUser.js"></script>
+    <script src="../../../Model/Auth/TimeOutUser.js"></script>
 </body>
 
 </html>
