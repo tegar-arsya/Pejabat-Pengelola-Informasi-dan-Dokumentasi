@@ -38,7 +38,7 @@
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Reset Password</h1>
-        <form action="../controller/proses_ganti_password.php" method="POST">
+        <form action="../../../controller/RegisterController/proses_ganti_password.php" method="POST">
             <div class="main-user-info">
                 <div class="user-input-box">
                     <input type="hidden" name="token" value="<?php echo htmlspecialchars($_GET['token']); ?>">

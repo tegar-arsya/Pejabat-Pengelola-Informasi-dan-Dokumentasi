@@ -6,7 +6,8 @@ require '../../controller/smtpmail/library/SMTP.php';
 require '../../controller/smtpmail/library/Exception.php';
 require '../../controller/koneksi/config.php';
 
-$BASE_URL = 'http://localhost';
+// $BASE_URL = 'http://localhost';
+$BASE_URL = 'https://febc-118-96-186-14.ngrok-free.app/';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -36,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['csrf_token']) && verif
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "<script>alert('Email tidak valid. Silakan masukkan email yang valid.');</script>";
         // Redirect ke halaman lupa password
-        echo "<script>window.location.href = '../view/lupa_password.php';</script>";
+        echo "<script>window.location.href = '../../../view/User/GantiPassword/resetPassword';</script>";
         exit;
     }
 
@@ -76,12 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['csrf_token']) && verif
 
             $mail->isHTML(true);
             $mail->Subject = "Reset Password";
-            $mail->Body = "Klik link berikut untuk mereset password Anda: $BASE_URL/PERMOHONANINFORMASI/view/gantiPassword?token=$token_baru";
+            $mail->Body = "Klik link berikut untuk mereset password Anda: $BASE_URL/ppid/view/User/GantiPassword/gantiPassword?token=$token_baru";
 
             $mail->send();
 
             echo "<script>alert('Email instruksi reset password telah dikirimkan.');</script>";
-            echo "<script>window.location.href = '../home';</script>";
+            echo "<script>window.location.href = '../../';</script>";
         } catch (Exception $e) {
             echo "<script>alert('Gagal mengirim email. Silakan coba lagi.');</script>";
             echo "Pesan Kesalahan PHPMailer: " . $e->getMessage();

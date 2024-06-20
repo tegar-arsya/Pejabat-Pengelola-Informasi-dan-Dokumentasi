@@ -1,6 +1,6 @@
 <?php
 // Include konfigurasi koneksi database
-
+session_start();
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 include('../../controller/koneksi/config.php');

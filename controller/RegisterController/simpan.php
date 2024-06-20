@@ -1,7 +1,7 @@
 <?php
 // register.php
 
-require '../../controller/koneksi/config.php';
+require '../../../controller/koneksi/config.php';
 
 class RegistrationManager {
     private $conn;
@@ -64,7 +64,7 @@ class RegistrationManager {
                 $sql->bind_param("ssssssssssssssss", $namadepan, $namabelakang, $jenisnik, $jenispemohon, $nik, $nohp, $fotoktp, $npwp, $pekerjaan, $alamat, $namaKotaKabupaten, $namaProvinsi, $negara, $kodepos, $email, $hashed_password);
 
                 if ($sql->execute()) {
-                    header("Location: ../../");
+                    header("Location: ../../../");
                     exit();
                 } else {
                     echo "Error: " . $sql->error;

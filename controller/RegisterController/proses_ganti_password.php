@@ -34,16 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($update_query->execute()) {
             echo "<script>alert('Password berhasil diubah.');</script>";
             // Redirect ke halaman login atau halaman lain yang sesuai
-            echo "<script>window.location.href = ' ../home';</script>";
+            echo "<script>window.location.href = ' ../../';</script>";
         } else {
             echo "<script>alert('Gagal mengubah password. Silakan coba lagi.');</script>";
             // Redirect ke halaman ganti password
-            echo "<script>window.location.href = '../view/ganti_password.php';</script>";
+            echo "<script>window.location.href = '../../../view/User/GantiPassword/gantiPassword';</script>";
         }
     } else {
         echo "<script>alert('Token reset password tidak valid. Silakan coba lagi.');</script>";
         // Redirect ke halaman lupa password
-        echo "<script>window.location.href = '../view/lupa_password.php';</script>";
+        echo "<script>window.location.href = '../../../view/User/GantiPassword/resetPassword';</script>";
     }
 
     // Tutup koneksi database

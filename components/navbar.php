@@ -41,7 +41,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <img src="../Assets/img/logo_jateng.png" alt="Logo" />
+                            <img src="../../../Assets/img/logo_jateng.png" alt="Logo" />
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="modal-line">
-                                <i class="fa-solid fa-file-invoice"></i><a href=".../../../view/User/Form/aduan">Pengajuan Keberatan</a>
+                                <i class="fa-solid fa-file-invoice"></i><a href="../../../view/User/Form/aduan">Pengajuan Keberatan</a>
                             </div>
 
                             <div class="modal-line dropdown">
@@ -69,7 +69,7 @@
 
                             <div class="modal-line">
                                 <i class="fa-solid fa-chalkboard-user"></i>
-                                <a href="../../../components/panduan.html">Panduan</a>
+                                <a href="../../../components/panduan">Panduan</a>
                             </div>
 
                             <div class="modal-line">

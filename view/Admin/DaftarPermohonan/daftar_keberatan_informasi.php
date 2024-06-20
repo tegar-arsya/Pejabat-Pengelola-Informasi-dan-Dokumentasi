@@ -123,7 +123,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                         <tbody>
                                             <?php
                                             
-                                            $query = "SELECT DISTINCT vk.nomer_registrasi_keberatan, vk.id_permohonan_keberatan, pk.tanggal_permohonan, vk.tanggal_verifikasi, sk.tanggal_survey,pk.id, pk.nama_pemohon, pk.alasan_keberatan, pk.opd_yang_dituju, tp.tanggal_penolakan, pk.tanggal_permohonan
+                                            $query = "SELECT DISTINCT vk.nomer_registrasi_keberatan, vk.id_permohonan_keberatan, pk.tanggal_permohonan, vk.tanggal_verifikasi, sk.tanggal_survey,pk.id, pk.nama_pemohon, pk.alasan_keberatan, pk.opd_yang_dituju,tp.id_permohonan_keberatan,tp.note, tp.tanggal_penolakan, pk.tanggal_permohonan
                                             FROM verifikasi_keberatan vk
                                             LEFT JOIN survey_kepuasan_keberatan sk ON vk.id_permohonan_keberatan = sk.nomer_registrasi_keberatan
                                             LEFT JOIN pengajuan_keberatan pk ON vk.id_permohonan_keberatan = pk.id
@@ -146,7 +146,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                     echo "<td>";
                                                     echo "<div class='btn-group' role='group'>";
                                                     echo "<a href='../DetailPermohonan/detailNote?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-info btn-sm fas fa-info-circle'></a>";
-                                                    echo "<button class='btn btn-danger btn-sm fas fa-trash-alt onclick='HapusVerifikasi(\"{$row['nomer_registrasi_keberatan']}\")'></button>";
+                                                    echo "<button class='btn btn-danger btn-sm fas fa-trash-alt' onclick='HapusVerifikasi(\"{$row['nomer_registrasi_keberatan']}\")'></button>";
                                                     echo "<a href='../FormAnswer/formAnswerKeberatan?registrasi=" . $row["id_permohonan_keberatan"] . "' class='btn btn-success btn-sm fas fa-reply'></a>";
                                                     echo "<a href='../Form/Note?registrasi=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-primary btn-sm'><i class='fas fa-sticky-note'></i></a>";
                                                     echo "</div>";
@@ -182,7 +182,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                         $statusDisplay .= " ($note)";
                                                     }
                                                     $updateStatusQuery = "UPDATE verifikasi_keberatan SET status='$statusDisplay'
-                                                        WHERE nomer_registrasi_keberatan='{$row['nomer_registrasi_keberatan']}'";
+                                                        WHERE id_permohonan_keberatan='{$row['id_permohonan_keberatan']}'";
                                                     $conn->query($updateStatusQuery);
 
                                                     $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
@@ -287,6 +287,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
     <script>
     function HapusVerifikasi(nomer_registrasi_keberatan) {
         // Tampilkan pesan konfirmasi dengan SweetAlert
+        <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'superadmin'): ?>
         Swal.fire({
             title: 'Apakah Anda ingin menghapus verifikasi ini?',
             text: 'Tindakan ini tidak dapat dikembalikan!',
@@ -335,6 +336,14 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                 });
             }
         });
+        <?php else: ?>
+                // Tampilkan pesan bahwa pengguna tidak memiliki izin
+                Swal.fire(
+                    'Tidak Diizinkan!',
+                    'Anda tidak memiliki izin untuk menghapus data.',
+                    'error'
+                );
+            <?php endif; ?>
     }
 </script>
 

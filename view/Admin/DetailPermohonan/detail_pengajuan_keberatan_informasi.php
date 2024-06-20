@@ -198,9 +198,9 @@ if (isset($_GET['id'])) {
                                 <tr>
                                     <td>Email :</td>
                                     <td>
-                                        <?php echo $row['email']; ?>
+                                        <?php echo $row['email_pemohon']; ?>
                                     </td>
-                                    <td><input type="hidden" name="email" value="<?php echo $row['email']; ?>"></td>
+                                    <td><input type="hidden" name="email" value="<?php echo $row['email_pemohon']; ?>"></td>
                                 </tr>
 
                                 <td>Subjek :</td>

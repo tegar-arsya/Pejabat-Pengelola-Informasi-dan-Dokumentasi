@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
@@ -25,7 +23,7 @@ function logActivity($adminUsername, $action, $description) {
 // Fungsi getLogger
 function getLogger() {
     $log = new Logger('activity_log');
-    $log->pushHandler(new StreamHandler(__DIR__ . '/../../../Model/Logs/activity.log', Logger::INFO));
+    $log->pushHandler(new StreamHandler(__DIR__ . '/../../Model/Logs/activity.log', Logger::INFO));
     return $log;
 }
 
@@ -71,9 +69,8 @@ $mail = new PHPMailer;
 if ($query->execute()) {
     // Jika berhasil dimasukkan ke dalam database tbl_rejected
     echo "<script>alert('Sukses.');</script>";
-	include ('../../../controller/FormPenolakan/save_Rejected.php');
 	$adminUsername = $_SESSION['nama_pengguna'];
-                logActivity($adminUsername,'verifikasi', "Verifikasi Penolakan Permohonan Informasi dengan alasan ($alasan) dengan nomer registrasi pemohon $nomerRegistrasi");
+    logActivity($adminUsername,'verifikasi', "Verifikasi Penolakan Permohonan Informasi dengan alasan ($alasan) dengan nomer registrasi pemohon $nomerRegistrasi");
 
 } else {
     // Jika gagal dimasukkan ke dalam database tbl_rejected
@@ -83,7 +80,7 @@ if ($query->execute()) {
 	// Setelah Anda mengirim email dengan sukses
 if ($mail->send()) {
     echo "<script>alert('Email berhasil terkirim.');";
-    echo "window.location.href = document.referrer;</script>";
+    echo "window.location.href = '../../view/Admin/DaftarPermohonan/listPI';</script>";
 } else {
     echo "<script>alert('Gagal mengirim email. Silakan coba lagi.');</script>";
 }

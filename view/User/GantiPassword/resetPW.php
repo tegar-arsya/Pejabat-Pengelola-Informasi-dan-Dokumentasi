@@ -41,7 +41,7 @@ include ('../../../Model/CSRF/csrf.php');
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Reset Password</h1>
-        <form action="../../../controller/RegisteController/reset_password.php" method="POST">
+        <form action="../../../controller/RegisterController/reset_password.php" method="POST">
             <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
             <div class="main-user-info">
                 <div class="user-input-box">

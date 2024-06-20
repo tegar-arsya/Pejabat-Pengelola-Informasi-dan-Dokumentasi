@@ -1092,8 +1092,27 @@ button#cancel-button {
 .left-container-survey {
     margin-left: -50px;
     width: 20%;
-    /* Atur lebar container sesuai kebutuhan Anda */
     padding: 20px;
+}
+
+
+/* Responsif untuk perangkat dengan lebar layar 768px atau lebih kecil */
+
+@media (max-width: 768px) {
+    .left-container-survey {
+        margin-left: -50px;
+        /* Menghapus margin negatif di perangkat mobile */
+        width: 100%;
+        /* Membuat lebar container penuh */
+        padding: 10px;
+        /* Mengurangi padding untuk perangkat kecil */
+    }
+    .box-left img {
+        width: 10%;
+        /* Sesuaikan ukuran gambar */
+        margin-top: 20px;
+        /* Sesuaikan margin atas gambar */
+    }
 }
 
 .right-container-survey {

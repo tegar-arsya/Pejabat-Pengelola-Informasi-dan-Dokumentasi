@@ -164,7 +164,7 @@ include ('../../../controller/koneksi/config.php');
 
                                 // Tambahkan tautan lampiran dengan atribut download jika ada lampiran
                                 if (!empty($row['unggah_surat_kuasa'])) {
-                                    $file_path = "../Assets/Uploads/keberatan/dokumen/" . $row['unggah_surat_kuasa'];
+                                    $file_path = "../../../Assets/Uploads/keberatan/dokumen/" . $row['unggah_surat_kuasa'];
                                     echo "<a href=\"$file_path\" download>{$row['unggah_surat_kuasa']}</a>";
                                 } else {
                                     echo "Tidak ada lampiran";
