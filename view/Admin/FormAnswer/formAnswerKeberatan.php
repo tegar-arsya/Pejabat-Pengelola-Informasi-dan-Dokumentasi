@@ -1,35 +1,55 @@
 <?php
 session_start();
 include('../../../controller/koneksi/config.php');
+
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
+
 $user_id = $_SESSION['id'];
-if (!isset($_GET['registrasi'])) {
+
+// Pastikan parameter nomer registrasi keberatan tersedia dalam URL
+if (isset($_GET['registrasi'])) {
+    // Ambil nilai nomer registrasi keberatan dari parameter GET
+    $nomer_registrasi_keberatan = $_GET['registrasi'];
+
+    // Prepared statement untuk query
+    $query = "SELECT p.id, p.nomer_registrasi_keberatan, p.email_pemohon, v.id_permohonan_keberatan, p.nama_pemohon
+              FROM pengajuan_keberatan p
+              JOIN verifikasi_keberatan v ON v.id_permohonan_keberatan = p.id
+              WHERE p.id = ?";
+
+    // Siapkan statement dan bind parameter
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $nomer_registrasi_keberatan);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Periksa apakah hasil query mengembalikan baris data
+    if ($result->num_rows > 0) {
+        // Ambil baris data sebagai array asosiatif
+        while ($row = $result->fetch_assoc()) {
+            $namapemohon = $row['nama_pemohon'];
+            $email = $row['email_pemohon'];
+            $nomer_registrasi_keberatan = $row['nomer_registrasi_keberatan'];
+            $id_permohonan_keberatan = $row['id_permohonan_keberatan'];
+        }
+
+        // Di sini Anda dapat melanjutkan untuk menggunakan nilai-nilai yang telah Anda ambil dari $row sesuai kebutuhan aplikasi Anda
+
+    } else {
+        // Tampilkan pesan kesalahan jika data tidak ditemukan
+        echo "Data tidak ditemukan";
+    }
+} else {
+    // Redirect atau tampilkan pesan kesalahan jika parameter nomer registrasi keberatan tidak ada dalam URL
     header("Location: ../../../components/ErorAkses");
     exit();
 }
-$nomer_registrasi_keberatan = $_GET['registrasi'];
-
-$query = "SELECT p.id, p.nomer_registrasi_keberatan, p.email_pemohon, v.id_permohonan_keberatan, p.nama_pemohon
-          FROM pengajuan_keberatan p
-          JOIN verifikasi_keberatan v ON v.id_permohonan_keberatan = p.id
-          WHERE p.nomer_registrasi_keberatan = $nomer_registrasi_keberatan";
-$result = $conn->query($query);
-
-if ($result -> num_rows > 0) {
-    while ($row = $result -> fetch_assoc()) {
-        $namapemohon = $row['nama_pemohon'];
-        $email = $row ['email_pemohon'];
-        $nomer_registrasi_keberatan = $row['nomer_registrasi_keberatan'];
-        $id_permohonan_keberatan = $row['id_permohonan_keberatan'];
-    }
-}
-else {
-    echo "data tidak ada";
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

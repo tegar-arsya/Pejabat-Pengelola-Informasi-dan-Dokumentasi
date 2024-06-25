@@ -9,21 +9,21 @@ class NomorRegistrasiRetriever {
     }
 
     public function getNomorRegistrasi($idPermohonan) {
-        if (isset($idPermohonan)) {
-            $query = "SELECT p.id, p.nomer_registrasi,r.id, r.nik, r.no_hp, r.foto_ktp,  r.alamat, r.email,p.nama_pengguna, p.opd_yang_dituju, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi, p.cara_mendapatkan_informasi, p.cara_mendapatkan_salinan, p.tanggal_permohonan
-            FROM permohonan_informasi p
-            JOIN registrasi r ON p.id_registrasi = r.id
-            WHERE p.id = $idPermohonan";
-            $result = $this->conn->query($query);
+        // Prepare statement
+        $query = "SELECT p.nomer_registrasi
+                  FROM permohonan_informasi p
+                  JOIN registrasi r ON p.id_registrasi = r.id
+                  WHERE p.id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $idPermohonan);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                return $row['nomer_registrasi'];
-            } else {
-                return "Error: Nomor registrasi tidak ditemukan.";
-            }
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['nomer_registrasi'];
         } else {
-            return "Error: ID permohonan tidak valid.";
+            return "Error: Nomor registrasi tidak ditemukan.";
         }
     }
 }
@@ -31,11 +31,13 @@ class NomorRegistrasiRetriever {
 // Membuat objek NomorRegistrasiRetriever
 $nomorRegistrasiRetriever = new NomorRegistrasiRetriever($conn);
 
-// Mengambil nomor registrasi berdasarkan ID permohonan
+// Mengambil nomor registrasi berdasarkan ID permohonan yang dikirimkan melalui POST
 if (isset($_POST['id'])) {
     $idPermohonan = $_POST['id'];
     $nomorRegistrasi = $nomorRegistrasiRetriever->getNomorRegistrasi($idPermohonan);
     echo $nomorRegistrasi;
+} else {
+    echo "Error: ID permohonan tidak ditemukan.";
 }
 
 // Menutup koneksi basis data

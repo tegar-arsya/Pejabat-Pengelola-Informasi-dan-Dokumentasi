@@ -55,6 +55,7 @@ include ('../../../controller/koneksi/config.php');
                                                 FROM verifikasi_permohonan v
                                                 JOIN permohonan_informasi p ON p.id= v.id_permohonan
                                                 WHERE p.id = '$id_permohonan'";
+                                                
                             $result = $conn->query($query);
 
                             // Menambahkan data dari tbl_rejected

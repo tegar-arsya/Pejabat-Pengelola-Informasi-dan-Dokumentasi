@@ -126,7 +126,6 @@ include('./Model/CSRF/csrf.php');
             </div>
         </div>
     </section>
-    <br><br><br><br><br><br>
     <footer class="footer">
     <div class="left-section">
         <img src="Assets/img/logo_jateng.png" alt="Logo">

@@ -1,50 +1,77 @@
 <?php
 session_start();
 include('../../../controller/koneksi/config.php');
+
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
+
 $user_id = $_SESSION['id'];
-if (!isset($_GET['registrasi'])) {
+
+// Pastikan parameter nomer registrasi keberatan tersedia dalam URL
+if (isset($_GET['id'])) {
+    // Ambil nilai nomer registrasi keberatan dari parameter GET
+    $id_permohonan_keberatan = $_GET['id'];
+
+    // Prepared statement untuk query pertama
+    $query = "SELECT * FROM note_admin WHERE id_permohonan_keberatan = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_permohonan_keberatan);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Periksa apakah hasil query pertama mengembalikan baris data
+    if ($result->num_rows > 0) {
+        // Ambil baris data sebagai array asosiatif
+        while ($row = $result->fetch_assoc()) {
+            $keterangan = $row['keterangan'];
+            $status = $row['status'];
+            $nomer_registrasi = $row['nomer_registrasi_keberatan'];
+        }
+
+        // Melanjutkan untuk menggunakan nilai yang telah Anda ambil dari $row sesuai kebutuhan aplikasi Anda
+
+    } else {
+        // Tidak melakukan apa pun jika tidak ada catatan yang ditemukan
+    }
+
+    // Prepared statement untuk query kedua
+    $queryTabelLain = "SELECT * FROM pengajuan_keberatan WHERE id = ?";
+    $stmtTabelLain = $conn->prepare($queryTabelLain);
+    $stmtTabelLain->bind_param("i", $id_permohonan_keberatan);
+    $stmtTabelLain->execute();
+    $resultTabelLain = $stmtTabelLain->get_result();
+
+    // Periksa apakah hasil query kedua mengembalikan baris data
+    if ($resultTabelLain->num_rows > 0) {
+        // Ambil baris data sebagai array asosiatif
+        while ($row = $resultTabelLain->fetch_assoc()) {
+            $nama = $row['nama_pemohon'];
+            $tgl = $row['tanggal_permohonan'];
+            $code = $row['kode_permohonan_informasi'];
+            $noreg = $row['nomer_registrasi_keberatan'];
+            $nik = $row['nik_pemohon'];
+            $email = $row['email_pemohon'];
+            $foto = $row['foto_ktp_pemohon'];
+            $opd = $row['opd_yang_dituju'];
+            $inf = $row['informasi_yang_diminta'];
+            $alasan = $row['alasan_keberatan'];
+        }
+
+        // Melanjutkan untuk menggunakan nilai yang telah Anda ambil dari $row sesuai kebutuhan aplikasi Anda
+
+    } else {
+        // Tidak melakukan apa pun jika tidak ada hasil yang ditemukan
+    }
+} else {
+    // Redirect atau tampilkan pesan kesalahan jika parameter nomer registrasi keberatan tidak ada dalam URL
     header("Location: ../../../components/eror.html");
     exit();
 }
-$nomer_registrasi_keberatan = $_GET['registrasi'];
-
-$query = "SELECT * FROM note_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
-$result = $conn->query($query);
-
-if ($result -> num_rows > 0) {
-    while ($row = $result -> fetch_assoc()) {
-        $keterangan = $row['keterangan'];
-        $status = $row ['status'];
-        $nomer_registrasi = $row['nomer_registrasi_keberatan'];
-    }
-}
-else {
-    
-}
-$queryTabelLain = "SELECT * FROM pengajuan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
-$resultTabelLain = $conn->query($queryTabelLain);
-
-if ($resultTabelLain->num_rows > 0) {
-    while ($row = $resultTabelLain->fetch_assoc()) {
-        $nama = $row['nama_pemohon']; 
-        $tgl =$row['tanggal_permohonan'];
-        $code =$row['kode_permohonan_informasi'];
-        $noreg =$row['nomer_registrasi_keberatan'];
-        $nik =$row['nik_pemohon'];
-        $email =$row['email_pemohon'];
-        $foto =$row['foto_ktp_pemohon'];
-        $opd =$row['opd_yang_dituju'];
-        $inf =$row['informasi_yang_diminta'];
-        $alasan =$row['alasan_keberatan'];
-    }
-} else {
-    // Tidak ada hasil yang ditemukan
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,11 +97,11 @@ if ($resultTabelLain->num_rows > 0) {
         </div>
     </div>
     <div id="main-wrapper">
-    <?php include '../../../components/navbarAdmin.php'; ?>
+        <?php include '../../../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
-                <div class="col-12">
+                    <div class="col-12">
                         <div class="card">
                             <h1>Detail Pengajuan Keberatan Informasi</h1>
                             <div class="card-body">
@@ -89,7 +116,7 @@ if ($resultTabelLain->num_rows > 0) {
                                     <tr>
                                         <td><strong>Tanggal Permohonan</strong></td>
                                         <td>
-                                        <?php echo !empty($tgl) ? date('d-m-Y H:i:s', strtotime($tgl)) : ''; ?>
+                                            <?php echo !empty($tgl) ? date('d-m-Y H:i:s', strtotime($tgl)) : ''; ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -118,8 +145,7 @@ if ($resultTabelLain->num_rows > 0) {
                                     </tr>
                                     <tr>
                                         <td><strong>Foto KTP</strong></td>
-                                        <td><a href="../Assets/uploads/<?php echo $foto; ?>"
-                                                target="_blank">
+                                        <td><a href="../Assets/uploads/<?php echo $foto; ?>" target="_blank">
                                                 <?php echo $foto; ?>
                                             </a></td>
                                     </tr>
@@ -161,10 +187,13 @@ if ($resultTabelLain->num_rows > 0) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php
+                                            <?php
                                             include('../../../controller/koneksi/config.php');
-                                            $sql = "SELECT * FROM note_admin WHERE nomer_registrasi_keberatan =  '$nomer_registrasi_keberatan'";
-                                            $result = $conn->query($sql);
+                                            $sql = "SELECT * FROM note_admin WHERE id_permohonan_keberatan = ?";
+                                            $stmt = $conn->prepare($sql);
+                                            $stmt->bind_param("i", $id_permohonan_keberatan);
+                                            $stmt->execute();
+                                            $result = $stmt->get_result();
                                             if ($result->num_rows > 0) {
                                                 $counter = 1;
                                                 while ($row = $result->fetch_assoc()) {
@@ -175,7 +204,7 @@ if ($resultTabelLain->num_rows > 0) {
                                                             <td>" . $formattedDate . "</td>
                                                             <td>" . $row["status"] . "</td>
                                                         </tr>";
-                                                        $counter++;
+                                                    $counter++;
                                                 }
                                             } else {
                                                 echo "<tr><td colspan='6'>Tidak ada data</td></tr>";

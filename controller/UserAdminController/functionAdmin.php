@@ -21,23 +21,27 @@ function getDaftarAdmin()
 function getAdminById($id)
 {
     global $conn;
-    $sql = "SELECT * FROM user_admin WHERE id = $id";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM user_admin WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($result && $result->num_rows > 0) {
+    if ($result->num_rows > 0) {
         return $result->fetch_assoc();
     } else {
-        return null; // Return null if no OPD is found with the provided ID
+        return null; // Return null if no admin is found with the provided ID
     }
 }
 
 function tambahAdmin($nama, $username, $password)
 {
     global $conn;
-    // Fix the missing single quote in the VALUES section
-    $sql = "INSERT INTO user_admin (nama_pengguna, username, password) VALUES ('$nama', '$username', '$password')";
+    $sql = "INSERT INTO user_admin (nama_pengguna, username, password) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $nama, $username, $password);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;
@@ -47,9 +51,11 @@ function tambahAdmin($nama, $username, $password)
 function editAdmin($id, $nama, $username, $password)
 {
     global $conn;
-    $sql = "UPDATE user_admin SET nama_pengguna='$nama', username='$username', password='$password' WHERE id=$id";
+    $sql = "UPDATE user_admin SET nama_pengguna=?, username=?, password=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssi", $nama, $username, $password, $id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;
@@ -59,9 +65,11 @@ function editAdmin($id, $nama, $username, $password)
 function hapusAdmin($id)
 {
     global $conn;
-    $sql = "DELETE FROM user_admin WHERE id=$id";
+    $sql = "DELETE FROM user_admin WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;

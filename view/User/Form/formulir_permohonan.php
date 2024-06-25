@@ -1,30 +1,33 @@
 <?php
 session_start();
 include ('../../../controller/koneksi/config.php');
+
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../");
     exit();
 }
-$user_id = $_SESSION['id'];
-function getOPDData()
-{
-    global $conn; // $conn adalah objek koneksi dari file config.php
 
-    // Gantilah "nama_tabel" dengan nama tabel yang sesuai di database Anda
-    $query = "SELECT nama FROM tbl_daftar_opd";
-    $result = mysqli_query($conn, $query);
+$user_id = $_SESSION['id'];
+
+function getOPDData() {
+    global $conn;
+
+    $query = "SELECT id_opd, nama FROM tbl_daftar_opd";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     $opdData = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        $opdData[] = $row['nama'];
+        $opdData[] = array('id' => $row['id_opd'], 'nama' => $row['nama']);
     }
 
     return $opdData;
 }
 
-// Mendapatkan data OPD dari fungsi
 $opdOptions = getOPDData();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,10 +83,11 @@ $opdOptions = getOPDData();
                         <option value="kosong"></option>
                         <?php
                         foreach ($opdOptions as $opd) {
-                            echo "<option value=\"$opd\">$opd</option>";
+                            echo "<option value=\"{$opd['id']}\">{$opd['nama']}</option>";
                         }
                         ?>
                     </select>
+                    <input type="hidden" id="opd_id" name="opd_id">
                 </div>
             </div>
 
@@ -126,7 +130,12 @@ $opdOptions = getOPDData();
         </form>
     </div>
     <?php include '../../../components/footer.php'; ?>
-    <script> function generateCaptcha() {
+    <script> 
+     document.getElementById('opd').addEventListener('change', function () {
+            var selectedOption = this.options[this.selectedIndex];
+            document.getElementById('opd_id').value = selectedOption.value;
+        });
+    function generateCaptcha() {
             fetch('../../../Model/Captcha/generate_captcha.php')
                 .then(response => response.text())
                 .then(data => {

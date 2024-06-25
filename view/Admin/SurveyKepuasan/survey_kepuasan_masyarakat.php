@@ -70,9 +70,9 @@ $user_id = $_SESSION['id'];
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
-                                                echo "<td>" . $row["nama_pengguna"] . "</td>";
-                                                echo "<td>" . $row["pekerjaan"] . "</td>";
-                                                echo "<td>" . $row["jenis_layanan"] . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row["nama_pengguna"]) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row["pekerjaan"]) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row["jenis_layanan"]) . "</td>";
                                                 echo "<td>
                                                         <a href='../../../controller/Admin/Delete/deleteSurvey.php?id=" . $row["id"] . "'class='btn btn-danger btn-sm delete-btn'>Hapus</a></td>";
                                                 echo "</tr>";

@@ -1,9 +1,9 @@
 <?php
-
 session_start();
-include('../../controller/koneksi/config.php');
-require_once(__DIR__ . '/../../vendor/tecnickcom/tcpdf/tcpdf.php');
-require_once __DIR__ . '/../../vendor/autoload.php';
+
+require_once('../../controller/koneksi/config.php');
+require_once(__DIR__ . '/../../vendor/tecnickcom/tcpdf/tcpdf.php'); // Misal, ini PDF generator
+require_once __DIR__ . '/../../vendor/autoload.php'; // Misal, ini Monolog
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -16,10 +16,16 @@ class PermohonanVerifikasi {
     }
 
     public function verifikasiPermohonan($idPermohonan) {
-        $query = "SELECT nama_pemohon, nomer_registrasi_keberatan,
-        tanggal_permohonan, nik_pemohon, foto_ktp, informasi_yang_diminta, alasan_keberatan, nama,
-        pekerjaan, unggah_surat_kuasa, opd_yang_dituju, email_pemohon, foto_ktp_pemohon,kode_permohonan_informasi
-        FROM pengajuan_keberatan WHERE id = ?";
+        if (!isset($idPermohonan) || empty($idPermohonan) || !is_numeric($idPermohonan)) {
+            echo "Error: ID permohonan tidak valid.";
+            return;
+        }
+
+        // Query untuk mendapatkan data permohonan keberatan
+        $query = "SELECT nama_pemohon, nomer_registrasi_keberatan, tanggal_permohonan, nik_pemohon, foto_ktp, 
+                          informasi_yang_diminta, alasan_keberatan, nama, pekerjaan, unggah_surat_kuasa, 
+                          opd_yang_dituju, email_pemohon, foto_ktp_pemohon, kode_permohonan_informasi
+                  FROM pengajuan_keberatan WHERE id = ?";
         
         $stmt = $this->conn->prepare($query);
         $stmt->bind_param("i", $idPermohonan);
@@ -30,6 +36,7 @@ class PermohonanVerifikasi {
             $row = $result->fetch_assoc();
             $nomorRegistrasiKeberatan = $row['nomer_registrasi_keberatan'];
 
+            // Query untuk memeriksa apakah sudah terverifikasi sebelumnya
             $cekVerifikasiQuery = "SELECT * FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan = ?";
             $stmtCek = $this->conn->prepare($cekVerifikasiQuery);
             $stmtCek->bind_param("s", $nomorRegistrasiKeberatan);
@@ -39,22 +46,26 @@ class PermohonanVerifikasi {
             if ($resultCek->num_rows > 0) {
                 echo "Error: Data dengan nomor registrasi keberatan $nomorRegistrasiKeberatan sudah terverifikasi sebelumnya.";
             } else {
-                $insertQuery = "INSERT INTO verifikasi_keberatan (id_permohonan_keberatan, nomer_registrasi_keberatan)
-                                VALUES (?, ?)";
+                // Query untuk menyimpan data verifikasi keberatan
+                $user_id = $_SESSION['id'];
+                $insertQuery = "INSERT INTO verifikasi_keberatan (id_permohonan_keberatan, id_admin, nomer_registrasi_keberatan)
+                                VALUES (?, ?,?)";
                 
                 $stmtInsert = $this->conn->prepare($insertQuery);
-                $stmtInsert->bind_param("is",$idPermohonan, $nomorRegistrasiKeberatan);
-
+                $stmtInsert->bind_param("iis", $idPermohonan,$user_id, $nomorRegistrasiKeberatan);
 
                 if ($stmtInsert->execute()) {
                     echo $nomorRegistrasiKeberatan;
+                    
+                    // Contoh: Memanggil PDF generator
                     include('../../controller/PDFController/GeneratePDFkeberatan.php');
 
-                    //log aktivitas verifikasi
-                $adminUsername = $_SESSION['nama_pengguna'];
-                logActivity($adminUsername,'verifikasi', "SUdah Memverifikasi Keberatan Permohonan Informasi dengan nomer registrasi keberatan $nomorRegistrasiKeberatan");
+                    // Log aktivitas verifikasi
+                    $adminUsername = $_SESSION['nama_pengguna'];
+                    logActivity($adminUsername, 'verifikasi', "Meverifikasi Keberatan Permohonan Informasi dengan nomor registrasi keberatan $nomorRegistrasiKeberatan");
                 } else {
-                    echo "Error: " . $stmtInsert->error;
+                    echo "Error: Gagal menyimpan verifikasi keberatan.";
+                    // Tambahkan penanganan kesalahan jika perlu
                 }
             }
         } else {
@@ -63,6 +74,7 @@ class PermohonanVerifikasi {
     }
 }
 
+// Memproses verifikasi jika ada ID permohonan yang diberikan
 if (isset($_POST['id'])) {
     $idPermohonan = $_POST['id'];
 
@@ -72,13 +84,13 @@ if (isset($_POST['id'])) {
     echo "Error: ID permohonan tidak valid.";
 }
 
-// Fungsi logActivity
+// Fungsi logActivity untuk mencatat aktivitas
 function logActivity($adminUsername, $action, $description) {
     $logger = getLogger();
     $logger->info($action, ['admin' => $adminUsername, 'description' => $description]);
 }
 
-// Fungsi getLogger
+// Fungsi untuk mendapatkan logger Monolog
 function getLogger() {
     $log = new Logger('activity_log');
     $log->pushHandler(new StreamHandler(__DIR__ . '/../../Model/Logs/activity.log', Logger::INFO));

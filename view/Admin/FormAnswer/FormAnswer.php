@@ -1,38 +1,47 @@
 <?php
 session_start();
 include('../../../controller/koneksi/config.php');
+
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
+
 $user_id = $_SESSION['id'];
+
 if (!isset($_GET['permohonan'])) {
     header("Location: ../../../components/ErorAkses");
     exit();
 }
+
 $id_permohonan = $_GET['permohonan'];
 $pic = $_SESSION['nama_pengguna'];
-$query = "SELECT p.id,  p.id_registrasi, p.nomer_registrasi, r.nik, r.id, r.email, v.id_permohonan
+
+// Prepared statement untuk query
+$query = "SELECT p.id, p.id_registrasi, p.nomer_registrasi, r.nik, r.id, r.email, v.id_permohonan
           FROM permohonan_informasi p
           JOIN registrasi r ON p.id_registrasi = r.id
           JOIN verifikasi_permohonan v ON v.id_permohonan = p.id
-          WHERE p.id = $id_permohonan";
+          WHERE p.id = ?";
+          
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id_permohonan);
+$stmt->execute();
+$result = $stmt->get_result();
 
-
-$result = $conn->query($query);
-
-if ($result -> num_rows > 0) {
-    while ($row = $result -> fetch_assoc()) {
-        $id_registrasi = $row ['id_registrasi'];
-        $email = $row ['email'];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $id_registrasi = $row['id_registrasi'];
+        $email = $row['email'];
         $nomer_registrasi = $row['nomer_registrasi'];
         $id_permohonan = $row['id_permohonan'];
     }
-}
-else {
-    echo "data tidak ada";
+} else {
+    echo "Data tidak ada";
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

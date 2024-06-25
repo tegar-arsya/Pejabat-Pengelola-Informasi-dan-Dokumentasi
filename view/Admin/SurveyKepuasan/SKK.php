@@ -37,12 +37,12 @@ $user_id = $_SESSION['id'];
         </div>
     </div>
     <div id="main-wrapper">
-    <?php include '../../../components/navbarAdmin.php'; ?>
+        <?php include '../../../components/navbarAdmin.php'; ?>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                    <div class="card" style="text-align: center;">
+                        <div class="card" style="text-align: center;">
                             <div class="card-body">
                                 <h1>Survey Kepuasan Masyarakat</h1>
                             </div>
@@ -70,17 +70,19 @@ $user_id = $_SESSION['id'];
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
                                                     echo "<tr>";
-                                                echo "<td>" . $row["nama_pengguna"] . "</td>";
-                                                echo "<td>" . $row["pekerjaan"] . "</td>";
-                                                echo "<td>" . $row["jenis_layanan"] . "</td>";
-                                                echo "<td><a href='../../../controller/Admin/Delete/deleteSurveyK.php?id=" . $row["id"] . "'class='btn btn-danger btn-sm delete-btn'>Hapus</a></td>";
-                                                echo "</tr>";
+                                                    echo "<td>" . htmlspecialchars($row["nama_pengguna"]) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row["pekerjaan"]) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row["jenis_layanan"]) . "</td>";
+                                                    echo "<td><a href='../../../controller/Admin/Delete/deleteSurveyK.php?id=" . $row["id"] . "' class='btn btn-danger btn-sm delete-btn'>Hapus</a></td>";
+                                                    echo "</tr>";
                                                 }
                                             } else {
-                                                echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
+                                                echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
                                             }
+
                                             $conn->close();
                                             ?>
+
                                         </tbody>
                                     </table>
                                 </div>

@@ -6,18 +6,18 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 $user_id = $_SESSION['id'];
-$nomer_registrasi_keberatan = isset($_GET['registrasi']) ? $_GET['registrasi'] : '';
+$id_permohonan_keberatan = isset($_GET['id_permohonan_keberatan']) ? $_GET['id_permohonan_keberatan'] : '';
 
-$id_permohonan = '';
+$nomer_registrasi_keberatan = '';
 
 // Prepare and execute the query using the existing database connection
 
-$sql = "SELECT id_permohonan_keberatan FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan =?";
+$sql = "SELECT nomer_registrasi_keberatan FROM verifikasi_keberatan WHERE id_permohonan_keberatan =?";
 $stmt = $conn->prepare($sql);
 if ($stmt) {
-    $stmt->bind_param("s", $nomer_registrasi_keberatan);
+    $stmt->bind_param("i", $id_permohonan_keberatan);
     $stmt->execute();
-    $stmt->bind_result($id_permohonan);
+    $stmt->bind_result($nomer_registrasi_keberatan);
     $stmt->fetch();
 }
 ?>
@@ -74,9 +74,8 @@ if ($stmt) {
             </div>
         </div>
         <form id="mySurvey" action="../../../controller/Suv=rveyController/data_survey.php" method="post">
-            <input type="hidden" name="nomer_registrasi_keberatan"
-                value="<?php echo htmlspecialchars($nomer_registrasi_keberatan); ?>" />
-            <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan); ?>" />
+            <input type="hidden" name="nomer_registrasi_keberatan" value="<?php echo htmlspecialchars($nomer_registrasi_keberatan); ?>" />
+            <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan_keberatan); ?>" />
             <div class="user-input-box">
                 <label for="nama">Nama Anda</label>
                 <input type="text" id="nama" name="nama" required />

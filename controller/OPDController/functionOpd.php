@@ -20,10 +20,13 @@ function getDaftarOPD()
 function getOPDById($id)
 {
     global $conn;
-    $sql = "SELECT * FROM tbl_daftar_opd WHERE id_opd = $id";
-    $result = $conn->query($sql);
+    $sql = "SELECT * FROM tbl_daftar_opd WHERE id_opd = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($result && $result->num_rows > 0) {
+    if ($result->num_rows > 0) {
         return $result->fetch_assoc();
     } else {
         return null; // Return null if no OPD is found with the provided ID
@@ -33,9 +36,11 @@ function getOPDById($id)
 function tambahOPD($nama, $alamat, $email)
 {
     global $conn;
-    $sql = "INSERT INTO tbl_daftar_opd (nama, alamat_opd, email_opd) VALUES ('$nama', '$alamat', '$email')";
+    $sql = "INSERT INTO tbl_daftar_opd (nama, alamat_opd, email_opd) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $nama, $alamat, $email);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;
@@ -45,9 +50,11 @@ function tambahOPD($nama, $alamat, $email)
 function editOPD($id, $nama, $alamat, $email)
 {
     global $conn;
-    $sql = "UPDATE tbl_daftar_opd SET nama='$nama', alamat_opd='$alamat', email_opd='$email' WHERE id_opd=$id";
+    $sql = "UPDATE tbl_daftar_opd SET nama=?, alamat_opd=?, email_opd=? WHERE id_opd=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssi", $nama, $alamat, $email, $id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;
@@ -57,9 +64,11 @@ function editOPD($id, $nama, $alamat, $email)
 function hapusOPD($id)
 {
     global $conn;
-    $sql = "DELETE FROM tbl_daftar_opd WHERE id_opd=$id";
+    $sql = "DELETE FROM tbl_daftar_opd WHERE id_opd=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         return true;
     } else {
         return false;

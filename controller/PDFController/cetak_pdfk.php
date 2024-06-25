@@ -34,22 +34,33 @@ $html .= '<table border="1">
         <th>OPD yang ditujui</th>
     </tr>';
 
-$sql = "SELECT * FROM pengajuan_keberatan WHERE 1";
+    $sql = "SELECT pi.tanggal_pengajuan,pi.nomer_registrasi_keberatan, pi.nama_pemohon, pi.informasi_yang_diminta, pi.alasan_keberatan, pi.opd_yang_dituju,
+    vp.nomer_registrasi_keberatan IS NOT NULL AS verified
+    FROM pengajuan_keberatan pi
+    LEFT JOIN verifikasi_keberatan vp ON pi.id = vp.id_permohonan_keberatan";
 
-if ($status === 'verified') {
-    $sql .= " AND nomer_registrasi IS NOT NULL";
-} elseif ($status === 'unverified') {
-    $sql .= " AND nomer_registrasi IS NULL";
+switch ($status) {
+case 'verified':
+    $sql .= " WHERE vp.nomer_registrasi_keberatan IS NOT NULL";
+    break;
+case 'unverified':
+    $sql .= " WHERE vp.nomer_registrasi_keberatan IS NULL";
+    break;
+case 'reset': // No filtering for 'reset'
+    break;
+default: // Invalid status
+    $sql .= " WHERE 1"; // Fallback to displaying all records
 }
+
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $counter = 1;
     while ($row = $result->fetch_assoc()) {
-        $formattedDate = date('d-m-Y H:i:s', strtotime($row["tanggal_permohonan"]));
+        $formattedDate = date('d-m-Y H:i:s', strtotime($row["tanggal_pengajuan"]));
         $html .= "<tr>
-            <td>" . $counter . "</td>
+            <td>" . $counter++ . "</td>
             <td>" . $formattedDate . "</td>
             <td>" . $row["nama_pemohon"] . "</td>
             <td>" . $row["nomer_registrasi_keberatan"] . "</td>
@@ -66,4 +77,4 @@ $html .= '</table>';
 
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$pdf->Output('daftar_permohonan.pdf', 'I');
+$pdf->Output('daftar_permohonan-kwbweatN.pdf', 'I');

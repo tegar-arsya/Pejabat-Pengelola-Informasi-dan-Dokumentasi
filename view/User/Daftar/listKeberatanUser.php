@@ -75,7 +75,7 @@ if (isset($_GET['id'])) {
                             <td>" . $row["nama_pemohon"] . "</td>
                             <td>" . $row["alasan_keberatan"] . "</td>
                             <td>
-                            <a href='../Riwayat/riwayatKeberatan?PermohonanKeberatan=" . $row["nomer_registrasi_keberatan"] . "' class='btn btn-danger btn-sm'>Detail</a>
+                            <a href='../Riwayat/riwayatKeberatan?PermohonanKeberatan=" . $row["id"] . "' class='btn btn-danger btn-sm'>Detail</a>
                             </td>
                             </tr>";
                             $counter++;

@@ -1,8 +1,4 @@
 <?php
-// Buatlah file .htaccess di direktori tempat skrip ini berada dengan konten:
-// Order deny,allow
-// Deny from all
-
 include('../../controller/koneksi/config.php');
 
 class PermohonanHandler {
@@ -28,8 +24,15 @@ class PermohonanHandler {
     }
 }
 
+// Memastikan hanya menjalankan proses jika ada ID permohonan yang diberikan
 if (isset($_POST['id'])) {
-    $idPermohonan = $_POST['id'];
+    // Validasi bahwa ID permohonan adalah integer positif
+    $idPermohonan = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+    if ($idPermohonan === false || $idPermohonan <= 0) {
+        http_response_code(400); // Bad Request
+        echo "Error: ID permohonan tidak valid.";
+        exit();
+    }
 
     // Lakukan koneksi database
     $permohonanHandler = new PermohonanHandler($conn);
@@ -38,10 +41,12 @@ if (isset($_POST['id'])) {
     if ($nomorRegistrasiKeberatan !== false) {
         echo $nomorRegistrasiKeberatan;
     } else {
+        http_response_code(404); // Not Found
         echo "Error: Nomor registrasi tidak ditemukan.";
     }
 } else {
-    echo "Error: ID permohonan tidak valid.";
+    http_response_code(400); // Bad Request
+    echo "Error: ID permohonan tidak diberikan.";
 }
 
 // Tutup koneksi database

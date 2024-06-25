@@ -1,22 +1,24 @@
 <?php
 session_start();
+// Cek apakah pengguna telah login
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
+
 $user_id = $_SESSION['id'];
 
 include('../../../controller/koneksi/config.php');
 
+// Cek apakah parameter 'id' ada di URL
 if (isset($_GET['id'])) {
-    $id_permohonan = $_GET['id'];
-
-
+    // Ambil parameter 'id' dari URL dan sanitasi input
+    $id_permohonan = intval($_GET['id']); // Pastikan input adalah integer
 }
 
 // Pemeriksaan peran (role)
 if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
-    // Redirect non-superadmin and non-admin users to a different page
+    // Redirect pengguna non-superadmin dan non-admin ke halaman lain
     header("Location: ../../../components/ErorAkses");
     exit();
 }
@@ -224,12 +226,21 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
             }
         }
     </script>
-    <script>
-        function cetakPDF() {
-            var status = $('input[name="flexRadioDefault"]:checked').val();
-            window.location.href = '../../../controller/PDFController/cetak_pdf.php?status=' + status;
-        }
-    </script>
+<script>
+function cetakPDF() {
+  // Get the status parameter from the URL
+  var urlParams = new URLSearchParams(window.location.search);
+  var status = urlParams.get('status');
+
+  // If no status is found, default to 'reset'
+  if (status === null) {
+    status = 'reset';
+  }
+
+  // Use the status to construct the URL for PDF generation
+  window.location.href = '../../../controller/PDFController/cetak_pdf.php?status=' + status;
+}
+</script>
     <script src="../../../Model/Auth/TimeOut.js"></script>
     <script src="../../../Assets/plugins/common/common.min.js"></script>
     <script src="../../../Assets/js/custom.min.js"></script>

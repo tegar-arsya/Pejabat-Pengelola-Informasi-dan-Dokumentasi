@@ -57,13 +57,14 @@ $mail = new PHPMailer;
     $mail->AltBody = "PHP mailer"; //body email (optional)
 
 	// setelah pengaturan email
+	$user_id = $_SESSION['id'];
 	$nomerRegistrasi = $_POST['nomer_registrasi'];
 	$id_registrasi = $_POST['id_registrasi'];
 	$id_permohonan = $_POST['id_permohonan'];
 	$name = $_POST['nama'];
 	$alasan = $_POST['alasan'];
-	$query = $conn->prepare("INSERT INTO tbl_rejected (id_permohonan, nomer_registrasi, note) VALUES ( ?, ?,?)");
-	$query->bind_param("sss",$id_permohonan, $nomerRegistrasi, $alasan);
+	$query = $conn->prepare("INSERT INTO tbl_rejected (id_admin, id_permohonan, nomer_registrasi, note) VALUES ( ?,?, ?,?)");
+	$query->bind_param("isss",$user_id,$id_permohonan, $nomerRegistrasi, $alasan);
 	
 // Eksekusi query
 if ($query->execute()) {

@@ -9,7 +9,7 @@ require '../smtpmail/library/Exception.php';
 require '../koneksi/config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nomer_registrasi_keberatan = $_POST['nomer_registrasi_keberatan'];
+    $id_permohonan_keberatan = $_POST['id_permohonan_keberatan'];
     $nama_pemohon = $_POST['nama_pemohon'];
 
     $mail = new PHPMailer;
@@ -39,8 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail->isHTML(true);
 
     $mail->Subject = "Notifikasi Keberatan Informasi Tidak Puas";
-    $mail->Body = "Yth. Admin PPID DISKOMINFO Jawa Tengah,<br><br>Kami menerima keberatan dari pemohon terkait informasi yang diberikan.<br>Nomor Registrasi: $nomer_registrasi_keberatan<br>Nama Pemohon: $nama_pemohon<br><br>Admin PPID DISKOMINFO Jawa Tengah";
-    $mail->AltBody = "Yth. Admin PPID DISKOMINFO Jawa Tengah, Kami menerima keberatan dari pemohon terkait informasi yang diberikan. Nomor Registrasi: $nomer_registrasi_keberatan. Nama Pemohon: $nama_pemohon. Admin PPID DISKOMINFO Jawa Tengah";
+    $mail->Body = "Yth. Admin PPID DISKOMINFO Jawa Tengah,<br><br>Kami menerima keberatan dari pemohon terkait informasi yang diberikan.<br>Nomor Registrasi: $id_permohonan_keberatan<br>Nama Pemohon: $nama_pemohon<br><br>Admin PPID DISKOMINFO Jawa Tengah";
+    $mail->AltBody = "Yth. Admin PPID DISKOMINFO Jawa Tengah, Kami menerima keberatan dari pemohon terkait informasi yang diberikan. Nomor Registrasi: $id_permohonan_keberatan. Nama Pemohon: $nama_pemohon. Admin PPID DISKOMINFO Jawa Tengah";
 
     if ($mail->send()) {
         echo json_encode(['status' => 'success', 'message' => 'Email berhasil terkirim.']);

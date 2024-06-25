@@ -1,25 +1,46 @@
 <?php
 session_start();
+
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
+
 $user_id = $_SESSION['id'];
 
+// Sertakan file koneksi ke database
 include('../../../controller/koneksi/config.php');
 
+// Pastikan parameter ID permohonan tersedia dalam URL
 if (isset($_GET['id'])) {
+    // Ambil nilai ID permohonan dari parameter GET
     $id_permohonan = $_GET['id'];
-    $query = "SELECT nama_pemohon, nomer_registrasi_keberatan,kode_permohonan_informasi,
-    tanggal_permohonan, nik_pemohon, foto_ktp, informasi_yang_diminta, alasan_keberatan, nama,
-    pekerjaan, unggah_surat_kuasa, opd_yang_dituju, email,email_pemohon, foto_ktp_pemohon
-    FROM pengajuan_keberatan WHERE id = $id_permohonan";
-    $result = $conn->query($query);
 
+    // Prepared statement untuk query
+    $query = "SELECT nama_pemohon, nomer_registrasi_keberatan, kode_permohonan_informasi,
+                     tanggal_permohonan, nik_pemohon, foto_ktp, informasi_yang_diminta, 
+                     alasan_keberatan, nama, pekerjaan, unggah_surat_kuasa, opd_yang_dituju, 
+                     email, email_pemohon, foto_ktp_pemohon
+              FROM pengajuan_keberatan 
+              WHERE id = ?";
+
+    // Siapkan statement dan bind parameter
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_permohonan);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Periksa apakah hasil query mengembalikan baris data
     if ($result->num_rows > 0) {
+        // Ambil baris data sebagai array asosiatif
         $row = $result->fetch_assoc();
 
+        // Simpan nilai yang diperlukan dari hasil query
         $nomorRegistrasi = $row['nomer_registrasi_keberatan'];
+
+        // Di sini Anda dapat melanjutkan untuk mengambil nilai lainnya dari $row sesuai kebutuhan aplikasi Anda
+
     } else {
         // Redirect atau tampilkan pesan kesalahan jika permohonan tidak ditemukan
         header("Location: ../../../components/ErorAkses");
@@ -30,9 +51,8 @@ if (isset($_GET['id'])) {
     header("Location: ../../../components/ErorAkses");
     exit();
 }
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -185,6 +205,7 @@ if (isset($_GET['id'])) {
                                             value="<?php echo $row['nomer_registrasi_keberatan']; ?>">
                                             <input type="hidden" name="id_permohonan"
                                             value="<?php echo $id_permohonan; ?>">
+                                            <input type="hidden" name="id_admin" value=<?php echo $user_id; ?>></td>
                                         </td>
                                 </tr>
                                 <tr>
@@ -280,7 +301,12 @@ document.getElementById('buttonVerifikasi').addEventListener('click', function (
                     icon: 'success',
                     title: 'Verifikasi Telah berhasil',
                     text: 'Permohonan Keberatan Anda Sudah Diverifikasi Oleh Admin ',
-                });
+                    showConfirmButton: false, // Tidak menampilkan tombol OK
+                        timer: 1500, // Durasi SweetAlert ditampilkan (ms)
+                        timerProgressBar: true // Menampilkan progress bar timer
+                    }).then(function () {
+                        window.location.href = '../../../view/Admin/DaftarPermohonan/daftarK';
+                    });
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
@@ -300,13 +326,15 @@ document.getElementById('buttonVerifikasi').addEventListener('click', function (
             }
 
             var idPermohonan = <?php echo $id_permohonan; ?>;
+            var idAdmin = <?php echo json_encode($_SESSION['id']); ?>;
             isButtonClicked = true;
 
             // Kirim permintaan verifikasi ke server melalui Ajax
             $.ajax({
                 url: '../../../controller/FormPenolakanController/save_Rejected_keberatan.php',
                 type: 'POST',
-                data: { id: idPermohonan },
+                data: { id: idPermohonan,
+                    id_admin: idAdmin},
                 success: function (response) {
                     var nomorRegistrasi = response;
                     $('#nomorRegistrasiCell').text(nomorRegistrasi);

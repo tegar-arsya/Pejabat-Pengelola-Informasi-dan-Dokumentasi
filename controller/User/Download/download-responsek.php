@@ -1,11 +1,11 @@
 <?php
 // Ensure the registrasi parameter is set
 include('../../../controller/koneksi/config.php');
-if (isset($_GET['registrasi'])) {
-    $nomer_registrasi = $_GET['registrasi'];
+if (isset($_GET['id_permohonan_keberatan'])) {
+    $id_permohonan_keberatan = $_GET['id_permohonan_keberatan'];
 
     // Retrieve the file path based on the registration number
-    $query = "SELECT lampiran FROM keberatananswer_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi'";
+    $query = "SELECT lampiran FROM keberatananswer_admin WHERE id_permohonan_keberatan = '$id_permohonan_keberatan'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

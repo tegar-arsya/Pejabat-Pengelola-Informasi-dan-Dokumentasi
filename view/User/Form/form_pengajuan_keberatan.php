@@ -6,17 +6,19 @@ if (!isset($_SESSION['id'])) {
 }
 $user_id = $_SESSION['id'];
 include '../../../controller/koneksi/config.php';
+
 function getOPDData()
 {
     global $conn; // $conn adalah objek koneksi dari file config.php
 
-    // Gantilah "nama_tabel" dengan nama tabel yang sesuai di database Anda
-    $query = "SELECT nama FROM tbl_daftar_opd";
-    $result = mysqli_query($conn, $query);
+    $query = "SELECT id_opd, nama FROM tbl_daftar_opd";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     $opdData = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        $opdData[] = $row['nama'];
+        $opdData[] = array('id' => $row['id_opd'], 'nama' => $row['nama']);
     }
 
     return $opdData;
@@ -24,17 +26,24 @@ function getOPDData()
 
 // Mendapatkan data OPD dari fungsi
 $opdOptions = getOPDData();
+
 if (!isset($_GET['registrasi'])) {
     header("Location: ../../../components/ErorAkses");
     exit();
 }
-$nomer_registrasi = $_GET['registrasi'];
-$sql = "SELECT pi.nomer_registrasi, pi.nama_pengguna, pi.informasi_yang_dibutuhkan, pi.tanggal_permohonan, pi.id_registrasi, pi.id, r.nik, r.email, r.foto_ktp
-FROM permohonan_informasi pi
-JOIN registrasi r ON pi.id_registrasi = r.id
-WHERE pi.nomer_registrasi = '$nomer_registrasi'";
+$nomer_registrasi = preg_replace('/[^A-Za-z0-9\/\-]/', '', $_GET['registrasi']);
+$nomer_registrasi = mysqli_real_escape_string($conn, $nomer_registrasi);
 
-$result = $conn->query($sql);
+// Prepared statement untuk mendapatkan data permohonan informasi
+$sql = "SELECT pi.nomer_registrasi, pi.nama_pengguna, pi.informasi_yang_dibutuhkan, pi.tanggal_permohonan, pi.id_registrasi, pi.id, r.nik, r.email, r.foto_ktp
+        FROM permohonan_informasi pi
+        JOIN registrasi r ON pi.id_registrasi = r.id
+        WHERE pi.nomer_registrasi = ?";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $nomer_registrasi);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -50,8 +59,11 @@ if ($result->num_rows > 0) {
 } else {
     echo "Informasi yang diminta tidak ditemukan.";
 }
+
+$stmt->close();
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -203,7 +215,7 @@ $conn->close();
                         <option value="kosong"></option>
                         <?php
                         foreach ($opdOptions as $opd) {
-                            echo "<option value=\"$opd\">$opd</option>";
+                            echo "<option value=\"{$opd['id']}\">{$opd['nama']}</option>";
                         }
                         ?>
                     </select>

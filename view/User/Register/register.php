@@ -64,7 +64,7 @@ include '../../../Model/CSRF/csrf.php';
                     <a href="../view/components/panduan.html">Paduan</a>
                 </div>
                 <div class="item">
-                    <a href="../../">Login</a>
+                    <a href="../../../">Login</a>
                 </div>
             </div>
             <!-- Button trigger modal -->

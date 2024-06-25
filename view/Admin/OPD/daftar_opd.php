@@ -1,20 +1,28 @@
 <?php
 session_start();
 
+// Include file yang dibutuhkan (pastikan path sudah benar)
 include '../../../controller/OPDController/functionOpd.php';
 
+// Cek apakah sesi sudah dimulai dan pengguna sudah login
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
-// Pemeriksaan peran (role)
+
+// Cek peran pengguna
 if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
-    // Redirect non-superadmin and non-admin users to a different page
+    // Redirect pengguna yang bukan superadmin atau admin ke halaman error akses
     header("Location: ../../../components/ErorAkses");
     exit();
 }
+
+// Simpan ID pengguna ke dalam variabel lokal jika diperlukan
 $user_id = $_SESSION['id'];
+
+// Lanjutkan dengan logika bisnis atau operasi lain yang memerlukan izin superadmin atau admin
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

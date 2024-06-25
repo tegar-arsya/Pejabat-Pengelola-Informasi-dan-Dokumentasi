@@ -6,13 +6,13 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 $user_id = $_SESSION['id'];
-if (!isset($_GET['registrasi'])) {
+if (!isset($_GET['id'])) {
     header("Location: ../components/eror.html");
     exit();
 }
-$nomer_registrasi_keberatan = $_GET['registrasi'];
+$id_permohonan_keberatan = $_GET['id'];
 
-$query = "SELECT * FROM verifikasi_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+$query = "SELECT * FROM verifikasi_keberatan WHERE id_permohonan_keberatan = '$id_permohonan_keberatan'";
 $result = $conn->query($query);
 
 if ($result -> num_rows > 0) {
@@ -66,7 +66,7 @@ else {
                                         <label for="keterangan" class="form-label">Keterangan</label>
                                         <input type="date" class="form-control" id="keterangan" name="keterangan" required />
                                     </div>
-                                    <input type="hidden" name="norek" value="<?php echo $nomer_registrasi_keberatan; ?>">
+                                    <input type="hidden" name="norek" value="<?php echo $nomer_registrasi; ?>">
                                     <input type="hidden" name="id_permohonan" value="<?php echo $idPermohonan; ?>">
                                     <button type="submit" class="btn btn-primary">submit</button>
                                 </form>

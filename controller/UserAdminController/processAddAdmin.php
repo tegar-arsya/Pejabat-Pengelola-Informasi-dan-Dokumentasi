@@ -14,8 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validate and hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+        // Perform edit operation
         if (editAdmin($id, $nama, $username, $hashedPassword)) {
-            // Redirect to daftar_opd.php or show a success message
+            // Redirect on success
             header("Location: ../../view/Admin/UserAdmin/User");
             exit();
         } else {
@@ -31,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Validate and hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
+        // Perform add operation
         if (tambahAdmin($nama, $username, $hashedPassword)) {
-            // Redirect to daftar_opd.php or show a success message
+            // Redirect on success
             header("Location: ../../view/Admin/UserAdmin/User");
             exit();
         } else {

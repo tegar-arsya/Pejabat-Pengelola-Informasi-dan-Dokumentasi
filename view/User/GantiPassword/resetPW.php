@@ -1,6 +1,25 @@
 <?php
-include ('../../../Model/CSRF/csrf.php');
+session_start();
+
+// Fungsi untuk memverifikasi token CSRF
+function verify_csrf_token($token)
+{
+    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+}
+
+// Fungsi untuk menghasilkan token CSRF
+function generate_csrf_token()
+{
+    if (!isset($_SESSION['csrf_token'])) {
+        // Generate token hanya jika belum ada di sesi
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['csrf_token'] = $token;
+    }
+
+    return $_SESSION['csrf_token'];
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,12 +27,10 @@ include ('../../../Model/CSRF/csrf.php');
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Jarallax CSS -->
@@ -25,9 +42,7 @@ include ('../../../Model/CSRF/csrf.php');
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../../Assets/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -44,18 +59,16 @@ include ('../../../Model/CSRF/csrf.php');
         <form action="../../../controller/RegisterController/reset_password.php" method="POST">
             <input type="hidden" name="csrf_token" value="<?php echo generate_csrf_token(); ?>">
             <div class="main-user-info">
-                <div class="user-input-box">
-                    <div class="form-row">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="masukkan email anda" required>
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                            anyone else.</small>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="masukkan email anda" required>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                                anyone else.</small>
-                                <div class="form-group">
-                                <button class="btn btn-danger" type="submit">Reset Password</button>
-                                </div>
-                            
+                            <button class="btn btn-danger" type="submit">Reset Password</button>
                         </div>
+
                     </div>
                 </div>
             </div>

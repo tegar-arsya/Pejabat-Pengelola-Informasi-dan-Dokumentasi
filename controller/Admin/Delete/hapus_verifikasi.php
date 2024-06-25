@@ -5,12 +5,19 @@ include('../../../controller/koneksi/config.php');
 
 // Check if the script is called through an AJAX request
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    if (isset($_POST['nomer_registrasi'])) {
+    // Validate input
+    if (isset($_POST['nomer_registrasi']) && !empty($_POST['nomer_registrasi'])) {
         $nomer_registrasi = $_POST['nomer_registrasi'];
 
         // Perform the delete operation using a prepared statement
         $deleteQuery = "DELETE FROM verifikasi_permohonan WHERE nomer_registrasi = ?";
         $stmt = $conn->prepare($deleteQuery);
+
+        if (!$stmt) {
+            echo json_encode(array("status" => "error", "message" => "Prepare failed: " . $conn->error));
+            exit();
+        }
+
         $stmt->bind_param("s", $nomer_registrasi);
 
         if ($stmt->execute()) {
@@ -23,7 +30,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         $stmt->close();
         $conn->close();
     } else {
-        echo json_encode(array("status" => "error", "message" => "Invalid request"));
+        echo json_encode(array("status" => "error", "message" => "Invalid or empty 'nomer_registrasi' parameter"));
     }
 } else {
     // If not an AJAX request, respond with an error

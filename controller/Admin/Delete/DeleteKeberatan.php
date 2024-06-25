@@ -4,14 +4,19 @@ include('../../../controller/koneksi/config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
 
-    // Lakukan penghapusan data dari database berdasarkan ID
-    $sql = "DELETE FROM pengajuan_keberatan WHERE id = '$id'";
-    if ($conn->query($sql) === TRUE) {
+    // Prepared statement untuk menghapus data berdasarkan ID
+    $sql = "DELETE FROM pengajuan_keberatan WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id); // Mengikat parameter ID sebagai integer
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
         echo "Data berhasil dihapus";
     } else {
-        echo "Error: " . $conn->error;
+        echo "Gagal menghapus data: " . $conn->error;
     }
 
+    $stmt->close();
     $conn->close();
 }
 ?>

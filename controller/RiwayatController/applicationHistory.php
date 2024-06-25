@@ -18,8 +18,11 @@ $id_permohonan = $_GET['Permohonan'];
 $timelineData = [];
 
 // Menambahkan data dari notifikasi_pengiriman ke timelineData
-$queryNotifikasi = "SELECT * FROM notifikasi_pengiriman WHERE id_permohonan = '$id_permohonan'";
-$resultNotifikasi = $conn->query($queryNotifikasi);
+$queryNotifikasi = "SELECT * FROM notifikasi_pengiriman WHERE id_permohonan = ?";
+$stmtNotifikasi = $conn->prepare($queryNotifikasi);
+$stmtNotifikasi->bind_param("i", $id_permohonan);
+$stmtNotifikasi->execute();
+$resultNotifikasi = $stmtNotifikasi->get_result();
 
 if ($resultNotifikasi->num_rows > 0) {
     while ($rowNotifikasi = $resultNotifikasi->fetch_assoc()) {
@@ -27,8 +30,12 @@ if ($resultNotifikasi->num_rows > 0) {
     }
 }
 
-$queryJawaban = "SELECT * FROM answer_admin WHERE id_permohonan = '$id_permohonan'";
-$resultJawaban = $conn->query($queryJawaban);
+// Query untuk mengambil jawaban admin
+$queryJawaban = "SELECT * FROM answer_admin WHERE id_permohonan = ?";
+$stmtJawaban = $conn->prepare($queryJawaban);
+$stmtJawaban->bind_param("i", $id_permohonan);
+$stmtJawaban->execute();
+$resultJawaban = $stmtJawaban->get_result();
 
 if ($resultJawaban->num_rows > 0) {
     while ($rowJawaban = $resultJawaban->fetch_assoc()) {
@@ -36,8 +43,12 @@ if ($resultJawaban->num_rows > 0) {
     }
 }
 
-$query_check_rejected = "SELECT * FROM tbl_rejected WHERE id_permohonan = '$id_permohonan'";
-$result_check_rejected = $conn->query($query_check_rejected);
+// Query untuk memeriksa apakah ada penolakan
+$query_check_rejected = "SELECT * FROM tbl_rejected WHERE id_permohonan = ?";
+$stmt_check_rejected = $conn->prepare($query_check_rejected);
+$stmt_check_rejected->bind_param("i", $id_permohonan);
+$stmt_check_rejected->execute();
+$result_check_rejected = $stmt_check_rejected->get_result();
 
 // Jika ada penolakan, tandai sebagai "Pending" atau "Permohonan Gugur"
 $penolakan_ditemukan = false;
@@ -63,8 +74,11 @@ if (!$penolakan_ditemukan) {
     $query = "SELECT v.*, s.tanggal_survey 
               FROM verifikasi_permohonan v
               LEFT JOIN survey_kepuasan s ON v.id_permohonan = s.id_permohonan
-              WHERE v.id_permohonan = '$id_permohonan'";
-    $result = $conn->query($query);
+              WHERE v.id_permohonan = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_permohonan);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {

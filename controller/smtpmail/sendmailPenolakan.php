@@ -54,12 +54,13 @@ $mail = new PHPMailer;
     $mail->AltBody = "PHP mailer"; //body email (optional)
 
 	// setelah pengaturan email
+	$user_id = $_SESSION['id'];
 	$nomerRegistrasi = $_POST['nomer_registrasi_keberatan'];
 	$name = $_POST['namapemohon'];
 	$alasan = $_POST['alasan'];
 	$id_permohonan = $_POST['id_permohonan'];
-	$query = $conn->prepare("INSERT INTO tbl_penolakan (id_permohonan_keberatan, nomer_registrasi_keberatan, note) VALUES ( ?, ?,?)");
-	$query->bind_param("sss",$id_permohonan, $nomerRegistrasi,  $alasan);
+	$query = $conn->prepare("INSERT INTO tbl_penolakan (id_permohonan_keberatan,id_admin, nomer_registrasi_keberatan, note) VALUES (?, ?, ?,?)");
+	$query->bind_param("iiss",$id_permohonan,$user_id, $nomerRegistrasi,  $alasan);
 	
 // Eksekusi query
 if ($query->execute()) {

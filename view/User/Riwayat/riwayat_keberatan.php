@@ -51,7 +51,7 @@ include ('../../../controller/koneksi/config.php');
                             <?php
 
                             $query = "SELECT vk.*, pk.* FROM verifikasi_keberatan vk JOIN pengajuan_keberatan pk ON 
-                            vk.nomer_registrasi_keberatan = pk.nomer_registrasi_keberatan WHERE vk.nomer_registrasi_keberatan = '$nomer_registrasi_keberatan';";
+                            vk.id_permohonan_keberatan = pk.id WHERE vk.id_permohonan_keberatan = '$id_permohonan_keberatan';";
                             $result = $conn->query($query);
                             if ($result->num_rows > 0) {
                                 // Data ditemukan, tampilkan atau proses data di sini
@@ -87,7 +87,7 @@ include ('../../../controller/koneksi/config.php');
 
                                 }
                             } else {
-                                $query_alternatif = "SELECT * FROM pengajuan_keberatan where nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+                                $query_alternatif = "SELECT * FROM pengajuan_keberatan where id = '$id_permohonan_keberatan'";
                                 $result_alternatif = $conn->query($query_alternatif);
                                 while ($row_alternatif = $result_alternatif->fetch_assoc()) {
                                     echo "<tr>";
@@ -144,7 +144,7 @@ include ('../../../controller/koneksi/config.php');
                     </div>
                     <table class="table table-bordered">
                         <?php
-                        $query = "SELECT * FROM pengajuan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+                        $query = "SELECT * FROM pengajuan_keberatan WHERE id = '$id_permohonan_keberatan'";
                         $result = $conn->query($query);
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
@@ -196,7 +196,7 @@ include ('../../../controller/koneksi/config.php');
                     </div>
                     <table id="datatabel" class="table table-bordered">
                         <?php
-                        $query = "SELECT * FROM keberatananswer_admin WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan' ORDER BY tanggal DESC LIMIT 1";
+                        $query = "SELECT * FROM keberatananswer_admin WHERE id_permohonan_keberatan = '$id_permohonan_keberatan' ORDER BY tanggal DESC LIMIT 1";
                         $result = $conn->query($query);
                         if ($result->num_rows > 0) {
                             $row = $result->fetch_assoc();
@@ -209,7 +209,7 @@ include ('../../../controller/koneksi/config.php');
                             echo "<td><strong>Dokumen</strong></td>";
                             echo "<td>";
 
-                            $querySurvey = "SELECT * FROM survey_kepuasan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+                            $querySurvey = "SELECT * FROM survey_kepuasan_keberatan WHERE id_permohonan_keberatan = '$id_permohonan_keberatan'";
                             $resultSurvey = $conn->query($querySurvey);
 
                             if ($resultSurvey->num_rows > 0) {
@@ -284,7 +284,7 @@ include ('../../../controller/koneksi/config.php');
                 </div>
             </div>
             <?php
-            $querySurveyk = "SELECT * FROM survey_kepuasan_keberatan WHERE nomer_registrasi_keberatan = '$nomer_registrasi_keberatan'";
+            $querySurveyk = "SELECT * FROM survey_kepuasan_keberatan WHERE id_permohonan_keberatan = '$id_permohonan_keberatan'";
             $resultSurveyk = $conn->query($querySurveyk);
 
             $surveyKomplit = ($resultSurveyk->num_rows > 0);
@@ -302,7 +302,7 @@ include ('../../../controller/koneksi/config.php');
                             <?php echo $surveyPesan; ?>
                         </h5>
                         <div class="message">
-                            <a href="../../../controller/User/Download/download-responsek.php?registrasi=<?php echo $nomer_registrasi_keberatan; ?>"
+                            <a href="../../../controller/User/Download/download-responsek.php?id_permohonan_keberatan=<?php echo $id_permohonan_keberatan; ?>"
                                 target="_blank">
                                 <button class="button-ya" type="button">Unduh Jawaban</button>
                             </a>
@@ -313,7 +313,7 @@ include ('../../../controller/koneksi/config.php');
                         </h5>
                         <div class="message">
                             <a
-                                href="../../../view/User/Form/surveyKeberatan?registrasi=<?php echo $nomer_registrasi_keberatan; ?>">
+                                href="../../../view/User/Form/surveyKeberatan?id_permohonan_keberatan=<?php echo $id_permohonan_keberatan; ?>">
                                 <button class="button-ya" type="button">Ya</button> </a>
                             <button class="button-tdk" type="button">Tidak</button>
                         </div>
@@ -368,7 +368,7 @@ include ('../../../controller/koneksi/config.php');
         document.addEventListener('DOMContentLoaded', function () {
             function showSweetAlert() {
                 var nama_pemohon = document.getElementById('namaPemohon').getAttribute('data-nama-pemohon');
-                var nomer_registrasi_keberatan = "<?php echo $nomer_registrasi_keberatan; ?>"; // Dapatkan nomor registrasi dari PHP
+                var id_permohonan_keberatan = "<?php echo $id_permohonan_keberatan; ?>"; // Dapatkan nomor registrasi dari PHP
 
                 Swal.fire({
                     title: 'Apakah Anda ingin meminta jawaban yang benar?',
@@ -378,12 +378,12 @@ include ('../../../controller/koneksi/config.php');
                     icon: 'question'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        sendRejectionNotification(nama_pemohon, nomer_registrasi_keberatan);
+                        sendRejectionNotification(nama_pemohon, id_permohonan_keberatan);
                     }
                 });
             }
 
-            function sendRejectionNotification(nama_pemohon, nomer_registrasi_keberatan) {
+            function sendRejectionNotification(nama_pemohon, id_permohonan_keberatan) {
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "../../../controller/smtpmail/tidakpuas.php", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -400,7 +400,7 @@ include ('../../../controller/koneksi/config.php');
                 };
 
                 xhr.send("nama_pemohon=" + encodeURIComponent(nama_pemohon) +
-                    "&nomer_registrasi_keberatan=" + encodeURIComponent(nomer_registrasi_keberatan));
+                    "&id_permohonan_keberatan=" + encodeURIComponent(id_permohonan_keberatan));
             }
 
             var buttonTidak = document.querySelector('.button-tdk');

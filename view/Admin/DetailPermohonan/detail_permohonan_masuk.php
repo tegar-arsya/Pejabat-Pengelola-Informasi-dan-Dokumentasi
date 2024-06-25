@@ -1,28 +1,44 @@
 <?php
 session_start();
+
+// Cek apakah pengguna sudah login
 if (!isset($_SESSION['id'])) {
     header("Location: ../../../view/Admin/Form/loginadmin");
     exit();
 }
+
 $user_id = $_SESSION['id'];
 
+// Sertakan file koneksi ke database
 include('../../../controller/koneksi/config.php');
 
+// Pastikan parameter ID permohonan tersedia dalam URL
 if (isset($_GET['id'])) {
+    // Ambil nilai ID permohonan dari parameter GET
     $id_permohonan = $_GET['id'];
 
-    // Query untuk mengambil detail permohonan dan data registrasi berdasarkan ID permohonan
-    $query = "SELECT p.id, p.id_registrasi, p.nomer_registrasi,r.id, r.nik, r.no_hp, r.foto_ktp,  r.alamat, r.email,p.nama_pengguna, p.opd_yang_dituju, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi, p.cara_mendapatkan_informasi, p.cara_mendapatkan_salinan, p.tanggal_permohonan
+    // Prepared statement untuk query
+    $query = "SELECT p.id, p.id_registrasi, p.nomer_registrasi, r.id, r.nik, r.no_hp, r.foto_ktp, r.alamat, r.email, p.nama_pengguna, p.opd_yang_dituju, p.informasi_yang_dibutuhkan, p.alasan_pengguna_informasi, p.cara_mendapatkan_informasi, p.cara_mendapatkan_salinan, p.tanggal_permohonan
               FROM permohonan_informasi p
               JOIN registrasi r ON p.id_registrasi = r.id
-              WHERE p.id = $id_permohonan";
+              WHERE p.id = ?";
 
-    $result = $conn->query($query);
+    // Siapkan statement dan bind parameter
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id_permohonan);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
+    // Periksa apakah hasil query mengembalikan baris data
     if ($result->num_rows > 0) {
+        // Ambil baris data sebagai array asosiatif
         $row = $result->fetch_assoc();
 
+        // Simpan nilai yang diperlukan dari hasil query
         $nomorRegistrasi = $row['nomer_registrasi'];
+
+        // Di sini Anda dapat melanjutkan untuk mengambil nilai lainnya dari $row sesuai kebutuhan aplikasi Anda
+
     } else {
         // Redirect atau tampilkan pesan kesalahan jika permohonan tidak ditemukan
         header("Location: ../../../components/ErorAkses");
@@ -33,9 +49,8 @@ if (isset($_GET['id'])) {
     header("Location: ../../../components/ErorAkses");
     exit();
 }
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -136,36 +151,33 @@ if (isset($_GET['id'])) {
 
 
                                 <div id="alasanPenolakanForm" class="hidden">
-                                    <form action="../../../controller/smtpmail/sendmail.php" method="POST"
-                                        enctype="multipart/form-data">
+                                    <form action="../../../controller/smtpmail/sendmail.php" method="POST" enctype="multipart/form-data">
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td>Nomer registrasi :</td>
                                                 <td>
                                                     <?php echo $row['nomer_registrasi']; ?>
                                                 </td>
-                                                <td><input type="hidden" name="nomer_registrasi"
-                                                        value="<?php echo $row['nomer_registrasi']; ?>"></td>
-                                                        <input type="hidden" name="id_permohonan"
-                                                        value="<?php echo $id_permohonan; ?>"></td>
+                                                <td>
+                                                <input type="hidden" name="nomer_registrasi" value="<?php echo $row['nomer_registrasi']; ?>">
+                                                </td>
+                                                <input type="hidden" name="id_permohonan" value="<?php echo $id_permohonan; ?>"></td>
+                                                <input type="hidden" name="id_admin" value=<?php echo $user_id; ?>></td>
                                             </tr>
                                             <tr>
                                                 <td>Nama :</td>
                                                 <td>
                                                     <?php echo $row['nama_pengguna']; ?>
                                                 </td>
-                                                <td><input type="hidden" name="nama"
-                                                        value="<?php echo $row['nama_pengguna']; ?>"></td>
+                                                <td><input type="hidden" name="nama" value="<?php echo $row['nama_pengguna']; ?>"></td>
                                             </tr>
                                             <tr>
                                                 <td>Email :</td>
                                                 <td>
                                                     <?php echo $row['email']; ?>
                                                 </td>
-                                                <td><input type="hidden" name="email"
-                                                        value="<?php echo $row['email']; ?>"></td>
-                                                        <input type="hidden" name="id_registrasi"
-                                                        value="<?php echo $row['id_registrasi']; ?>"></td>
+                                                <td><input type="hidden" name="email" value="<?php echo $row['email']; ?>"></td>
+                                                <input type="hidden" name="id_registrasi" value="<?php echo $row['id_registrasi']; ?>"></td>
                                             </tr>
                                             <td>Subjek :</td>
                                             <td><input type="text" name="subjek" size="30" style="width: 100%;"></td>
@@ -177,8 +189,7 @@ if (isset($_GET['id'])) {
                                             </tr>
                                             <tr>
                                                 <td></td>
-                                                <td><input type="submit" class="btn btn-success" name="kirim"
-                                                        id="kirimBtn" value="Kirim"></td>
+                                                <td><input type="submit" class="btn btn-success" name="kirim" id="kirimBtn" value="Kirim"></td>
                                             </tr>
                                         </table>
                                     </form>
@@ -224,14 +235,16 @@ if (isset($_GET['id'])) {
 
     <script>
         var isButtonClicked = false;
-        document.getElementById('verifikasiBtn').addEventListener('click', function () {
+        document.getElementById('verifikasiBtn').addEventListener('click', function() {
             var idPermohonan = <?php echo $id_permohonan; ?>;
             // Kirim permintaan verifikasi ke server melalui Ajax
             $.ajax({
                 url: '../../../controller/VerifikasiPermohonanController/verifikasi_permohonan.php',
                 type: 'POST',
-                data: { id: idPermohonan },
-                success: function (response) {
+                data: {
+                    id: idPermohonan
+                },
+                success: function(response) {
                     var nomorRegistrasi = response;
                     document.getElementById('nomorRegistrasiCell').textContent = nomorRegistrasi;
 
@@ -245,14 +258,14 @@ if (isset($_GET['id'])) {
                     var table = document.getElementById('dataTable');
                     table.classList.remove('hidden');
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error(xhr.responseText);
                 }
             });
         });
 
 
-        document.getElementById('simpanVerif').addEventListener('click', function () {
+        document.getElementById('simpanVerif').addEventListener('click', function() {
             if (isButtonClicked) {
                 return;
             }
@@ -264,8 +277,10 @@ if (isset($_GET['id'])) {
             $.ajax({
                 url: '../../../controller/VerifikasiPermohonanController/simpan_verifikasi.php',
                 type: 'POST',
-                data: { id: idPermohonan },
-                success: function (response) {
+                data: {
+                    id: idPermohonan
+                },
+                success: function(response) {
                     var nomorRegistrasi = response;
                     $('#nomorRegistrasiCell').text(nomorRegistrasi);
 
@@ -277,12 +292,12 @@ if (isset($_GET['id'])) {
                         showConfirmButton: false, // Tidak menampilkan tombol OK
                         timer: 1500, // Durasi SweetAlert ditampilkan (ms)
                         timerProgressBar: true // Menampilkan progress bar timer
-                    }).then(function () {
+                    }).then(function() {
                         // Redirect ke halaman listPI setelah SweetAlert ditampilkan
                         window.location.href = '../../../view/Admin/DaftarPermohonan/listPI';
                     });
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error(xhr.responseText);
                 }
             });
@@ -293,24 +308,28 @@ if (isset($_GET['id'])) {
             $('#alasanPenolakanForm').removeClass('hidden');
         }
 
-        document.getElementById('kirimBtn').addEventListener('click', function () {
+        document.getElementById('kirimBtn').addEventListener('click', function() {
             if (isButtonClicked) {
                 return;
             }
 
             var idPermohonan = <?php echo $id_permohonan; ?>;
+            var idAdmin = <?php echo json_encode($_SESSION['id']); ?>;
             isButtonClicked = true;
 
             // Kirim permintaan verifikasi ke server melalui Ajax
             $.ajax({
                 url: '../../../controller/FormPenolakanController/save_Rejected.php',
                 type: 'POST',
-                data: { id: idPermohonan },
-                success: function (response) {
+                data: {
+                    id: idPermohonan,
+                    id_admin: idAdmin
+                },
+                success: function(response) {
                     var nomorRegistrasi = response;
                     $('#nomorRegistrasiCell').text(nomorRegistrasi);
                 },
-                error: function (xhr, status, error) {
+                error: function(xhr, status, error) {
                     console.error(xhr.responseText);
                 }
             });
@@ -320,6 +339,7 @@ if (isset($_GET['id'])) {
         function goBack() {
             window.history.back();
         }
+
         function batal() {
             document.getElementById('dataTableCard').style.display = 'none';
         }

@@ -9,7 +9,7 @@ if (!isset($_SESSION['id'])) {
 }
 $user_id = $_SESSION['id'];
 $session_nama = $_SESSION['nama_pengguna'];
-include ('../../../controller/koneksi/config.php');
+include('../../../controller/koneksi/config.php');
 
 if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];
@@ -33,6 +33,7 @@ if (isset($_GET['id'])) {
             background-color: #06ff06;
             /* Hijau */
         }
+
         .highlight-blue {
             background-color: #0000ff;
             /* Hijau */
@@ -87,10 +88,8 @@ if (isset($_GET['id'])) {
                         <div class="card">
                             <div class="card-body">
 
-                                <button id="exportExcel" style="border : none;"
-                                    onclick="window.open('../../../controller/ExcelController/export_excel.php')">
-                                    <i class="fa fa-file-excel-o" aria-hidden="true"
-                                        style="color: #058a2d; font-size: 30px;">
+                                <button id="exportExcel" style="border : none;" onclick="window.open('../../../controller/ExcelController/export_excel.php')">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #058a2d; font-size: 30px;">
                                     </i>
                                 </button>
                             </div>
@@ -117,16 +116,14 @@ if (isset($_GET['id'])) {
                                         </thead>
                                         <tbody>
                                             <?php
-                                            
+                                            $query = "SELECT DISTINCT pi.*, pk.*, tr.*, sk.*, vp.*, sk.tanggal_survey, pi.nama_pengguna, pi.id, pi.tanggal_permohonan, pi.informasi_yang_dibutuhkan,pi.opd_yang_dituju, tr.note, tr.tanggal_penolakan, pk.kode_permohonan_informasi, r.no_hp
+FROM verifikasi_permohonan vp
+LEFT JOIN survey_kepuasan sk ON vp.id_permohonan = sk.id_permohonan
+LEFT JOIN permohonan_informasi pi ON vp.id_permohonan = pi.id
+LEFT JOIN tbl_rejected tr ON vp.id_permohonan = tr.id_permohonan
+LEFT JOIN pengajuan_keberatan pk ON vp.id_permohonan = pk.id_permohonan_informasi
+LEFT JOIN registrasi r ON pi.id_registrasi = r.id";
 
-                                            $query = "SELECT DISTINCT pi.*, pk.*, tr.*,sk.*, vp.*, sk.tanggal_survey, pi.nama_pengguna, pi.id, pi.tanggal_permohonan, pi.informasi_yang_dibutuhkan,pi.opd_yang_dituju,  tr.note, tr.tanggal_penolakan, pk.kode_permohonan_informasi, r.no_hp
-                                            FROM verifikasi_permohonan vp
-                                            LEFT JOIN survey_kepuasan sk ON vp.id_permohonan = sk.id_permohonan
-                                            LEFT JOIN permohonan_informasi pi ON vp.id_permohonan = pi.id
-                                            LEFT JOIN tbl_rejected tr ON vp.id_permohonan = tr.id_permohonan
-                                            LEFT JOIN pengajuan_keberatan pk ON vp.id_permohonan = pk.id_permohonan_informasi
-                                            LEFT JOIN registrasi r ON pi.id_registrasi = r.id";
-                                  
                                             if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                 $query .= " WHERE pi.opd_yang_dituju = ?";
                                                 $stmt = $conn->prepare($query);
@@ -143,7 +140,7 @@ if (isset($_GET['id'])) {
                                                     echo "<tr>";
                                                     echo "<td>" . $nomer++ . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['nomer_registrasi']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['nama_pengguna']). "</td>";
+                                                    echo "<td>" . htmlspecialchars($row['nama_pengguna']) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['no_hp']) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['informasi_yang_dibutuhkan']) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['opd_yang_dituju']) . "</td>";
@@ -152,12 +149,10 @@ if (isset($_GET['id'])) {
                                                     echo "<td>" . (!empty($row['tanggal_survey']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_survey']))) : '') . "</td>";
                                                     echo "<td>";
                                                     echo "<div class='btn-group' role='group'>";
-                                                    // echo "<button class='btn btn-info btn-sm fas fa-info-circle' onclick='showDetail()'></button>";
-                                                    echo "<button class='btn btn-danger btn-sm fas fa-trash-alt' onclick='HapusVerifikasi(\"{$row['nomer_registrasi']}\")'></button>";
-                                                    echo "<a href='../FormAnswer/formAnswer?permohonan=" . $row["id_permohonan"] . "' class='btn btn-success btn-sm fas fa-reply'></a>";
+                                                    echo "<button class='btn btn-danger btn-sm fas fa-trash-alt' onclick='HapusVerifikasi(\"" . htmlspecialchars($row['nomer_registrasi']) . "\")'></button>";
+                                                    echo "<a href='../FormAnswer/formAnswer?permohonan=" . htmlspecialchars($row["id_permohonan"]) . "' class='btn btn-success btn-sm fas fa-reply'></a>";
                                                     echo "</div>";
                                                     echo "</td>";
-
 
                                                     $status = '';
                                                     $note = '';
@@ -170,20 +165,14 @@ if (isset($_GET['id'])) {
                                                         } elseif (!empty($row['tanggal_verifikasi']) && empty($row['tanggal_penolakan'])) {
                                                             $status = 'Permohonan informasi Sudah Diverifikasi Oleh Admin.';
                                                         } elseif (!empty($row['tanggal_penolakan'])) {
-                                                            // Cek apakah sudah 3 hari setelah tanggal penolakan
                                                             $tanggalPenolakan = (new DateTime())->setTimestamp(strtotime($row['tanggal_penolakan']));
                                                             $tanggalPenolakan->add(new DateInterval('P3D')); // Tambah 3 hari
-                                                            // echo 'Tanggal Penolakan: ' . $tanggalPenolakan->format('Y-m-d H:i:s') . '<br>';
-                                                            // echo 'Sekarang: ' . $sekarang->format('Y-m-d H:i:s') . '<br>';
-                                            
                                                             if ($sekarang <= $tanggalPenolakan) {
                                                                 $status = 'Pending';
                                                                 $note = !empty($row['note']) ? $row['note'] : '';
                                                             } else {
-                                                                // Jika lebih dari 3 hari, dianggap 'Gugur'
                                                                 $status = 'Gugur';
                                                             }
-
                                                         } else {
                                                             $status = 'Belum Verifikasi';
                                                         }
@@ -193,25 +182,24 @@ if (isset($_GET['id'])) {
                                                     if ($status === 'Pending') {
                                                         $statusDisplay .= " ($note)";
                                                     }
-                                                    $updateStatusQuery = "UPDATE verifikasi_permohonan SET status='$statusDisplay'
-                                                    WHERE id_permohonan='{$row['id_permohonan']}'";
-                                                    $conn->query($updateStatusQuery);
 
-                                                    // Hitung selisih hari dari tanggal verifikasi
+                                                    $updateStatusQuery = "UPDATE verifikasi_permohonan SET status=? WHERE id_permohonan=?";
+                                                    $stmtUpdate = $conn->prepare($updateStatusQuery);
+                                                    $stmtUpdate->bind_param("si", $statusDisplay, $row['id_permohonan']);
+                                                    $stmtUpdate->execute();
+
                                                     $sekarang = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
                                                     $tanggalVerifikasi = new DateTime($row['tanggal_verifikasi'], new DateTimeZone('Asia/Jakarta'));
                                                     $selisihHari = $sekarang->diff($tanggalVerifikasi)->days;
 
-                                                    // Cek apakah sudah ada jawaban di tabel answer_admin untuk id_permohonan ini
                                                     $queryAnswer = "SELECT * FROM answer_admin WHERE id_permohonan = ?";
                                                     $stmtAnswer = $conn->prepare($queryAnswer);
                                                     $stmtAnswer->bind_param("i", $row['id_permohonan']);
                                                     $stmtAnswer->execute();
                                                     $resultAnswer = $stmtAnswer->get_result();
 
-                                                    // Tentukan kelas highlight berdasarkan selisih hari
                                                     if ($resultAnswer->num_rows > 0) {
-                                                        $highlightClass = 'highlight-blue'; // Jika sudah ada jawaban
+                                                        $highlightClass = 'highlight-blue';
                                                     } elseif ($selisihHari <= 5) {
                                                         $highlightClass = 'highlight-green';
                                                     } elseif ($selisihHari == 6 || $selisihHari == 7) {
@@ -225,8 +213,10 @@ if (isset($_GET['id'])) {
                                                     echo "</tr>";
                                                 }
                                             } else {
+                                                echo "<tr><td colspan='12'>Tidak ada data ditemukan</td></tr>";
                                             }
                                             ?>
+
 
                                         </tbody>
                                     </table>
@@ -241,11 +231,11 @@ if (isset($_GET['id'])) {
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.select-all').click(function () {
+        $(document).ready(function() {
+            $('.select-all').click(function() {
                 $('.select-row').prop('checked', this.checked);
             });
-            $('.select-row').click(function () {
+            $('.select-row').click(function() {
                 if ($('.select-row:checked').length == $('.select-row').length) {
                     $('.select-all').prop('checked', true);
                 } else {
@@ -256,19 +246,19 @@ if (isset($_GET['id'])) {
     </script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#permohonanTable').DataTable({
                 "ordering": false
             });
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('#exportExcel').click(function () {
+        $(document).ready(function() {
+            $('#exportExcel').click(function() {
                 var data = [];
-                $('#permohonanTable tbody tr').each(function () {
+                $('#permohonanTable tbody tr').each(function() {
                     var rowData = [];
-                    $(this).find('td').each(function () {
+                    $(this).find('td').each(function() {
                         rowData.push($(this).text());
                     });
                     data.push(rowData);
@@ -279,7 +269,7 @@ if (isset($_GET['id'])) {
     <script>
         function HapusVerifikasi(nomer_registrasi) {
             // Pastikan hanya pengguna dengan peran admin atau superadmin yang bisa menghapus
-            <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'superadmin'): ?>
+            <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'superadmin') : ?>
                 // Tampilkan pesan konfirmasi dengan SweetAlert
                 Swal.fire({
                     title: 'Apakah Anda ingin menghapus verifikasi ini?',
@@ -296,9 +286,11 @@ if (isset($_GET['id'])) {
                         $.ajax({
                             type: "POST",
                             url: '../../../controller/Admin/Delete/hapus_verifikasi.php',
-                            data: { nomer_registrasi: nomer_registrasi },
+                            data: {
+                                nomer_registrasi: nomer_registrasi
+                            },
                             dataType: "json",
-                            success: function (response) {
+                            success: function(response) {
                                 if (response.status === "success") {
                                     // Tampilkan pesan berhasil dengan SweetAlert
                                     Swal.fire(
@@ -318,7 +310,7 @@ if (isset($_GET['id'])) {
                                     );
                                 }
                             },
-                            error: function (xhr, status, error) {
+                            error: function(xhr, status, error) {
                                 // Tampilkan pesan kesalahan dengan SweetAlert jika terjadi kesalahan Ajax
                                 Swal.fire(
                                     'Error!',
@@ -330,7 +322,7 @@ if (isset($_GET['id'])) {
                         });
                     }
                 });
-            <?php else: ?>
+            <?php else : ?>
                 // Tampilkan pesan bahwa pengguna tidak memiliki izin
                 Swal.fire(
                     'Tidak Diizinkan!',

@@ -17,7 +17,7 @@ class RegistrasiHandler {
                 $this->processPostRequest();
             }
         } else {
-            $this->redirect('../home');
+            $this->redirect('../../');
         }
     }
 

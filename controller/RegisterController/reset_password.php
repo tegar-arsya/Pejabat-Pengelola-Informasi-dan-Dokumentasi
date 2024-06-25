@@ -1,5 +1,4 @@
 <?php
-// reset_password.php
 session_start();
 require '../../controller/smtpmail/library/PHPMailer.php';
 require '../../controller/smtpmail/library/SMTP.php';
@@ -7,7 +6,7 @@ require '../../controller/smtpmail/library/Exception.php';
 require '../../controller/koneksi/config.php';
 
 // $BASE_URL = 'http://localhost';
-$BASE_URL = 'https://febc-118-96-186-14.ngrok-free.app/';
+$BASE_URL = 'https://20d9-118-96-186-14.ngrok-free.app/';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -20,28 +19,24 @@ function verify_csrf_token($token) {
 
 // Fungsi untuk menghasilkan token CSRF
 function generate_csrf_token() {
-    if (!isset($_SESSION['csrf_token'])) {
-        // Generate token hanya jika belum ada di sesi
-        $token = bin2hex(random_bytes(32));
-        $_SESSION['csrf_token'] = $token;
-    }
-
-    return $_SESSION['csrf_token'];
+    $token = bin2hex(random_bytes(32));
+    $_SESSION['csrf_token'] = $token;
+    return $token;
 }
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token'])) {
+// Pastikan menggunakan metode POST dan token CSRF valid
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['csrf_token']) && verify_csrf_token($_POST['csrf_token'])) {
-    $email = $_POST['email'];
+    // Ambil dan sanitasi email dari form
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
 
-    // Lakukan validasi email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // Validasi email
+    if (!$email) {
         echo "<script>alert('Email tidak valid. Silakan masukkan email yang valid.');</script>";
-        // Redirect ke halaman lupa password
         echo "<script>window.location.href = '../../../view/User/GantiPassword/resetPassword';</script>";
         exit;
     }
 
-    // Cek apakah email ada di dalam database
+    // Prepare statement untuk mencari email di database
     $cek_email = $conn->prepare("SELECT * FROM registrasi WHERE email = ?");
     $cek_email->bind_param("s", $email);
     $cek_email->execute();
@@ -49,13 +44,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['csrf_token']) && verif
 
     if ($result->num_rows > 0) {
         // Generate token reset password baru
-        $token_baru = bin2hex(random_bytes(32)); // Misalnya, menghasilkan token acak
+        $token_baru = bin2hex(random_bytes(32));
 
         // Simpan token di sesi untuk digunakan di halaman ganti_password.php
         $_SESSION['reset_email'] = $email;
         $_SESSION['reset_token'] = $token_baru;
 
-        // Update token di database (sesuaikan dengan struktur tabel Anda)
+        // Update token di database
         $simpan_token = $conn->prepare("UPDATE registrasi SET token_reset_password = ? WHERE email = ?");
         $simpan_token->bind_param("ss", $token_baru, $email);
         $simpan_token->execute();
@@ -65,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['csrf_token']) && verif
 
         try {
             $mail->isSMTP();
-            $mail->Host = "tls://smtp.gmail.com";
+            $mail->Host = "smtp.gmail.com";
             $mail->SMTPAuth = true;
             $mail->Username = "ppid.diskominfo.jtg3@gmail.com";
             $mail->Password = "ymgj whgy zdps duic";
@@ -91,11 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['csrf_token']) && verif
         echo "<script>alert('Email tidak terdaftar. Silakan coba lagi.');</script>";
     }
 
-    // Tutup koneksi database
+    // Tutup statement dan koneksi database
     $cek_email->close();
     $conn->close();
 } else {
-    // Token CSRF tidak valid, tanggapi sesuai kebijakan keamanan Anda
-    // ...
+    echo "<script>alert('Token CSRF tidak valid.');</script>";
 }
 ?>
