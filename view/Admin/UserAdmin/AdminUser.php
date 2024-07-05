@@ -32,49 +32,50 @@ $user_id = $_SESSION['id'];
     <link href="../../../Assets/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="../../../Assets/css/style-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../Assets/fontawesome/css/all.min.css">
-    
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
-    <!-- <div id="preloader">
+    <div id="preloader">
         <div class="loader">
             <svg class="circular" viewBox="25 25 50 50">
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
             </svg>
         </div>
-    </div> -->
+    </div>
+    
     <div id="main-wrapper">
-    <?php include '../../../components/navbarAdmin.php'; ?>
-    <div class="content-body">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                <div class="card" style="text-align: center;">
+        <?php include '../../../components/navbarAdmin.php'; ?>
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" style="text-align: center;">
                             <div class="card-body">
-                            <h1>DAFTAR ADMIN</h1>
+                                <h1>DAFTAR ADMIN</h1>
                             </div>
                         </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <button class="btn btn-primary" onclick="Tambah()">Tambah</button>
+                        <div class="card">
+                            <div class="card-body">
+                                <button class="btn btn-primary" onclick="Tambah()">Tambah</button>
 
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered zero-configuration">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>Usernama</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $daftarAdmin = getDaftarAdmin();
-                                        if (!empty($daftarAdmin)) {
-                                            foreach ($daftarAdmin as $row) {
-                                                echo "<tr>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered zero-configuration">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Usernama</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $daftarAdmin = getDaftarAdmin();
+                                            if (!empty($daftarAdmin)) {
+                                                foreach ($daftarAdmin as $row) {
+                                                    echo "<tr>
                                                 <td>" . $row["nama_pengguna"] . "</td>
                                                 <td>" . $row["username"] . "</td>
                                                 <td>
@@ -82,21 +83,46 @@ $user_id = $_SESSION['id'];
                                                     <button class='btn btn-danger' onclick='hapusAdmin(" . $row["id"] . ")'>Hapus</button>
                                                 </td>
                                             </tr>";
+                                                }
+                                            } else {
+                                                echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
                                             }
-                                        } else {
-                                            echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card" style="text-align: center;">
+                            <div class="card-body">
+                                    <h5>Apakah Anda Ingin Membackup Database Dan Source Code</h5>
+                                    <p>Backup ini akan menyimpan database dan file kode ke lokasi yang aman.</p>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#downloadModal">Backup Now</button>
+                                    <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="downloadModalLabel">Pilih Opsi Download</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="downloadForm" method="GET">
+                                                    <button type="submit" class="btn btn-primary" formaction="../../../Backup/backupDatabase.php"><i class="fas fa-download"></i> Database</button>
+                                                    <button type="submit" class="btn btn-primary" formaction="../../../Backup/backupSourceCode.php"><i class="fas fa-download"></i> Source Code</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <?php include '../../../components/footer.html'; ?>
+        <?php include '../../../components/footer.html'; ?>
     </div>
     <script>
         function Edit(id) {
@@ -138,12 +164,12 @@ $user_id = $_SESSION['id'];
         }
     </script>
     <script>
-    function Tambah() {
-        // Redirect to the desired page (replace 'your_add_opd_page.php' with the actual page URL)
-        window.location.href = '../UserAdmin/tambahAdmin';
-    }
-</script>
-<script src="../../../Model/Auth/TimeOut.js"></script>
+        function Tambah() {
+            // Redirect to the desired page (replace 'your_add_opd_page.php' with the actual page URL)
+            window.location.href = '../UserAdmin/tambahAdmin';
+        }
+    </script>
+    <script src="../../../Model/Auth/TimeOut.js"></script>
     <script src="../../../Assets/plugins/common/common.min.js"></script>
     <script src="../../../Assets/js/custom.min.js"></script>
     <script src="../../../Assets/js/settings.js"></script>
