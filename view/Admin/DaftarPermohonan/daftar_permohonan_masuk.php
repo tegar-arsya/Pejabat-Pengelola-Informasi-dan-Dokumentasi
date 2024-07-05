@@ -62,31 +62,40 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                         <div class="card">
                             <div class="card-body">
 
-                               
+
                                 <div class="filter-container">
                                     <h4 class="card-title">Filter</h4>
+                                    <div style="display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 10px;">
+                                        <div style="flex: 1;">
+                                            <label for="start_date" style="margin-right: 10px;">Dari</label>
+                                            <input type="date" id="start_date" name="start_date" style="width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </div>
+                                        <div style="flex: 1;">
+                                            <label for="end_date" style="margin-left: 10px; margin-right: 10px;">Sampai</label>
+                                            <input type="date" id="end_date" name="end_date" style="width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                                        </div>
+                                    </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault1" value="verified">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="verified">
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             Verifikasi
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault2" value="unverified">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="unverified">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             Unverifikasi
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                            id="flexRadioDefault3" value="reset">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="reset">
                                         <label class="form-check-label" for="flexRadioDefault3">
                                             Reset
                                         </label>
                                     </div>
+
                                     <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button>
+
                                 </div>
                                 <h4 class="card-title">Data Daftar Permohonan Informasi</h4>
                                 <!-- <button class="btn btn-success" onclick="cetakPDF()">Cetak PDF</button> -->
@@ -161,9 +170,9 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
     ***********************************-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Tangani klik tombol Hapus
-            $('.delete-btn').click(function () {
+            $('.delete-btn').click(function() {
                 var id = $(this).data('id');
 
                 // Tampilkan pesan konfirmasi dengan SweetAlert
@@ -182,8 +191,10 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                         $.ajax({
                             url: '../../../controller/Admin/Delete/hapusdata_permohonan.php',
                             type: 'POST',
-                            data: { id: id },
-                            success: function (response) {
+                            data: {
+                                id: id
+                            },
+                            success: function(response) {
                                 // Tampilkan pesan berhasil dengan SweetAlert
                                 Swal.fire(
                                     'Berhasil!',
@@ -195,7 +206,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                     location.reload();
                                 });
                             },
-                            error: function (xhr, status, error) {
+                            error: function(xhr, status, error) {
                                 // Tampilkan pesan kesalahan dengan SweetAlert jika diperlukan
                                 Swal.fire(
                                     'Error!',
@@ -210,8 +221,8 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
         });
     </script>
     <script>
-        $(document).ready(function () {
-            $('input[name="flexRadioDefault"]').change(function () {
+        $(document).ready(function() {
+            $('input[name="flexRadioDefault"]').change(function() {
                 var status = $(this).val();
                 filterData(status);
             });
@@ -219,28 +230,31 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
 
         function filterData(status) {
             var url = window.location.href.split('?')[0];
-            if (status === 'reset') {
-                window.location.href = url;
-            } else {
-                window.location.href = url + '?status=' + status;
+            var startDate = $('#start_date').val();
+            var endDate = $('#end_date').val();
+            var params = [];
+            if (status !== 'reset') {
+                params.push('status=' + status);
             }
+            if (startDate && endDate) {
+                params.push('start_date=' + startDate);
+                params.push('end_date=' + endDate);
+            }
+            window.location.href = url + '?' + params.join('&');
+        }
+
+        function cetakPDF() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var status = urlParams.get('status') || 'reset';
+            var startDate = urlParams.get('start_date');
+            var endDate = urlParams.get('end_date');
+            var url = '../../../controller/PDFController/cetak_pdf.php?status=' + status;
+            if (startDate && endDate) {
+                url += '&start_date=' + startDate + '&end_date=' + endDate;
+            }
+            window.location.href = url;
         }
     </script>
-<script>
-function cetakPDF() {
-  // Get the status parameter from the URL
-  var urlParams = new URLSearchParams(window.location.search);
-  var status = urlParams.get('status');
-
-  // If no status is found, default to 'reset'
-  if (status === null) {
-    status = 'reset';
-  }
-
-  // Use the status to construct the URL for PDF generation
-  window.location.href = '../../../controller/PDFController/cetak_pdf.php?status=' + status;
-}
-</script>
     <script src="../../../Model/Auth/TimeOut.js"></script>
     <script src="../../../Assets/plugins/common/common.min.js"></script>
     <script src="../../../Assets/js/custom.min.js"></script>

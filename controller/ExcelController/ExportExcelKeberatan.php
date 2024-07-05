@@ -8,8 +8,12 @@ if (!isset($_SESSION['id'])) {
 $user_id = $_SESSION['id'];
 
 include '../../controller/koneksi/config.php';
+if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
+    $start_date = $_GET['start_date'];
+    $end_date = $_GET['end_date'];
+
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=rekap_data_keberatan.xls");
+header("Content-Disposition: attachment; filename=rekap_data_keberatan-{$start_date}-{$end_date}.xls");
 ?>
 
 <h1 style="text-align: center; margin-top: 100px;">REKAP DATA KEKEBRATAN INFORMASI</h1>
@@ -34,9 +38,14 @@ header("Content-Disposition: attachment; filename=rekap_data_keberatan.xls");
             LEFT JOIN survey_kepuasan_keberatan sk ON vk.id_permohonan_keberatan = sk.id_permohonan_keberatan
             LEFT JOIN pengajuan_keberatan pk ON vk.id_permohonan_keberatan = pk.id
             LEFT JOIN tbl_penolakan tp ON vk.id_permohonan_keberatan = tp.id_permohonan_keberatan
+            WHERE vk.tanggal_verifikasi BETWEEN ? AND ?
             ORDER BY vk.id_permohonan_keberatan ASC";
 
             $stmt = $conn->prepare($query);
+            if (!$stmt) {
+                echo "Error preparing statement: " . $conn->error;
+            } else {
+                $stmt->bind_param("ss", $start_date, $end_date);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
@@ -80,8 +89,15 @@ header("Content-Disposition: attachment; filename=rekap_data_keberatan.xls");
                     echo "</tr>";
                 }
             } else {
+                echo "<tr><td colspan='8'>Data tidak ditemukan.</td></tr>";
             }
+        }
             ?>
         </tbody>
     </table>
 </div>
+<?php
+} else {
+    echo "Tanggal mulai dan tanggal akhir diperlukan.";
+}
+?>

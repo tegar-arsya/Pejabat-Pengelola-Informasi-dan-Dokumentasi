@@ -88,10 +88,40 @@ if (isset($_GET['id'])) {
                         <div class="card">
                             <div class="card-body">
 
-                                <button id="exportExcel" style="border : none;" onclick="window.open('../../../controller/ExcelController/export_excel.php')">
+                                <!-- <button id="exportExcel" style="border : none;" onclick="window.open('../../../controller/ExcelController/export_excel.php')">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #058a2d; font-size: 30px;">
+                                    </i>
+                                </button> -->
+                                <button id="exportExcel" style="border : none;"  data-toggle="modal" data-target="#downloadModal">
                                     <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #058a2d; font-size: 30px;">
                                     </i>
                                 </button>
+                                <!-- Dropdown menu for download options -->
+                                <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="downloadModalLabel">Pilih Opsi Download</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="downloadForm" method="GET">
+                                                    <div class="form-group">
+                                                        <label for="startDate">Dari Tanggal:</label>
+                                                        <input type="date" id="startDate" name="start_date" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="endDate">Sampai Tanggal:</label>
+                                                        <input type="date" id="endDate" name="end_date" class="form-control" required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary"formaction="../../../controller/ExcelController/export_excel.php">Download Laporan Verifikasi Permohonan</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
@@ -117,12 +147,12 @@ if (isset($_GET['id'])) {
                                         <tbody>
                                             <?php
                                             $query = "SELECT DISTINCT pi.*, pk.*, tr.*, sk.*, vp.*, sk.tanggal_survey, pi.nama_pengguna, pi.id, pi.tanggal_permohonan, pi.informasi_yang_dibutuhkan,pi.opd_yang_dituju, tr.note, tr.tanggal_penolakan, pk.kode_permohonan_informasi, r.no_hp
-FROM verifikasi_permohonan vp
-LEFT JOIN survey_kepuasan sk ON vp.id_permohonan = sk.id_permohonan
-LEFT JOIN permohonan_informasi pi ON vp.id_permohonan = pi.id
-LEFT JOIN tbl_rejected tr ON vp.id_permohonan = tr.id_permohonan
-LEFT JOIN pengajuan_keberatan pk ON vp.id_permohonan = pk.id_permohonan_informasi
-LEFT JOIN registrasi r ON pi.id_registrasi = r.id";
+                                            FROM verifikasi_permohonan vp
+                                            LEFT JOIN survey_kepuasan sk ON vp.id_permohonan = sk.id_permohonan
+                                            LEFT JOIN permohonan_informasi pi ON vp.id_permohonan = pi.id
+                                            LEFT JOIN tbl_rejected tr ON vp.id_permohonan = tr.id_permohonan
+                                            LEFT JOIN pengajuan_keberatan pk ON vp.id_permohonan = pk.id_permohonan_informasi
+                                            LEFT JOIN registrasi r ON pi.id_registrasi = r.id";
 
                                             if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                                 $query .= " WHERE pi.opd_yang_dituju = ?";

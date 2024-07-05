@@ -8,8 +8,13 @@ if (!isset($_SESSION['id'])) {
 $user_id = $_SESSION['id'];
 
 include '../../../controller/koneksi/config.php';
+
+if (isset($_GET['start_date']) && isset($_GET['end_date'])) {
+    $start_date = $_GET['start_date'];
+    $end_date = $_GET['end_date'];
+
 header("Content-type: application/vnd-ms-excel");
-header("Content-Disposition: attachment; filename=rekap data verifikasi permohonan.xls");
+header("Content-Disposition: attachment; filename=rekap data verifikasi permohonan-{$start_date}-{$end_date}.xls");
 ?>
 
 <h1 style="text-align: center; margin-top: 100px;">REKAP Verifikasi Permohonan Informasi Pemohon</h1>
@@ -27,8 +32,10 @@ header("Content-Disposition: attachment; filename=rekap data verifikasi permohon
         <tbody>
             <?php
             $query = "SELECT pi.*, vp.* FROM verifikasi_permohonan vp
-JOIN permohonan_informasi pi ON pi.id = vp.id_permohonan;";
+                JOIN permohonan_informasi pi ON pi.id = vp.id_permohonan
+                 WHERE tanggal_verifikasi BETWEEN ? AND ?";
             $stmt = $conn->prepare($query);
+            $stmt->bind_param("ss", $start_date, $end_date);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
@@ -52,3 +59,8 @@ JOIN permohonan_informasi pi ON pi.id = vp.id_permohonan;";
         
     </table>
 </div>
+<?php
+} else {
+    echo "Tanggal mulai dan tanggal akhir diperlukan.";
+}
+?>

@@ -16893,7 +16893,13 @@ table.dataTable thead .sorting::after {
     justify-content: center;
     flex-direction: column;
 }
-
+.form-input-content1 {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 #userLock-page1 body {
     background: url(../../assets/images/background/user-lock-bg.jpg);
     background-size: cover;
@@ -27435,4 +27441,4 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     /* Membuat bentuk bulat */
 }
 
-.status-verifikasi {}
+/* .status-verifikasi {} */

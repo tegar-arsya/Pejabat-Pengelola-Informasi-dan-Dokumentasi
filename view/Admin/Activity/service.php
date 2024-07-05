@@ -17,7 +17,7 @@ if ($role !== 'superadmin' && $role !== 'admin') {
 
 include('../../../controller/koneksi/config.php');
 
-function readLogFile($filePath) {
+function readLogFile($filePath, $searchQuery = '') {
     $logs = [];
     if (file_exists($filePath)) {
         $file = fopen($filePath, 'r');
@@ -37,11 +37,16 @@ function readLogFile($filePath) {
                 // Decode log data
                 $logData = json_decode($matches[3], true);
                 if ($logData !== null) {
-                    $logs[] = [
+                    $logEntry = [
                         'tanggal' => $tanggal,
                         'admin' => isset($logData['admin']) ? htmlspecialchars($logData['admin']) : '',
                         'description' => isset($logData['description']) ? htmlspecialchars($logData['description']) : ''
                     ];
+
+                    // Filter log berdasarkan search query
+                    if ($searchQuery === '' || stripos($logEntry['admin'], $searchQuery) !== false || stripos($logEntry['description'], $searchQuery) !== false) {
+                        $logs[] = $logEntry;
+                    }
                 }
             }
         }
@@ -50,12 +55,9 @@ function readLogFile($filePath) {
     return $logs;
 }
 
-
-
-
-
+$searchQuery = isset($_POST['search']) ? $_POST['search'] : '';
 $logFilePath = __DIR__ . '/../../../Model/Logs/activity.log';
-$logs = readLogFile($logFilePath);
+$logs = readLogFile($logFilePath, $searchQuery);
 
 ?>
 <!DOCTYPE html>
@@ -115,6 +117,10 @@ $logs = readLogFile($logFilePath);
                         <div class="card" style="text-align: center;">
                             <div class="card-body">
                                 <h1>Log Aktivitas</h1>
+                                <form method="POST" action="">
+                                    <input class="input-group-text" type="text" name="search" placeholder="Search logs..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+                                    <button class="btn btn-danger" type="submit">Search</button>
+                                </form>
                             </div>
                         </div>
                         <div class="card scrollable-card">

@@ -57,6 +57,16 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                 <div class="table-responsive">
                                     <div class="filter-container">
                                         <h4 class="card-title" style="margin-top: 20px;">Filter</h4>
+                                        <div style="display: flex; flex-wrap: wrap; align-items: center; margin-bottom: 10px;">
+                                            <div style="flex: 1;">
+                                                <label for="start_date" style="margin-right: 10px;">Dari</label>
+                                                <input type="date" id="start_date" name="start_date" style="width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label for="end_date" style="margin-left: 10px; margin-right: 10px;">Sampai</label>
+                                                <input type="date" id="end_date" name="end_date" style="width: 100%; padding: 5px; border-radius: 5px; border: 1px solid #ccc;">
+                                            </div>
+                                        </div>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="verified">
                                             <label class="form-check-label" for="flexRadioDefault1">
@@ -80,7 +90,7 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                     <table class="table table-striped table-bordered zero-configuration">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
+                                                <th>Tanggal</th>
                                                 <th>Nama</th>
                                                 <th>No.Register</th>
                                                 <th>NIK</th>
@@ -123,8 +133,9 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                                             if ($result->num_rows > 0) {
                                                 $counter = 1;
                                                 while ($row = $result->fetch_assoc()) {
+                                                    $formattedDate = date('d-m-Y H:i:s', strtotime($row["tanggal_pengajuan"]));
                                                     echo "<tr>
-                                                            <td>" . htmlspecialchars($counter) . "</td>
+                                                            <td>" . $formattedDate . "</td>
                                                             <td>" . htmlspecialchars($row["nama_pemohon"]) . "</td>
                                                             <td>" . htmlspecialchars($row["nomer_registrasi_keberatan"]) . "</td>
                                                             <td>" . htmlspecialchars($row["nik_pemohon"]) . "</td>
@@ -214,13 +225,15 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
     <script>
         function cetakPDF() {
             var urlParams = new URLSearchParams(window.location.search);
-            var status = urlParams.get('status');
+            var status = urlParams.get('status') || 'reset';
+            var startDate = urlParams.get('start_date');
+            var endDate = urlParams.get('end_date');
 
-            // If no status is found, default to 'reset'
-            if (status === null) {
-                status = 'reset';
+            var url = '../../../controller/PDFController/cetak_pdfk.php?status=' + status;
+            if (startDate && endDate) {
+                url += '&start_date=' + startDate + '&end_date=' + endDate;
             }
-            window.location.href = '../../../controller/PDFController/cetak_pdfk.php?status=' + status;
+            window.location.href = url;
         }
     </script>
     <script>
@@ -233,11 +246,17 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
 
         function filterData(status) {
             var url = window.location.href.split('?')[0];
-            if (status === 'reset') {
-                window.location.href = url;
-            } else {
-                window.location.href = url + '?status=' + status;
+            var startDate = $('#start_date').val();
+            var endDate = $('#end_date').val();
+            var params = [];
+            if (status !== 'reset') {
+                params.push('status=' + status);
             }
+            if (startDate && endDate) {
+                params.push('start_date=' + startDate);
+                params.push('end_date=' + endDate);
+            }
+            window.location.href = url + '?' + params.join('&');
         }
     </script>
     <script src="../../../Model/Auth/TimeOut.js"></script>

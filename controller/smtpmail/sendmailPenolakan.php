@@ -43,7 +43,7 @@ $mail = new PHPMailer;
 	$mail->Port = 587;
 
 	$mail->From = "ppid.diskominfo.jtg3@gmail.com"; //email pengirim
-	$mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; //nama pengirim
+	$mail->FromName = "PPID Provinsi Jawa Tengah"; //nama pengirim
 
 	 $mail->addAddress($_POST['email'], $_POST['namapemohon']); //email penerima
 

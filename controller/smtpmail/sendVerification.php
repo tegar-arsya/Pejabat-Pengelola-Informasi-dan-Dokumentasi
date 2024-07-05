@@ -28,7 +28,7 @@ $mail->SMTPSecure = "tls";
 $mail->Port = 587;
 
 $mail->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
-$mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
+$mail->FromName = "PPID Provinsi Jawa Tengah"; // Nama pengirim.
 
 $mail->addAddress($_POST['email'], $_POST['nama']); // Email penerima.
 

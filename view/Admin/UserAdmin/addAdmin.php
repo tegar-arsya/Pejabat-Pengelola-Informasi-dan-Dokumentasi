@@ -51,22 +51,22 @@ $user_id = $_SESSION['id'];
                         <div class="card">
                             <div class="card-body">
                                 <h1>Tambah ADMIN</h1>
-                                <h4 class="card-title">ADMIN</h4>                                
+                                <h4 class="card-title">ADMIN</h4>
                                 <form method="post" action="../../../controller/UserAdminController/processAddAdmin.php">
-                                <div class="mb-3">
-                                    <label for="nama" class="form-label">Nama</label>
-                                    <input type="text" class="form-control" id="nama" name="nama">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="username" class="form-label">username</label>
-                                    <input type="text" class="form-control" id="username" name="username">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
+                                    <div class="mb-3">
+                                        <label for="nama" class="form-label">Nama</label>
+                                        <input type="text" class="form-control" id="nama" name="nama">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">username</label>
+                                        <input type="text" class="form-control" id="username" name="username">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
                             </div>
                         </div>
                     </div>

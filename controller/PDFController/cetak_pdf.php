@@ -3,12 +3,12 @@ session_start();
 require_once('../../controller/koneksi/config.php');
 require_once(__DIR__ . '/../../vendor/tecnickcom/tcpdf/tcpdf.php');
 
-// Ensure no output is sent before PDF generation
-ob_clean();
+// Start output buffering
+ob_start();
 
-$status = $_GET['status'];
-
-// Validate $status parameter (optional, depending on your application logic)
+$status = isset($_GET['status']) ? $_GET['status'] : 'reset';
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -39,17 +39,26 @@ $sql = "SELECT pi.tanggal_permohonan, pi.nama_pengguna, pi.informasi_yang_dibutu
         FROM permohonan_informasi pi
         LEFT JOIN verifikasi_permohonan vp ON pi.id = vp.id_permohonan";
 
+$whereClauses = [];
 switch ($status) {
     case 'verified':
-        $sql .= " WHERE vp.nomer_registrasi IS NOT NULL";
+        $whereClauses[] = "vp.nomer_registrasi IS NOT NULL";
         break;
     case 'unverified':
-        $sql .= " WHERE vp.nomer_registrasi IS NULL";
+        $whereClauses[] = "vp.nomer_registrasi IS NULL";
         break;
     case 'reset': // No filtering for 'reset'
         break;
     default: // Invalid status
-        $sql .= " WHERE 1"; // Fallback to displaying all records
+        $whereClauses[] = "1"; // Fallback to displaying all records
+}
+
+if (!empty($start_date) && !empty($end_date)) {
+    $whereClauses[] = "pi.tanggal_permohonan BETWEEN '$start_date' AND '$end_date'";
+}
+
+if (!empty($whereClauses)) {
+    $sql .= " WHERE " . implode(' AND ', $whereClauses);
 }
 
 $stmt = $conn->prepare($sql);
@@ -77,5 +86,8 @@ $stmt->close();
 
 $pdf->writeHTML($html, true, false, true, false, '');
 
+// Output PDF
 $pdf->Output('daftar_permohonan.pdf', 'I');
+
+
 ?>

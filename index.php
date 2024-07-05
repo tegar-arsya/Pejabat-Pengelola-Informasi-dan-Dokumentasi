@@ -26,7 +26,7 @@ include('./Model/CSRF/csrf.php');
     <header>
         <div class="container-fluid">
             <div class="navb-logo">
-                <a href="./view/Admin/Form/loginadmin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
+                <a href="./view/Admin/Form/admin"><img src="Assets/img/logo_jateng.png" alt="Logo"></a>
             </div>
             <div class="info">
                 <h4>LAYANAN PERMOHONAN INFORMASI</h4>

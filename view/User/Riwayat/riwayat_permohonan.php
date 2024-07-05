@@ -1,6 +1,6 @@
 <?php
 require '../../../controller/RiwayatController/applicationHistory.php';
-include ('../../../controller/koneksi/config.php');
+include('../../../controller/koneksi/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +9,9 @@ include ('../../../controller/koneksi/config.php');
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="16x16" href="../../../Assets/img/logo_jateng.png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
@@ -23,9 +20,7 @@ include ('../../../controller/koneksi/config.php');
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../../Assets/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="../../../Assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.0/mammoth.browser.min.js"></script>
@@ -55,7 +50,7 @@ include ('../../../controller/koneksi/config.php');
                                                 FROM verifikasi_permohonan v
                                                 JOIN permohonan_informasi p ON p.id= v.id_permohonan
                                                 WHERE p.id = '$id_permohonan'";
-                                                
+
                             $result = $conn->query($query);
 
                             // Menambahkan data dari tbl_rejected
@@ -74,7 +69,8 @@ include ('../../../controller/koneksi/config.php');
 
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal Permohonan</strong></td>";
-                                    echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";                                    echo "</tr>";
+                                    echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";
+                                    echo "</tr>";
 
                                     echo "<tr>";
                                     echo "<td><strong>Nomor Register</strong></td>";
@@ -111,7 +107,8 @@ include ('../../../controller/koneksi/config.php');
 
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal Permohonan</strong></td>";
-                                    echo "<td>" . (!empty($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";                                    echo "</tr>";
+                                    echo "<td>" . (!empty($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";
+                                    echo "</tr>";
 
                                     // echo "<tr>";
                                     // echo "<td><strong>ID Registasi:</strong></td>";
@@ -186,7 +183,7 @@ include ('../../../controller/koneksi/config.php');
 
                                     if ($resultSurvey->num_rows > 0) {
                                         // Pengguna telah mengisi survei kepuasan, berikan tautan unduh
-                                        if (!empty ($row['lampiran'])) {
+                                        if (!empty($row['lampiran'])) {
                                             $file_path = "../../../Assets/JawabanPI/" . $row['lampiran'];
                                             echo "<a href=\"$file_path\" download>{$row['lampiran']}</a>";
                                         } else {
@@ -194,7 +191,7 @@ include ('../../../controller/koneksi/config.php');
                                         }
                                     } else {
                                         // Pengguna belum mengisi survei kepuasan, berikan tautan pratinjau
-                                        if (!empty ($row['lampiran'])) {
+                                        if (!empty($row['lampiran'])) {
                                             $file_path = "../../../Assets/JawabanPI/" . $row['lampiran'];
                                             echo "<a href=\"javascript:void(0);\" onclick=\"previewLampiran('$file_path')\">Pratinjau Lampiran</a>";
                                         } else {
@@ -207,7 +204,7 @@ include ('../../../controller/koneksi/config.php');
 
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal</strong></td>";
-                                    echo "<td>" . (!empty ($row['tanggal_jawaban']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_jawaban']))) : '') . "</td>";
+                                    echo "<td>" . (!empty($row['tanggal_jawaban']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_jawaban']))) : '') . "</td>";
                                     echo "</tr>";
                                 }
                             } else {
@@ -237,7 +234,7 @@ include ('../../../controller/koneksi/config.php');
                         foreach ($timelineData as $index => $item) {
                             $date = $item['date'];
                             $status = $item['status'];
-                            ?>
+                        ?>
                             <div class="timeline-item">
                                 <div class="timeline-line"></div>
                                 <div class="timeline-number">
@@ -251,53 +248,52 @@ include ('../../../controller/koneksi/config.php');
                                     <?php echo $status; ?>
                                 </div>
                             </div>
-                            <?php
+                        <?php
                         }
                         ?>
                     </div>
                 </div>
             </div>
-                <div class="box-left">
-                    <?php
-                    // Check if the user has completed the survey
-                    $querySurvey = "SELECT * FROM survey_kepuasan WHERE id_permohonan = '$id_permohonan'";
-                    $resultSurvey = $conn->query($querySurvey);
+            <div class="box-left">
+                <?php
+                // Check if the user has completed the survey
+                $querySurvey = "SELECT * FROM survey_kepuasan WHERE id_permohonan = '$id_permohonan'";
+                $resultSurvey = $conn->query($querySurvey);
 
-                    $surveyCompleted = ($resultSurvey->num_rows > 0);
+                $surveyCompleted = ($resultSurvey->num_rows > 0);
 
-                    // Determine the appropriate message based on whether the survey is completed
-                    $surveyMessage = $surveyCompleted ? "Terima kasih telah mengisi survey, silahkan unduh jawaban permohonan Anda." : "Apakah permohonan informasi Anda sudah terjawab?";
-                    ?>
+                // Determine the appropriate message based on whether the survey is completed
+                $surveyMessage = $surveyCompleted ? "Terima kasih telah mengisi survey, silahkan unduh jawaban permohonan Anda." : "Apakah permohonan informasi Anda sudah terjawab?";
+                ?>
 
-                    <div class="up-survey">
-                        <div class="fill">
-                            <div class="style-font">
-                                Survey
-                            </div>
+                <div class="up-survey">
+                    <div class="fill">
+                        <div class="style-font">
+                            Survey
                         </div>
-                        <?php if ($surveyCompleted): ?>
-                            <h5 class="message">
-                                <?php echo $surveyMessage; ?>
-                            </h5>
-                            <div class="message">
-                                <a href="../../../controller/User/Download/download-response.php?Permohonan=<?php echo $id_permohonan; ?>"
-                                    target="_blank">
-                                    <button class="button-ya" type="button">Unduh Jawaban</button>
-                                </a>
-                            </div>
-                        <?php else: ?>
-                            <h5 class="message">
-                                <?php echo $surveyMessage; ?>
-                            </h5>
-                            <div class="message">
-                                <a href="../../../view/User/Form/survey?Permohonan=<?php echo $id_permohonan; ?>">
-                                    <button class="button-ya" type="button">Ya</button>
-                                </a>
-                                <button class="button-tdk" type="button">Tidak</button>
-                            </div>
-                        <?php endif; ?>
                     </div>
+                    <?php if ($surveyCompleted) : ?>
+                        <h5 class="message">
+                            <?php echo $surveyMessage; ?>
+                        </h5>
+                        <div class="message">
+                            <a href="../../../controller/User/Download/download-response.php?Permohonan=<?php echo $id_permohonan; ?>" target="_blank">
+                                <button class="button-ya" type="button">Unduh Jawaban</button>
+                            </a>
+                        </div>
+                    <?php else : ?>
+                        <h5 class="message">
+                            <?php echo $surveyMessage; ?>
+                        </h5>
+                        <div class="message">
+                            <a href="../../../view/User/Form/survey?Permohonan=<?php echo $id_permohonan; ?>">
+                                <button class="button-ya" type="button">Ya</button>
+                            </a>
+                            <button class="button-tdk" type="button">Tidak</button>
+                        </div>
+                    <?php endif; ?>
                 </div>
+            </div>
         </div>
     </div>
     <?php include '../../../components/footer.php'; ?>
@@ -333,7 +329,7 @@ include ('../../../controller/koneksi/config.php');
         function createTimeline() {
             timelineContainer.innerHTML = ""; // Bersihkan kontainer timeline terlebih dahulu
 
-            timelineData.forEach(function (item, index) {
+            timelineData.forEach(function(item, index) {
                 var timelineItem = createTimelineItem(item.date, item.status, index + 1);
                 timelineContainer.appendChild(timelineItem);
             });
@@ -343,7 +339,7 @@ include ('../../../controller/koneksi/config.php');
         createTimeline();
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             // Fungsi untuk menampilkan pop-up SweetAlert2
             function showSweetAlert() {
                 Swal.fire({
@@ -396,19 +392,20 @@ include ('../../../controller/koneksi/config.php');
         function previewLampiran(file_path) {
             openModal(file_path);
         }
-
     </script>
     <script>
         function previewLampiran(file_path) {
             var container = document.createElement('div');
 
             // Initialize PDF.js
-            pdfjsLib.getDocument(file_path).promise.then(function (pdfDoc) {
+            pdfjsLib.getDocument(file_path).promise.then(function(pdfDoc) {
                 for (var pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
-                    pdfDoc.getPage(pageNum).then(function (page) {
+                    pdfDoc.getPage(pageNum).then(function(page) {
                         var canvas = document.createElement('canvas');
                         var context = canvas.getContext('2d');
-                        var viewport = page.getViewport({ scale: 1.5 });
+                        var viewport = page.getViewport({
+                            scale: 1.5
+                        });
 
                         canvas.height = viewport.height;
                         canvas.width = viewport.width;
@@ -418,7 +415,7 @@ include ('../../../controller/koneksi/config.php');
                             canvasContext: context,
                             viewport: viewport
                         };
-                        page.render(renderContext).promise.then(function () {
+                        page.render(renderContext).promise.then(function() {
                             container.appendChild(canvas);
                         });
                     });
@@ -434,7 +431,6 @@ include ('../../../controller/koneksi/config.php');
                 focusConfirm: false,
             });
         }
-
     </script>
     <script src="../Model/Auth/TimeOutUser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js

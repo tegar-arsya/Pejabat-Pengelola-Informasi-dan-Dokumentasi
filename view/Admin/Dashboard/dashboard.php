@@ -45,6 +45,10 @@ $user_id = $_SESSION['id'];
     <div id="main-wrapper">
         <?php include '../../../components/navbarAdmin.php'; ?>
         <div class="content-body">
+            <!-- <form action="../../../Backup/backup.php" method="post">
+    <button type="submit">Backup Now</button>
+</form> -->
+
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
@@ -134,40 +138,34 @@ $user_id = $_SESSION['id'];
                                     <p class="text-white mb-0">klik icon download</p>
                                 </div>
                                 <span class="float-right display-5 opacity-5">
-                                    <i class="fa fa-download" id="exportExcel" data-toggle="modal"
-                                        data-target="#downloadModal"></i>
+                                    <i class="fa fa-download" id="exportExcel" data-toggle="modal" data-target="#downloadModal"></i>
                                 </span>
                                 <!-- Dropdown menu for download options -->
-                                <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="downloadModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="downloadModalLabel">Pilih Opsi Download</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <button onclick="window.open('../../../controller/Admin/Laporan/survey.php')"
-                                                    class="btn btn-primary">Download Laporan Survey</button>
-                                                <button
-                                                    onclick="window.open('../../../controller/Admin/Laporan/PermohonanInformasi.php')"
-                                                    class="btn btn-primary">Download Laporan Permohonan
-                                                    Informasi</button>
-                                                <button
-                                                    onclick="window.open('../../../controller/Admin/Laporan/KeberatanInformasi.php')"
-                                                    class="btn btn-primary">Download Laporan Keberatan
-                                                    Informasi</button>
-                                                <button
-                                                    onclick="window.open('../../../controller/Admin/Laporan/verifikasiPermohonan.php')"
-                                                    class="btn btn-primary">Download Laporan Verifikasi
-                                                    Permohonan</button>
-                                                <button
-                                                    onclick="window.open('../../../controller/Admin/Laporan/VerifikasiKeberatan.php')"
-                                                    class="btn btn-primary">Download Laporan Verifikasi
-                                                    Keberatan</button>
+                                                <form id="downloadForm" method="GET">
+                                                    <div class="form-group">
+                                                        <label for="startDate">Dari Tanggal:</label>
+                                                        <input type="date" id="startDate" name="start_date" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="endDate">Sampai Tanggal:</label>
+                                                        <input type="date" id="endDate" name="end_date" class="form-control" required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary"formaction="../../../controller/Admin/Laporan/survey.php">Download Laporan Survey</button>
+                                                    <button type="submit" class="btn btn-primary" formaction="../../../controller/Admin/Laporan/PermohonanInformasi.php">Download Laporan Permohonan Informasi</button>
+                                                    <button type="submit" class="btn btn-primary" formaction="../../../controller/Admin/Laporan/KeberatanInformasi.php">Download Laporan Keberatan Informasi</button>
+                                                    <button type="submit" class="btn btn-primary" formaction="../../../controller/Admin/Laporan/verifikasiPermohonan.php">Download Laporan Verifikasi Permohonan</button>
+                                                    <button type="submit" class="btn btn-primary" formaction="../../../controller/Admin/Laporan/VerifikasiKeberatan.php">Download Laporan Verifikasi Keberatan</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -230,6 +228,7 @@ $user_id = $_SESSION['id'];
                 graphContainer.style.display = 'none';
             }
         }
+
         function initOrUpdateChart(graphId) {
             var data;
             switch (graphId) {

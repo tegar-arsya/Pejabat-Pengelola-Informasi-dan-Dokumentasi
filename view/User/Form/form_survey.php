@@ -271,7 +271,7 @@ if ($stmt) {
                     <label class="form-check-label" for="tiga">3</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="4" id="empat" name="waktu[]">
+                    <input class="form-check-input" type="radio" value="4" id="empat" name="biaya[]">
                     <label class="form-check-label" for="empat">4</label>
                 </div>
                 <h6>Sangat Setuju</h6>

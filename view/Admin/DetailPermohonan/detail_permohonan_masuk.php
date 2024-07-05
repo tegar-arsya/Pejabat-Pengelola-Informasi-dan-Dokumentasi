@@ -159,7 +159,7 @@ if (isset($_GET['id'])) {
                                                     <?php echo $row['nomer_registrasi']; ?>
                                                 </td>
                                                 <td>
-                                                <input type="hidden" name="nomer_registrasi" value="<?php echo $row['nomer_registrasi']; ?>">
+                                                    <input type="hidden" name="nomer_registrasi" value="<?php echo $row['nomer_registrasi']; ?>">
                                                 </td>
                                                 <input type="hidden" name="id_permohonan" value="<?php echo $id_permohonan; ?>"></td>
                                                 <input type="hidden" name="id_admin" value=<?php echo $user_id; ?>></td>

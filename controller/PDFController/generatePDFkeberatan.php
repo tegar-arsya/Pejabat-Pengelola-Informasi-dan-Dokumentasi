@@ -258,7 +258,7 @@ if (isset($_POST['id'])) {
             $mail->Port = 587;
 
             $mail->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
-            $mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
+            $mail->FromName = "PPID Provinsi Jawa Tengah"; // Nama pengirim.
 
             $mail->addAddress($row['email_pemohon'], $row['nama']); // Email penerima.
 
@@ -293,11 +293,11 @@ if (isset($_POST['id'])) {
                     $mailOPD->Port = 587;
 
                     $mailOPD->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
-                    $mailOPD->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
+                    $mailOPD->FromName = "PPID Provinsi Jawa Tengah"; // Nama pengirim.
 
-                    // Menambahkan alamat email OPD sebagai penerima
+                    
 
-                    $mailOPD->addAddress("ppid.diskominfo.jtg3@gmail.com", "Admin PPID DISKOMINFO Jawa Tengah");
+                    $mailOPD->addAddress("ppid.diskominfo.jtg3@gmail.com", "PPID Provinsi Jawa Tengah");
                     $mailOPD->isHTML(true);
 
                     $mailOPD->Subject = "Permohonan Keberatan Informasi"; // Subject notifikasi.

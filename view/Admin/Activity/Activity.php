@@ -76,7 +76,7 @@ $user_id = $_SESSION['id'];
                                                         <td>{$no}</td>
                                                         <td>{$row['nama_pic']}</td>
                                                         <td>{$row['jawaban_permohonan']}</td>
-                                                        <td><a href='../Assets/JawabanPI/{$row['lampiran']}' target='_blank'>Lihat / Unduh</a></td>
+                                                        <td><a href='../../../Assets/JawabanPI/{$row['lampiran']}' target='_blank'>Lihat / Unduh</a></td>
                                                         <td>" . strftime("%d %B %Y %H:%M:%S", strtotime($row['tanggal_jawaban'])) . "</td>
                                                         <td>{$row['nomer_registrasi_pemohon']}</td>
                                                     </tr>";

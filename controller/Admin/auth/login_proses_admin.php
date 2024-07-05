@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && verify_csrf_token($_POST['csrf_token
             // Jika nama pengguna adalah salah satu nama OPD, set role mereka sebagai nama OPD tersebut
             $_SESSION['role'] = $row['nama_pengguna'];
             // Kemudian arahkan ke halaman khusus OPD
-            header("Location: ../../../view/Admin/Daftar/listPI");
+            header("Location: ../../../view/Admin/DaftarPermohonan/listPI");
         } else {
             // Jika bukan OPD, set role sebagai admin atau superadmin sesuai kebutuhan
             $_SESSION['role'] = ($row['role'] == 'superadmin') ? 'superadmin' : 'admin';

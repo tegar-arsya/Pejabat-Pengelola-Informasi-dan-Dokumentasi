@@ -73,7 +73,7 @@ if ($stmt) {
                     partisipasinya, disampaikan. Terima kasih.</p>
             </div>
         </div>
-        <form id="mySurvey" action="../../../controller/Suv=rveyController/data_survey.php" method="post">
+        <form id="mySurvey" action="../../../controller/SurveyController/dataSurveyKeberatan.php" method="post">
             <input type="hidden" name="nomer_registrasi_keberatan" value="<?php echo htmlspecialchars($nomer_registrasi_keberatan); ?>" />
             <input type="hidden" name="id_permohonan" value="<?php echo htmlspecialchars($id_permohonan_keberatan); ?>" />
             <div class="user-input-box">
@@ -264,7 +264,7 @@ if ($stmt) {
                     <label class="form-check-label" for="tiga">3</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" value="4" id="empat" name="waktu[]">
+                    <input class="form-check-input" type="radio" value="4" id="empat" name="biaya[]">
                     <label class="form-check-label" for="empat">4</label>
                 </div>
                 <h6>Sangat Setuju</h6>

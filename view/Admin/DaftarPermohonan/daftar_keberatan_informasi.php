@@ -94,12 +94,42 @@ if ($_SESSION['role'] !== 'superadmin' && $_SESSION['role'] !== 'admin') {
                         <div class="card">
                             <div class="card-body">
 
-                                <button id="exportExcel" style="border : none;"
+                                <!-- <button id="exportExcel" style="border : none;"
                                     onclick="window.open('../../../controller/ExcelController/ExportExcelKeberatan.php')">
                                     <i class="fa fa-file-excel-o" aria-hidden="true"
                                         style="color: #058a2d; font-size: 30px;">
                                     </i>
+                                </button> -->
+                                <button id="exportExcel" style="border : none;"  data-toggle="modal" data-target="#downloadModal">
+                                    <i class="fa fa-file-excel-o" aria-hidden="true" style="color: #058a2d; font-size: 30px;">
+                                    </i>
                                 </button>
+                                <!-- Dropdown menu for download options -->
+                                <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="downloadModalLabel">Pilih Opsi Download</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="downloadForm" method="GET">
+                                                    <div class="form-group">
+                                                        <label for="startDate">Dari Tanggal:</label>
+                                                        <input type="date" id="startDate" name="start_date" class="form-control" required>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="endDate">Sampai Tanggal:</label>
+                                                        <input type="date" id="endDate" name="end_date" class="form-control" required>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary"formaction="../../../controller/ExcelController/ExportExcelKeberatan.php">Download Laporan Verifikasi Permohonan</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card">

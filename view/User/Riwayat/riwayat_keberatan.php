@@ -63,7 +63,7 @@ include ('../../../controller/koneksi/config.php');
 
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal Permohonan</strong></td>";
-                                    echo "<td>" . (!empty($row['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_permohonan']))) : '') . "</td>";
+                                    echo "<td>" . (!empty($row['tanggal_pengajuan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row['tanggal_pengajuan']))) : '') . "</td>";
                                     echo "</tr>";
 
                                     echo "<tr>";
@@ -96,7 +96,7 @@ include ('../../../controller/koneksi/config.php');
                                     echo "</tr>";
                                     echo "<tr>";
                                     echo "<td><strong>Tanggal Permohonan</strong></td>";
-                                    echo "<td>" . (!empty($row_alternatif['tanggal_permohonan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_permohonan']))) : '') . "</td>";
+                                    echo "<td>" . (!empty($row_alternatif['tanggal_pengajuan']) ? htmlspecialchars(date('d-m-Y H:i:s', strtotime($row_alternatif['tanggal_pengajuan']))) : '') . "</td>";
                                     echo "</tr>";
                                     echo "<tr>";
                                     echo "<td><strong>Nomor Register Keberatan</strong></td>";
@@ -122,7 +122,7 @@ include ('../../../controller/koneksi/config.php');
                                     echo "</tr>";
 
                                     // Ambil tanggal dari kolom tanggal_permohonan
-                                    $tanggal = $row_alternatif['tanggal_permohonan'];
+                                    $tanggal = $row_alternatif['tanggal_pengajuan'];
 
                                     $status = "Belum Diverifikasi";
 

@@ -4,9 +4,11 @@ require_once('../../controller/koneksi/config.php');
 require_once(__DIR__ . '../../../vendor/tecnickcom/tcpdf/tcpdf.php');
 
 // Ensure no output is sent before PDF generation
-ob_clean();
+ob_start();
 
-$status = $_GET['status'];
+$status = isset($_GET['status']) ? $_GET['status'] : 'reset';
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : null;
 
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
@@ -39,19 +41,27 @@ $html .= '<table border="1">
     FROM pengajuan_keberatan pi
     LEFT JOIN verifikasi_keberatan vp ON pi.id = vp.id_permohonan_keberatan";
 
+$whereClauses = [];
 switch ($status) {
-case 'verified':
-    $sql .= " WHERE vp.nomer_registrasi_keberatan IS NOT NULL";
-    break;
-case 'unverified':
-    $sql .= " WHERE vp.nomer_registrasi_keberatan IS NULL";
-    break;
-case 'reset': // No filtering for 'reset'
-    break;
-default: // Invalid status
-    $sql .= " WHERE 1"; // Fallback to displaying all records
+    case 'verified':
+        $whereClauses[] = "vp.nomer_registrasi_keberatan IS NOT NULL";
+        break;
+    case 'unverified':
+        $whereClauses[] = "vp.nomer_registrasi_keberatan IS NULL";
+        break;
+    case 'reset': // No filtering for 'reset'
+        break;
+    default: // Invalid status
+        $whereClauses[] = "1"; // Fallback to displaying all records
 }
 
+if (!empty($start_date) && !empty($end_date)) {
+    $whereClauses[] = "pi.tanggal_pengajuan BETWEEN '$start_date' AND '$end_date'";
+}
+
+if (!empty($whereClauses)) {
+    $sql .= " WHERE " . implode(' AND ', $whereClauses);
+}
 
 $result = $conn->query($sql);
 
@@ -78,3 +88,4 @@ $html .= '</table>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 $pdf->Output('daftar_permohonan-kwbweatN.pdf', 'I');
+?>

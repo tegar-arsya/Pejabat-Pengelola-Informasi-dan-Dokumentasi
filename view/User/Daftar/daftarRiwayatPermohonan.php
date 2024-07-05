@@ -9,8 +9,6 @@ include('../../../controller/koneksi/config.php');
 
 if (isset($_GET['id'])) {
     $id_permohonan = $_GET['id'];
-
-
 }
 ?>
 <!DOCTYPE html>
@@ -20,20 +18,16 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <!-- Jarallax CSS -->
     <link rel="icon" type="image/png" sizes="16x16" href="../../../Assets/img/logo_jateng.png">
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
     <link rel="stylesheaet" href="../../../Assets/fontawesome/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="../../../Assets/css/style.css">
     <title>Daftar Riwayat Permohonan Informasi</title>
 </head>
@@ -59,34 +53,36 @@ if (isset($_GET['id'])) {
                 </thead>
                 <tbody>
                     <?php
-
-                    // $sql = "SELECT * FROM permohonan_informasi WHERE id_user = $nik";
-                    $sql = "SELECT * FROM permohonan_informasi where id_registrasi = $user_id ";
-                    $result = $conn->query($sql);
+                    $stmt = $conn->prepare("SELECT * FROM permohonan_informasi WHERE id_registrasi = ?");
+                    $stmt->bind_param("i", $user_id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
                     if ($result->num_rows > 0) {
                         $counter = 1;
                         while ($row = $result->fetch_assoc()) {
                             $formattedDate = date('d-m-Y H:i:s', strtotime($row["tanggal_permohonan"]));
                             echo "<tr>
-                            <td>" . $counter . "</td>
-                            <td>" . $formattedDate . "</td>
-                            <td>" . $row["nomer_registrasi"] . "</td>
-                            <td>" . $row["nama_pengguna"] . "</td>
-                            <td>" . $row["alasan_pengguna_informasi"] . "</td>
-                            <td>
-                            <a href='../Riwayat/riwayat?Permohonan=" . $row["id"] . "' class='btn btn-danger btn-sm'>Detail</a>
-                            </td>
-                            </tr>";
+                                <td>" . $counter . "</td>
+                                <td>" . $formattedDate . "</td>
+                                <td>" . $row["nomer_registrasi"] . "</td>
+                                <td>" . $row["nama_pengguna"] . "</td>
+                                <td>" . $row["alasan_pengguna_informasi"] . "</td>
+                                <td>
+                                <a href='../Riwayat/riwayat?Permohonan=" . $row["id"] . "' class='btn btn-danger btn-sm'>Detail</a>
+                                </td>
+                                </tr>";
                             $counter++;
                         }
                     } else {
                         echo "<tr><td colspan='6'>Tidak ada data</td></tr>";
                     }
+                    $stmt->close();
                     $conn->close();
                     ?>
                 </tbody>
             </table>
+
         </div>
     </div>
     <?php include '../../../components/footer.php'; ?>

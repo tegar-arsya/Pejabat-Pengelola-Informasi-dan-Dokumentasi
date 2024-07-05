@@ -72,12 +72,10 @@ $conn->close();
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <script src="https://kit.fontawesome.com/e601bb8c4c.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Jarallax CSS -->
@@ -89,9 +87,7 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/jarallax@2/dist/jarallax.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../../Assets/fontawesome/css/all.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -105,15 +101,14 @@ $conn->close();
     <div class="custom-line"></div>
     <div class="container">
         <h1 class="form-title">Pengajuan Keberatan Informasi</h1>
-        <form id="myForm" action="../controller/simpan_data_pengajuan_keberatan.php" method="post"
-            enctype="multipart/form-data">
+        <form id="myForm" action="../controller/simpan_data_pengajuan_keberatan.php" method="post" enctype="multipart/form-data">
             <h3>Pengajuan Keberatan</h3>
             <div class="main-user-info">
                 <div class="user-input-box">
                     <label for="code">Kode Permohonan Informasi*</label>
                     <div class="card" style="background-color: white;">
                         <div class="card-body">
-                        <?php echo htmlspecialchars($nomer_registrasi, ENT_QUOTES, 'UTF-8'); ?> <?php echo $nomer_registrasi; ?>
+                            <?php echo htmlspecialchars($nomer_registrasi, ENT_QUOTES, 'UTF-8'); ?> <?php echo $nomer_registrasi; ?>
                         </div>
                         <input type="hidden" name="id_registrasi" value="<?php echo htmlspecialchars($id_registrasi, ENT_QUOTES, 'UTF-8'); ?>" />
                         <input type="hidden" name="id_permohonan_informasi" value="<?php echo htmlspecialchars($id_permohonan_informasi, ENT_QUOTES, 'UTF-8'); ?>" />
@@ -130,8 +125,7 @@ $conn->close();
                         <div class="card-body">
                             <?php echo $informasi_yang_diminta; ?>
                         </div>
-                        <input type="hidden" name="informasiyangdiminta"
-                            value="<?php echo $informasi_yang_diminta; ?>" />
+                        <input type="hidden" name="informasiyangdiminta" value="<?php echo $informasi_yang_diminta; ?>" />
                     </div>
                 </div>
                 <div class="user-input-box">
@@ -173,8 +167,7 @@ $conn->close();
                 </div>
                 <div class="user-input-box">
                     <label for="fotoktp">Foto KTP</label>
-                    <input type="file" id="fotoktp" name="fotoktp" accept="image/*,application/pdf"
-                        placeholder="Drag file or click to upload" required />
+                    <input type="file" id="fotoktp" name="fotoktp" accept="image/*,application/pdf" placeholder="Drag file or click to upload" required />
                 </div>
 
                 <div class="user-input-box">
@@ -227,12 +220,12 @@ $conn->close();
             </div>
             <!-- <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
                 <div style="grid-column: span 10;"> -->
-                    <div class="user-input-box">
-                        <label for="suratkuasa">Unggah Surat Kuasa</label>
-                        <input type="file" id="suratkuasa" name="suratkuasa" accept=".pdf, .doc, .docx" required />
-                    </div>
+            <div class="user-input-box">
+                <label for="suratkuasa">Unggah Surat Kuasa</label>
+                <input type="file" id="suratkuasa" name="suratkuasa" accept=".pdf, .doc, .docx" required />
+            </div>
 
-                <!-- </div>
+            <!-- </div>
                 <div class="g-col-8">
                     <div id="captcha-container">
                         <div id="captcha"></div>
@@ -243,105 +236,104 @@ $conn->close();
             <!-- <div class="grid" style="--bs-columns: 18; --bs-gap: .5rem;">
                 <div style="grid-column: span 10;"> -->
 
-                    <div class="user-input-box">
-                        <label for="alasankeberatan">Alasan Keberatan</label>
-                        <select id="alasankeberatan" name="alasankeberatan" required>
-                            <option>Permohonan Informasi ditolak</option>
-                            <option>Informasi berkala tidak disediakan</option>
-                            <option>Permintaan informasi tidak ditanggapi</option>
-                            <option>Permintaan informasi ditanggapi tidak sebagaimana yang diminta</option>
-                            <option>Permintaan informasi tidak dipenuhi</option>
-                            <option>Biaya yang dikenakan tidak wajar</option>
-                            <option>Informasi disampaikan melebihi jangka waktu yang ditentukan</option>
-                        </select>
-                    </div>
-                <!-- </div> -->
-                <!-- <div class="g-col-8"> -->
-                <div class="user-input-box1">
+            <div class="user-input-box">
+                <label for="alasankeberatan">Alasan Keberatan</label>
+                <select id="alasankeberatan" name="alasankeberatan" required>
+                    <option>Permohonan Informasi ditolak</option>
+                    <option>Informasi berkala tidak disediakan</option>
+                    <option>Permintaan informasi tidak ditanggapi</option>
+                    <option>Permintaan informasi ditanggapi tidak sebagaimana yang diminta</option>
+                    <option>Permintaan informasi tidak dipenuhi</option>
+                    <option>Biaya yang dikenakan tidak wajar</option>
+                    <option>Informasi disampaikan melebihi jangka waktu yang ditentukan</option>
+                </select>
+            </div>
+            <!-- </div> -->
+            <!-- <div class="g-col-8"> -->
+            <div class="user-input-box1">
                 <div id="captcha-container">
-                        <div id="captcha"></div>
-                        <button type="button" id="reload-button"><i class="fas fa-sync-alt"></i></button>
-                </div>
-                </div>
-                <div class="user-input-box1">
-                    <input type="text1" id="user-input" name="user-input" placeholder="Enter the text in the CAPTCHA" />
-                    <div><button type="submit" id="kirim-button">Kirim</button>
-                    </div>
+                    <div id="captcha"></div>
+                    <button type="button" id="reload-button"><i class="fas fa-sync-alt"></i></button>
                 </div>
             </div>
-        </form>
+            <div class="user-input-box1">
+                <input type="text1" id="user-input" name="user-input" placeholder="Enter the text in the CAPTCHA" />
+                <div><button type="submit" id="kirim-button">Kirim</button>
+                </div>
+            </div>
+    </div>
+    </form>
     </div>
     <?php include '../../../components/footer.php'; ?>
     <script>
         function generateCaptcha() {
-    // Mengambil nilai CAPTCHA dari server
-    fetch('../../../Model/Captcha/generate_captcha.php')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('captcha').textContent = data;
-        });
-}
-
-document.getElementById('reload-button').addEventListener('click', generateCaptcha);
-
-document.getElementById('myForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Mencegah tindakan bawaan formulir
-
-    var userInput = document.getElementById('user-input').value;
-    var captchaValue = document.getElementById('captcha').textContent.trim();
-
-    if (userInput === captchaValue) {
-        // CAPTCHA benar, kirim data ke server menggunakan fetch API
-        fetch('../../../controller/FormController/simpan_data_pengajuan_keberatan.php', {
-            method: 'POST',
-            body: new FormData(document.getElementById('myForm'))
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Jika penyimpanan data di server berhasil, tampilkan popup SweetAlert2
-                Swal.fire({
-                    title: 'Berhasil Terkirim',
-                    html: 'Permohonan informasi publik anda telah berhasil terkirim, untuk detail lebih lanjut mohon untuk dicek di bagian <a href="../../../view/User/Daftar/daftarkeberatanPengguna" style="color: red; text-decoration: underline;">riwayat Keberatan</a>',
-                    icon: 'success',
+            // Mengambil nilai CAPTCHA dari server
+            fetch('../../../Model/Captcha/generate_captcha.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('captcha').textContent = data;
                 });
-                
-                // Clear input CAPTCHA dan isi ulang CAPTCHA
-                document.getElementById('user-input').value = '';
-                generateCaptcha();
+        }
+
+        document.getElementById('reload-button').addEventListener('click', generateCaptcha);
+
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah tindakan bawaan formulir
+
+            var userInput = document.getElementById('user-input').value;
+            var captchaValue = document.getElementById('captcha').textContent.trim();
+
+            if (userInput === captchaValue) {
+                // CAPTCHA benar, kirim data ke server menggunakan fetch API
+                fetch('../../../controller/FormController/simpan_data_pengajuan_keberatan.php', {
+                        method: 'POST',
+                        body: new FormData(document.getElementById('myForm'))
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Jika penyimpanan data di server berhasil, tampilkan popup SweetAlert2
+                            Swal.fire({
+                                title: 'Berhasil Terkirim',
+                                html: 'Permohonan informasi publik anda telah berhasil terkirim, untuk detail lebih lanjut mohon untuk dicek di bagian <a href="../../../view/User/Daftar/daftarkeberatanPengguna" style="color: red; text-decoration: underline;">riwayat Keberatan</a>',
+                                icon: 'success',
+                            });
+
+                            // Clear input CAPTCHA dan isi ulang CAPTCHA
+                            document.getElementById('user-input').value = '';
+                            generateCaptcha();
+                        } else {
+                            // Jika penyimpanan data di server gagal, tampilkan pesan kesalahan
+                            Swal.fire(
+                                'Error',
+                                'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.',
+                                'error'
+                            );
+                            // Regenerate CAPTCHA
+                            generateCaptcha();
+                        }
+                    });
             } else {
-                // Jika penyimpanan data di server gagal, tampilkan pesan kesalahan
+                // CAPTCHA salah, tampilkan pesan kesalahan
                 Swal.fire(
                     'Error',
-                    'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.',
+                    'CAPTCHA tidak sesuai. Silakan coba lagi.',
                     'error'
                 );
                 // Regenerate CAPTCHA
                 generateCaptcha();
             }
         });
-    } else {
-        // CAPTCHA salah, tampilkan pesan kesalahan
-        Swal.fire(
-            'Error',
-            'CAPTCHA tidak sesuai. Silakan coba lagi.',
-            'error'
-        );
-        // Regenerate CAPTCHA
-        generateCaptcha();
-    }
-});
 
-// Generate CAPTCHA saat halaman dimuat
-window.addEventListener('load', generateCaptcha);
-
+        // Generate CAPTCHA saat halaman dimuat
+        window.addEventListener('load', generateCaptcha);
     </script>
     <script src="../../../Model/User/data.js"></script>
     <script src="../../../Model/User/api.js"></script>
     <script src="../../../Model/Auth/TimeOutUser.js"></script>
     <script>
         // In your Javascript
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.js-example-basic-single').select2();
         });
     </script>

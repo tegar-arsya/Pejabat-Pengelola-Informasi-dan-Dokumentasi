@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     }
 
     // Prepared statement untuk menghapus data berdasarkan ID
-    $sql = "DELETE FROM nama_tabel WHERE id = ?";
+    $sql = "DELETE FROM tbl_daftar_opd WHERE id_opd  = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id); // Mengikat parameter ID sebagai integer
     $stmt->execute();

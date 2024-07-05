@@ -279,7 +279,7 @@ if (isset($_POST['id'])) {
             $mail->Port = 587;
 
             $mail->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
-            $mail->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
+            $mail->FromName = "PPID Provinsi Jawa Tengah"; // Nama pengirim.
 
             $mail->addAddress($row['email'], $row['nama_depan'] . ' ' . $row['nama_belakang']); // Email penerima.
 
@@ -322,7 +322,7 @@ if (isset($_POST['id'])) {
                         $mailOPD->Port = 587;
             
                         $mailOPD->From = "ppid.diskominfo.jtg3@gmail.com"; // Email pengirim.
-                        $mailOPD->FromName = "Admin PPID DISKOMINFO Jawa Tengah"; // Nama pengirim.
+                        $mailOPD->FromName = "PPID Provinsi Jawa Tengah"; // Nama pengirim.
             
                         // Menambahkan alamat email OPD sebagai penerima
                         $mailOPD->addAddress($opdEmail, $row['opd_yang_dituju']);
